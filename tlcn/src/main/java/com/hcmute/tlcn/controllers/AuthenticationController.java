@@ -2,8 +2,13 @@ package com.hcmute.tlcn.controllers;
 
 import com.hcmute.tlcn.dtos.LoginDto;
 import com.hcmute.tlcn.dtos.LoginResultDto;
+import com.hcmute.tlcn.dtos.MessageDto;
+import com.hcmute.tlcn.dtos.RegisterDto;
+import com.hcmute.tlcn.services.AccountService;
 import com.hcmute.tlcn.utils.JwtTokenProvider;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 @RequestMapping("/api/${application.version}/auth")
 public class AuthenticationController {
@@ -23,6 +29,8 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private AccountService accountService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResultDto> login(@RequestBody LoginDto input){
@@ -34,5 +42,10 @@ public class AuthenticationController {
         } else {
             return (ResponseEntity<LoginResultDto>) ResponseEntity.badRequest();
         }
+    }
+    @PostMapping("/register")
+    public ResponseEntity<MessageDto> register(@Valid @RequestBody RegisterDto input){
+       String result = accountService.register(input);
+       return ResponseEntity.ok(new MessageDto(HttpStatus.OK.value(), result));
     }
 }
