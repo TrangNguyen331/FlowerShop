@@ -7,3 +7,7 @@ spring:
 
 application:
   version: "v1"
+  default:
+    paging:
+      page: 0
+      size: 20

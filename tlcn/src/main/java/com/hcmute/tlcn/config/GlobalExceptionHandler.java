@@ -2,6 +2,7 @@ package com.hcmute.tlcn.config;
 
 import com.hcmute.tlcn.dtos.MessageDto;
 import com.hcmute.tlcn.exceptions.BadRequestException;
+import com.hcmute.tlcn.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -26,6 +27,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<MessageDto<String>> handleBadRequestException(Exception e) {
         return ResponseEntity.status(400)
                 .body(new MessageDto<String>(HttpStatus.BAD_REQUEST.value(),
+                        e.getMessage()));
+    }
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<MessageDto<String>> handleNotFoundException(Exception e) {
+        return ResponseEntity.status(400)
+                .body(new MessageDto<String>(HttpStatus.NOT_FOUND.value(),
                         e.getMessage()));
     }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
