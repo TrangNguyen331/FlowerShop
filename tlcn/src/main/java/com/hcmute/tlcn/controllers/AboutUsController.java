@@ -3,7 +3,6 @@ package com.hcmute.tlcn.controllers;
 import com.hcmute.tlcn.dtos.aboutus.AboutUsDto;
 import com.hcmute.tlcn.entities.AboutUs;
 import com.hcmute.tlcn.repositories.AboutUsRepository;
-import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,8 +18,7 @@ public class Wishlist {
 
     @Id
     public String id;
+    public String user;
     @DBRef
-    public Account userId;
-    @DBRef
-    public List<Product> productIds;
+    public List<Product> products = new ArrayList<>();
 }

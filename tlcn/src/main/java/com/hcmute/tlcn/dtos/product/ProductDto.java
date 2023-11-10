@@ -1,26 +1,25 @@
-package com.hcmute.tlcn.entities;
+package com.hcmute.tlcn.dtos.product;
 
+import com.hcmute.tlcn.dtos.review.ReviewDto;
+import com.hcmute.tlcn.entities.Review;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Document
-public class Product {
-    @Id
-    public String id;
+public class ProductDto {
     public String name;
     public String description;
     public String additionalInformation;
     public double price;
     public List<String> tags;
     public List<String> images;
-    public List<Review> reviews;
+    public List<ReviewDto> reviews;
     public boolean isActive=true;
 }

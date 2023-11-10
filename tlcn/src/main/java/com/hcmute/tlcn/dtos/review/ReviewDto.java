@@ -1,16 +1,15 @@
-package com.hcmute.tlcn.entities;
+package com.hcmute.tlcn.dtos.review;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class Review {
-    public String id = UUID.randomUUID().toString();
+@AllArgsConstructor
+public class ReviewDto {
     public String accountName;
     public String content;
     public double rating;
