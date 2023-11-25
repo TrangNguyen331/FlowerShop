@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
+import { logOutUser } from "../../redux/actions/authAction";
+import { useToasts } from "react-toast-notifications";
+import { useHistory } from 'react-router-dom';
 
 const IconGroup = ({
   currency,
@@ -23,6 +26,16 @@ const IconGroup = ({
     );
     offcanvasMobileMenu.classList.add("active");
   };
+  const { addToast } = useToasts();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const isLogin = useSelector((state) => state.auth.token);
+  const handleLogout = (event) => {
+    event.preventDefault();
+    dispatch(logOutUser(addToast));
+    history.push(process.env.PUBLIC_URL + "/");
+  }
+
 
   return (
     <div
@@ -49,21 +62,33 @@ const IconGroup = ({
           <i className="pe-7s-user-female" />
         </button>
         <div className="account-dropdown">
-          <ul>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                Register
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                my account
-              </Link>
-            </li>
-          </ul>
+          {isLogin ? (
+            <ul>
+              <li>
+                <Link to={process.env.PUBLIC_URL + "/my-account"}>
+                  My account
+                </Link>
+              </li>
+              <li>
+                <Link to="" onClick={handleLogout}>
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          ) :
+            (
+              <ul>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/login-register"}>
+                    Register
+                  </Link>
+                </li>
+              </ul>
+            )
+          }
         </div>
       </div>
       <div className="same-style header-compare">

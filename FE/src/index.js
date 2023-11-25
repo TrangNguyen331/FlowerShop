@@ -14,7 +14,6 @@ import "./assets/scss/style.scss";
 import * as serviceWorker from "./serviceWorker";
 
 import { composeWithDevTools } from "redux-devtools-extension";
-
 const store = createStore(
   rootReducer,
   load(),

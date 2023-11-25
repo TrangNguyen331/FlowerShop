@@ -1,9 +1,7 @@
 spring:
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: flower-shop
+      uri: mongodb+srv://admin:Trang123@cluster0.mll6ctp.mongodb.net/flower-shop
 
 application:
   version: "v1"
