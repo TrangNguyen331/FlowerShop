@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 
 const BlogPagination = (props) => {
   const itemList = [];
   const selectedItem = props.selectedPage;
   for (let i = 0; i <= props.totalPage; i++) {
-    itemList.push(i);
+    itemList.push(i + 1);
   }
   return (
     <div className="pro-pagination-style text-center mt-20">
@@ -16,17 +16,17 @@ const BlogPagination = (props) => {
           </button>
         </li>
         {
-          itemList.map((item) => {
+          itemList.map((item, index) => {
             if (item === selectedItem) {
               return (
-                <li key={item}>
-                  <button className="active" onClick={() => props.onSelectPageEvent(item)}>{item}</button>
+                <li key={index}>
+                  <button className="active" onClick={() => props.onSelectPageEvent(index)}>{item}</button>
                 </li>
               )
             } else {
               return (
-                <li key={item}>
-                  <button onClick={() => props.onSelectPageEvent(item)}>{item}</button>
+                <li key={index}>
+                  <button onClick={() => props.onSelectPageEvent(index)}>{item}</button>
                 </li>
               )
             }

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -7,18 +7,51 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 import BlogPagination from "../../wrappers/blog/BlogPagination";
 import BlogPosts from "../../wrappers/blog/BlogPosts";
+import axiosInstance from "../../axiosInstance";
+import { useToasts } from "react-toast-notifications";
 
 const BlogRightSidebar = ({ location }) => {
   const { pathname } = location;
+  const { addToast } = useToasts();
+  const [blogData, setBlogData] = useState({
+    selectedPage: 0,
+    totalPage: 0,
+    blogs: [],
+  });
+
+  useEffect(() => {
+    fetchData(0);
+  }, [])
+  const fetchData = async (page) => {
+    try {
+      const response = await axiosInstance.get("/api/v1/blogs/paging?page=" + page)
+      var resData = response.data;
+      console.log(resData)
+      setBlogData({
+        ...blogData,
+        selectedPage: resData.pageable.pageNumber,
+        totalPage: resData.totalPages,
+        blogs: resData.content
+      })
+    } catch (error) {
+      console.log(error)
+      addToast("Fail to load data Blog", { appearance: "error", autoDismiss: true });
+    }
+  }
+
 
   const handleNextEvent = (event) => {
-    console.log('Next click');
+    if (blogData.selectedPage < blogData.totalPage) {
+      fetchData(blogData.selectedPage + 1)
+    }
   }
   const handlePreviousEvent = (event) => {
-    console.log('Previous click');
+    if (blogData.selectedPage > 0) {
+      fetchData(blogData.selectedPage + 1)
+    }
   }
-  const handleSelectPageEvent = (message) => {
-    console.log('Click on:' + message);
+  const handleSelectPageEvent = (page) => {
+    fetchData(page)
   }
 
   return (
@@ -43,14 +76,11 @@ const BlogRightSidebar = ({ location }) => {
               <div className="col-lg-9">
                 <div className="mr-20">
                   <div className="row">
-                    {/* blog posts */}
-                    <BlogPosts />
+                    <BlogPosts data={blogData.blogs} />
                   </div>
-
-                  {/* blog pagination */}
                   <BlogPagination
-                    totalPage="10"
-                    selectedPage="1"
+                    totalPage={blogData.totalPage}
+                    selectedPage={blogData.selectedPage}
                     onNextEvent={handleNextEvent}
                     onPreviousEvent={handlePreviousEvent}
                     onSelectPageEvent={handleSelectPageEvent} />
