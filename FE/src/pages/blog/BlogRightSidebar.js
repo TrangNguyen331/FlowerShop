@@ -11,6 +11,16 @@ import BlogPosts from "../../wrappers/blog/BlogPosts";
 const BlogRightSidebar = ({ location }) => {
   const { pathname } = location;
 
+  const handleNextEvent = (event) => {
+    console.log('Next click');
+  }
+  const handlePreviousEvent = (event) => {
+    console.log('Previous click');
+  }
+  const handleSelectPageEvent = (message) => {
+    console.log('Click on:' + message);
+  }
+
   return (
     <Fragment>
       <MetaTags>
@@ -38,7 +48,12 @@ const BlogRightSidebar = ({ location }) => {
                   </div>
 
                   {/* blog pagination */}
-                  <BlogPagination totalPage="6" activePage="1" />
+                  <BlogPagination
+                    totalPage="10"
+                    selectedPage="1"
+                    onNextEvent={handleNextEvent}
+                    onPreviousEvent={handlePreviousEvent}
+                    onSelectPageEvent={handleSelectPageEvent} />
                 </div>
               </div>
               <div className="col-lg-3">
