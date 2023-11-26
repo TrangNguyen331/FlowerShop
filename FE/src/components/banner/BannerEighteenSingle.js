@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BannerEighteenSingle = ({ data, spaceBottomClass }) => {
+  console.log("test");
   return (
     <div className="col-xl-4 col-md-6">
       <div
@@ -25,7 +26,7 @@ const BannerEighteenSingle = ({ data, spaceBottomClass }) => {
 
 BannerEighteenSingle.propTypes = {
   data: PropTypes.object,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default BannerEighteenSingle;
