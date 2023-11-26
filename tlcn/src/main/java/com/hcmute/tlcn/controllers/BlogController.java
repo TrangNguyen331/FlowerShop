@@ -31,6 +31,11 @@ public class BlogController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Blog> getById(@PathVariable String id) {
+        Blog result = service.getById(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity<Blog> addNew(@RequestBody BlogDto dto) {
         Blog result = service.addNew(dto);

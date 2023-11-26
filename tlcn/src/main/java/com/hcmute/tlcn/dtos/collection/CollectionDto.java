@@ -16,5 +16,6 @@ import java.util.List;
 public class CollectionDto {
     public String name;
     public String image;
+    public String title;
     public String description;
 }

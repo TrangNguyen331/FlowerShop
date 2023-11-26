@@ -25,6 +25,12 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Blog getById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Not found"));
+    }
+
+    @Override
     public Blog addNew(BlogDto dto) {
         Blog blog = new Blog();
         modelMapper.map(dto,blog);

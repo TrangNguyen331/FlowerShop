@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,4 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BlogDto {
     private String content;
+    private String title;
+    private String author;
+    private List<String> category;
 }

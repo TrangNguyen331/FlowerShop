@@ -38,7 +38,7 @@ const BlogRightSidebar = ({ location }) => {
                   </div>
 
                   {/* blog pagination */}
-                  <BlogPagination />
+                  <BlogPagination totalPage="6" activePage="1" />
                 </div>
               </div>
               <div className="col-lg-3">

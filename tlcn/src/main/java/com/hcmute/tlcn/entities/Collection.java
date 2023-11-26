@@ -18,6 +18,7 @@ public class Collection {
     public String id;
     public String name;
     public String image;
+    public String title;
     public String description;
     @DBRef
     public List<Product> products;

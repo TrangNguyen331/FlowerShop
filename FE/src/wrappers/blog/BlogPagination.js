@@ -1,6 +1,7 @@
 import React from "react";
 
-const BlogPagination = () => {
+const BlogPagination = (totalPage, activePage) => {
+  console.log(totalPage, activePage)
   return (
     <div className="pro-pagination-style text-center mt-20">
       <ul>

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface BlogService {
     Page<Blog> getPaging(String search, Pageable pageable);
 
+    Blog getById(String id);
     Blog addNew(BlogDto dto);
 
     Blog update(String id, BlogDto dto);

@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,6 +19,9 @@ public class Blog {
     @Id
     private String id;
     private String content;
+    private String title;
+    private String author;
+    private List<String> category;
     @CreatedDate
     private LocalDate createdDate;
     @LastModifiedDate
