@@ -9,11 +9,12 @@ import { getDiscountPrice } from "../../helpers/product";
 import {
   addToWishlist,
   deleteFromWishlist,
-  deleteAllFromWishlist
+  deleteAllFromWishlist,
 } from "../../redux/actions/wishlistActions";
 import { addToCart } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { useEffect } from "react";
 
 const Wishlist = ({
   location,
@@ -22,19 +23,18 @@ const Wishlist = ({
   addToCart,
   wishlistItems,
   deleteFromWishlist,
-  deleteAllFromWishlist
+  deleteAllFromWishlist,
 }) => {
   const { addToast } = useToasts();
   const { pathname } = location;
+  useEffect(() => {
+    console.log("Wishlist page");
+  }, []);
 
   return (
     <Fragment>
       <MetaTags>
         <title>Wishlist</title>
-        <meta
-          name="Wishlist"
-          content="Wishlist"
-        />
       </MetaTags>
 
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
@@ -76,7 +76,7 @@ const Wishlist = ({
                               discountedPrice * currency.currencyRate
                             ).toFixed(2);
                             const cartItem = cartItems.filter(
-                              item => item.id === wishlistItem.id
+                              (item) => item.id === wishlistItem.id
                             )[0];
                             return (
                               <tr key={key}>
@@ -138,8 +138,7 @@ const Wishlist = ({
                                       rel="noopener noreferrer"
                                       target="_blank"
                                     >
-                                      {" "}
-                                      Buy now{" "}
+                                      Buy now
                                     </a>
                                   ) : wishlistItem.variation &&
                                     wishlistItem.variation.length >= 1 ? (
@@ -151,9 +150,10 @@ const Wishlist = ({
                                   ) : wishlistItem.stock &&
                                     wishlistItem.stock > 0 ? (
                                     <button
-                                      onClick={() =>
-                                        addToCart(wishlistItem, addToast)
-                                      }
+                                      onClick={() => {
+                                        addToCart(wishlistItem, addToast);
+                                        console.log("addToCart in wishlist");
+                                      }}
                                       className={
                                         cartItem !== undefined &&
                                         cartItem.quantity > 0
@@ -184,9 +184,15 @@ const Wishlist = ({
 
                                 <td className="product-remove">
                                   <button
-                                    onClick={() =>
-                                      deleteFromWishlist(wishlistItem, addToast)
-                                    }
+                                    onClick={() => {
+                                      deleteFromWishlist(
+                                        wishlistItem,
+                                        addToast
+                                      );
+                                      console.log(
+                                        "delete single from wishlist"
+                                      );
+                                    }}
                                   >
                                     <i className="fa fa-times"></i>
                                   </button>
@@ -204,14 +210,17 @@ const Wishlist = ({
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                        >
+                        <Link to={process.env.PUBLIC_URL + "/shop"}>
                           Continue Shopping
                         </Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => deleteAllFromWishlist(addToast)}>
+                        <button
+                          onClick={() => {
+                            deleteAllFromWishlist(addToast);
+                            console.log("delete all from wishlist");
+                          }}
+                        >
                           Clear Wishlist
                         </button>
                       </div>
@@ -228,7 +237,7 @@ const Wishlist = ({
                     </div>
                     <div className="item-empty-area__text">
                       No items found in wishlist <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
                         Add Items
                       </Link>
                     </div>
@@ -250,18 +259,18 @@ Wishlist.propTypes = {
   location: PropTypes.object,
   deleteAllFromWishlist: PropTypes.func,
   deleteFromWishlist: PropTypes.func,
-  wishlistItems: PropTypes.array
+  wishlistItems: PropTypes.array,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (item, addToast, quantityCount) => {
       dispatch(addToCart(item, addToast, quantityCount));
@@ -272,9 +281,9 @@ const mapDispatchToProps = dispatch => {
     deleteFromWishlist: (item, addToast, quantityCount) => {
       dispatch(deleteFromWishlist(item, addToast, quantityCount));
     },
-    deleteAllFromWishlist: addToast => {
+    deleteAllFromWishlist: (addToast) => {
       dispatch(deleteAllFromWishlist(addToast));
-    }
+    },
   };
 };
 
