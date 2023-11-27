@@ -26,7 +26,6 @@ const BlogRightSidebar = ({ location }) => {
     try {
       const response = await axiosInstance.get("/api/v1/blogs/paging?page=" + page)
       var resData = response.data;
-      console.log(resData)
       setBlogData({
         ...blogData,
         selectedPage: resData.pageable.pageNumber,
@@ -41,7 +40,7 @@ const BlogRightSidebar = ({ location }) => {
 
 
   const handleNextEvent = (event) => {
-    if (blogData.selectedPage < blogData.totalPage) {
+    if (blogData.selectedPage < blogData.totalPage - 1) {
       fetchData(blogData.selectedPage + 1)
     }
   }

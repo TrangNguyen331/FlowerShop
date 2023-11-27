@@ -21,6 +21,7 @@ public class Blog {
     private String content;
     private String title;
     private String author;
+    private String image;
     private List<String> category;
     @CreatedDate
     private LocalDate createdDate;

@@ -78,7 +78,7 @@ const App = () => {
                   )}
                 />
                 <Route
-                  path={process.env.PUBLIC_URL + "/blog-details-standard"}
+                  path={process.env.PUBLIC_URL + "/blog-details-standard/:id"}
                   component={BlogDetailsStandard}
                 />
                 {/* Other pages */}
