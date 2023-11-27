@@ -8,7 +8,11 @@ const BlogSidebar = () => {
         <h4 className="pro-sidebar-title">Search </h4>
         <div className="pro-sidebar-search mb-55 mt-25">
           <form className="pro-sidebar-search-form" action="#">
-            <input type="text" placeholder="Search here..." />
+            <input
+              type="text"
+              placeholder="Search here..."
+              onFocus={() => console.log("search blog")}
+            />
             <button>
               <i className="pe-7s-search" />
             </button>
@@ -98,79 +102,6 @@ const BlogSidebar = () => {
               </h4>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="sidebar-widget mt-35">
-        <h4 className="pro-sidebar-title">Categories</h4>
-        <div className="sidebar-widget-list sidebar-widget-list--blog mt-20">
-          <ul>
-            <li>
-              <div className="sidebar-widget-list-left">
-                <input type="checkbox" defaultValue />{" "}
-                <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                  Women <span>4</span>{" "}
-                </Link>
-                <span className="checkmark" />
-              </div>
-            </li>
-            <li>
-              <div className="sidebar-widget-list-left">
-                <input type="checkbox" defaultValue />{" "}
-                <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                  Men <span>4</span>{" "}
-                </Link>
-                <span className="checkmark" />
-              </div>
-            </li>
-            <li>
-              <div className="sidebar-widget-list-left">
-                <input type="checkbox" defaultValue />{" "}
-                <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                  Bags <span>4</span>{" "}
-                </Link>
-                <span className="checkmark" />
-              </div>
-            </li>
-            <li>
-              <div className="sidebar-widget-list-left">
-                <input type="checkbox" defaultValue />{" "}
-                <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                  Accessories <span>4</span>{" "}
-                </Link>
-                <span className="checkmark" />
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="sidebar-widget mt-50">
-        <h4 className="pro-sidebar-title">Tag </h4>
-        <div className="sidebar-widget-tag mt-25">
-          <ul>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                Clothing
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                Accessories
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                For Men
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-standard"}>Women</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                Fashion
-              </Link>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

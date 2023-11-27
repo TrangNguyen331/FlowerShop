@@ -11,6 +11,7 @@ import axiosInstance from "../../axiosInstance";
 import { useToasts } from "react-toast-notifications";
 
 const BlogRightSidebar = ({ location }) => {
+  console.log("Blog page");
   const { pathname } = location;
   const { addToast } = useToasts();
   const [blogData, setBlogData] = useState({
@@ -21,42 +22,49 @@ const BlogRightSidebar = ({ location }) => {
 
   useEffect(() => {
     fetchData(0);
-  }, [])
+  }, []);
   const fetchData = async (page) => {
     try {
-      const response = await axiosInstance.get("/api/v1/blogs/paging?page=" + page)
+      const response = await axiosInstance.get(
+        "/api/v1/blogs/paging?page=" + page
+      );
       var resData = response.data;
       setBlogData({
         ...blogData,
         selectedPage: resData.pageable.pageNumber,
         totalPage: resData.totalPages,
-        blogs: resData.content
-      })
+        blogs: resData.content,
+      });
     } catch (error) {
-      console.log(error)
-      addToast("Fail to load data Blog", { appearance: "error", autoDismiss: true });
+      console.log(error);
+      addToast("Fail to load data Blog", {
+        appearance: "error",
+        autoDismiss: true,
+      });
     }
-  }
-
+  };
 
   const handleNextEvent = (event) => {
     if (blogData.selectedPage < blogData.totalPage - 1) {
       fetchData(blogData.selectedPage + 1)
     }
-  }
+    console.log("nextEvent blog");
+  };
   const handlePreviousEvent = (event) => {
     if (blogData.selectedPage > 0) {
-      fetchData(blogData.selectedPage + 1)
+      fetchData(blogData.selectedPage + 1);
     }
-  }
+    console.log("prevEvent blog");
+  };
   const handleSelectPageEvent = (page) => {
-    fetchData(page)
-  }
+    fetchData(page);
+    console.log("selectPageEvent", page);
+  };
 
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Blog</title>
+        <title>Floravibe | Blog</title>
         <meta
           name="description"
           content="Blog of flone react minimalist eCommerce template."
@@ -72,6 +80,10 @@ const BlogRightSidebar = ({ location }) => {
         <div className="blog-area pt-100 pb-100">
           <div className="container">
             <div className="row">
+              <div className="col-lg-3">
+                {/* blog sidebar */}
+                <BlogSidebar />
+              </div>
               <div className="col-lg-9">
                 <div className="mr-20">
                   <div className="row">
@@ -82,12 +94,9 @@ const BlogRightSidebar = ({ location }) => {
                     selectedPage={blogData.selectedPage}
                     onNextEvent={handleNextEvent}
                     onPreviousEvent={handlePreviousEvent}
-                    onSelectPageEvent={handleSelectPageEvent} />
+                    onSelectPageEvent={handleSelectPageEvent}
+                  />
                 </div>
-              </div>
-              <div className="col-lg-3">
-                {/* blog sidebar */}
-                <BlogSidebar />
               </div>
             </div>
           </div>
@@ -98,7 +107,7 @@ const BlogRightSidebar = ({ location }) => {
 };
 
 BlogRightSidebar.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default BlogRightSidebar;
