@@ -3,16 +3,13 @@ import React, { useEffect, useState } from "react";
 import NavMenu from "../../components/header/NavMenu";
 import IconGroup from "../../components/header/IconGroup";
 import MobileMenu from "../../components/header/MobileMenu";
-import HeaderTop from "../../components/header/HeaderTop";
 import { Link } from "react-router-dom";
 
 const HeaderOne = ({
   layout,
-  top,
-  borderStyle,
   headerPaddingClass,
   headerPositionClass,
-  headerBgClass
+  headerBgClass,
 }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
@@ -37,19 +34,6 @@ const HeaderOne = ({
       }`}
     >
       <div
-        className={`${headerPaddingClass ? headerPaddingClass : ""} ${
-          top === "visible" ? "d-none d-lg-block" : "d-none"
-        } header-top-area ${
-          borderStyle === "fluid-border" ? "border-none" : ""
-        }`}
-      >
-        <div className={layout === "container-fluid" ? layout : "container"}>
-          {/* header top */}
-          <HeaderTop borderStyle={borderStyle} />
-        </div>
-      </div>
-
-      <div
         className={` ${
           headerPaddingClass ? headerPaddingClass : ""
         } sticky-bar header-res-padding clearfix ${
@@ -57,18 +41,16 @@ const HeaderOne = ({
         }`}
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
-          <div className="row">
-            <div className="col-xl-2 col-lg-2 col-md-6 col-4" style={{
-              fontSize: "30px",
-              fontWeight: 800,
-              padding:"20px 0px 10px 0px"
-              
-            }}>
+          <div className="row ">
+            <div
+              className="col-xl-2 col-lg-2 col-md-6 col-4 d-flex align-items-center"
+              style={{
+                fontSize: "30px",
+                fontWeight: 800,
+              }}
+            >
               {/* header logo */}
-              <Link to="/">
-              Flower for Thought
-              </Link>
-             
+              <Link to="/">Floravibe</Link>
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}
@@ -92,7 +74,7 @@ HeaderOne.propTypes = {
   headerPaddingClass: PropTypes.string,
   headerPositionClass: PropTypes.string,
   layout: PropTypes.string,
-  top: PropTypes.string
+  top: PropTypes.string,
 };
 
 export default HeaderOne;

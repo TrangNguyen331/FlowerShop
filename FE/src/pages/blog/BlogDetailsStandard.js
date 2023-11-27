@@ -4,7 +4,7 @@ import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import BlogSidebar from "../../wrappers/blog/BlogSidebar";
+// import BlogSidebar from "../../wrappers/blog/BlogSidebar";
 // import BlogComment from "../../wrappers/blog/BlogComment";
 import BlogPost from "../../wrappers/blog/BlogPost";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
@@ -39,10 +39,6 @@ const BlogDetailsStandard = ({ location }) => {
     <Fragment>
       <MetaTags>
         <title>Floravibe | Blog Post</title>
-        <meta
-          name="description"
-          content="Blog post page of flone react minimalist eCommerce template."
-        />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
