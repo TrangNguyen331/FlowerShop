@@ -52,19 +52,15 @@ const BlogDetailsStandard = ({ location }) => {
           <Breadcrumb />
           <div className="blog-area pt-100 pb-100">
             <div className="container">
-              <div className="row flex-row-reverse">
+              <div className="row d-flex justify-content-center">
                 <div className="col-lg-9">
-                  <div className="blog-details-wrapper ml-20">
+                  <div className="blog-details-wrapper">
                     {/* blog post */}
                     <BlogPost blogData={data} />
 
                     {/* blog post comment */}
                     {/* <BlogComment /> */}
                   </div>
-                </div>
-                <div className="col-lg-3">
-                  {/* blog sidebar */}
-                  <BlogSidebar />
                 </div>
               </div>
             </div>
