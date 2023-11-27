@@ -9,7 +9,8 @@ const BlogPosts = (input) => {
     blog.title,
     blog.author,
     blog.image,
-    blog.category
+    blog.category,
+    blog.createdDate
   ))
   return (
     <Fragment>
@@ -27,7 +28,7 @@ const BlogPosts = (input) => {
             <div className="blog-content-2">
               <div className="blog-meta-2">
                 <ul>
-                  <li>{blog.createdDate}</li>
+                  <li>{blog.getCreatedDate()}</li>
                 </ul>
               </div>
               <h4>
