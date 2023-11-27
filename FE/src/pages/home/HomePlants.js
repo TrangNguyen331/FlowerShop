@@ -5,18 +5,14 @@ import HeroSliderFour from "../../wrappers/hero-slider/HeroSliderFour";
 import BannerFour from "../../wrappers/banner/BannerFour";
 import TabProduct from "../../wrappers/product/TabProduct";
 import FeatureIconThree from "../../wrappers/feature-icon/FeatureIconThree";
-import Newsletter from "../../wrappers/newsletter/Newsletter";
+// import Newsletter from "../../wrappers/newsletter/Newsletter";
 
 const HomePlants = () => {
+  console.log("Home");
   return (
     <Fragment>
       <MetaTags>
-        <title>Flower for Thought.</title>
-        <meta
-          name="Flower for Thought"
-          content="Life is shot. Get more plants.
-          "
-        />
+        <title>Floravibe.</title>
       </MetaTags>
       <LayoutTwo footerBgClass="bg-gray-4">
         {/* hero slider */}
@@ -36,13 +32,13 @@ const HomePlants = () => {
           spaceBottomClass="pb-70"
           featureShapeClass="support-shape-2"
         />
-        {/* newsletter */}
+        {/* newsletter
         <Newsletter
           bgColorClass="bg-gray-2"
           spaceBottomClass="pb-100"
           spaceLeftClass="pl-30"
           spaceRightClass="pr-30"
-        />
+        /> */}
       </LayoutTwo>
     </Fragment>
   );
