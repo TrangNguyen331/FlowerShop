@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
-import React, { useEffect, Suspense, lazy } from "react";
+// import PropTypes from "prop-types";
+import React, { Suspense, lazy } from "react";
 import ScrollToTop from "./helpers/scroll-top";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
-import { multilanguage, loadLanguages } from "redux-multilanguage";
-import { connect } from "react-redux";
+// import { multilanguage, loadLanguages } from "redux-multilanguage";
+// import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 
 const HomePlants = lazy(() => import("./pages/home/HomePlants"));
@@ -23,29 +23,28 @@ const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
 
 const Cart = lazy(() => import("./pages/other/Cart"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
-const Compare = lazy(() => import("./pages/other/Compare"));
+// const Compare = lazy(() => import("./pages/other/Compare"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
 
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
-const App = (props) => {
-  useEffect(() => {
-    props.dispatch(
-      loadLanguages({
-        languages: {
-          en: require("./translations/english.json"),
-          fn: require("./translations/french.json"),
-          de: require("./translations/germany.json")
-        }
-      })
-    );
-  });
+const App = () => {
+  // useEffect(() => {
+  //   props.dispatch(
+  //     loadLanguages({
+  //       languages: {
+  //         en: require("./translations/english.json"),
+  //         fn: require("./translations/french.json"),
+  //         de: require("./translations/germany.json"),
+  //       },
+  //     })
+  //   );
+  // });
 
   return (
     <ToastProvider placement="bottom-left">
       <BreadcrumbsProvider>
         <Router>
-         
           <ScrollToTop>
             <Suspense
               fallback={
@@ -57,10 +56,8 @@ const App = (props) => {
                 </div>
               }
             >
-
-<Switch>
-
-              <Route
+              <Switch>
+                <Route
                   path={process.env.PUBLIC_URL + "/"}
                   component={HomePlants}
                   exact
@@ -69,23 +66,23 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/shop"}
                   component={ShopGridStandard}
                 />
-            
-                 <Route
+
+                <Route
                   path={process.env.PUBLIC_URL + "/blog"}
                   component={BlogRightSidebar}
                 />
-                  <Route
+                <Route
                   path={process.env.PUBLIC_URL + "/product/:id"}
                   render={(routeProps) => (
                     <Product {...routeProps} key={routeProps.match.params.id} />
                   )}
                 />
-               <Route
+                <Route
                   path={process.env.PUBLIC_URL + "/blog-details-standard"}
                   component={BlogDetailsStandard}
                 />
-                 {/* Other pages */}
-                 <Route
+                {/* Other pages */}
+                <Route
                   path={process.env.PUBLIC_URL + "/about"}
                   component={About}
                 />
@@ -110,10 +107,10 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/wishlist"}
                   component={Wishlist}
                 />
-                <Route
+                {/* <Route
                   path={process.env.PUBLIC_URL + "/compare"}
                   component={Compare}
-                />
+                /> */}
                 <Route
                   path={process.env.PUBLIC_URL + "/checkout"}
                   component={Checkout}
@@ -125,18 +122,17 @@ const App = (props) => {
                 />
 
                 <Route exact component={NotFound} />
- </Switch>
+              </Switch>
             </Suspense>
           </ScrollToTop>
-         
         </Router>
       </BreadcrumbsProvider>
     </ToastProvider>
   );
 };
 
-App.propTypes = {
-  dispatch: PropTypes.func
-};
-
-export default connect()(multilanguage(App));
+// App.propTypes = {
+//   dispatch: PropTypes.func,
+// };
+export default App;
+// export default connect()(multilanguage(App));
