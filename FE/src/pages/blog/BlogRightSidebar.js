@@ -15,6 +15,7 @@ const BlogRightSidebar = ({ location }) => {
   const { pathname } = location;
   const { addToast } = useToasts();
   const [blogData, setBlogData] = useState({
+    search: '',
     selectedPage: 0,
     totalPage: 0,
     blogs: [],
@@ -23,15 +24,17 @@ const BlogRightSidebar = ({ location }) => {
   useEffect(() => {
     fetchData(0);
   }, []);
-  const fetchData = async (page) => {
+  const fetchData = async (page, search) => {
     try {
+      let searchKey = search ? search : '';
       const response = await axiosInstance.get(
-        "/api/v1/blogs/paging?page=" + page
+        "/api/v1/blogs/paging?page=" + page + "&search=" + searchKey
       );
       var resData = response.data;
-      console.log(resData);
+      console.log("Blog res data", resData);
       setBlogData({
         ...blogData,
+        search: searchKey,
         selectedPage: resData.pageable.pageNumber,
         totalPage: resData.totalPages,
         blogs: resData.content,
@@ -45,13 +48,13 @@ const BlogRightSidebar = ({ location }) => {
     }
   };
 
-  const handleNextEvent = (event) => {
-    if (blogData.selectedPage < blogData.totalPage) {
-      fetchData(blogData.selectedPage + 1);
+  const handleNextEvent = () => {
+    if (blogData.selectedPage < blogData.totalPage - 1) {
+      fetchData(blogData.selectedPage + 1)
     }
     console.log("nextEvent blog");
   };
-  const handlePreviousEvent = (event) => {
+  const handlePreviousEvent = () => {
     if (blogData.selectedPage > 0) {
       fetchData(blogData.selectedPage + 1);
     }
@@ -61,6 +64,10 @@ const BlogRightSidebar = ({ location }) => {
     fetchData(page);
     console.log("selectPageEvent", page);
   };
+  const handelSearchEvent = (search) => {
+    console.log("Trigger search", search)
+    fetchData(0, search);
+  }
 
   return (
     <Fragment>
@@ -83,7 +90,7 @@ const BlogRightSidebar = ({ location }) => {
             <div className="row">
               <div className="col-lg-3">
                 {/* blog sidebar */}
-                <BlogSidebar />
+                <BlogSidebar onSearchEvent={handelSearchEvent} />
               </div>
               <div className="col-lg-9">
                 <div className="mr-20">

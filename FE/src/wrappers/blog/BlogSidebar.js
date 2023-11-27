@@ -1,17 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const BlogSidebar = () => {
+const BlogSidebar = (props) => {
+  const [formData, setFormData] = useState({
+    searchValue: ''
+  });
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      searchValue: '',
+    });
+  }, []);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+  const handleSearch = (event) => {
+    event.preventDefault();
+    props.onSearchEvent(formData.searchValue);
+  }
   return (
     <div className="sidebar-style">
       <div className="sidebar-widget">
         <h4 className="pro-sidebar-title">Search </h4>
         <div className="pro-sidebar-search mb-55 mt-25">
-          <form className="pro-sidebar-search-form" action="#">
+          <form className="pro-sidebar-search-form" onSubmit={handleSearch}>
             <input
               type="text"
               placeholder="Search here..."
-              onFocus={() => console.log("search blog")}
+              name="searchValue"
+              value={formData.searchValue}
+              onChange={handleInputChange}
             />
             <button>
               <i className="pe-7s-search" />

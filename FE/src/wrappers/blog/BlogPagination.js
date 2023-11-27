@@ -4,8 +4,8 @@ import React from "react";
 const BlogPagination = (props) => {
   const itemList = [];
   const selectedItem = props.selectedPage;
-  for (let i = 0; i <= props.totalPage; i++) {
-    itemList.push(i + 1);
+  for (let i = 1; i <= props.totalPage; i++) {
+    itemList.push(i);
   }
   return (
     <div className="pro-pagination-style text-center mt-20">

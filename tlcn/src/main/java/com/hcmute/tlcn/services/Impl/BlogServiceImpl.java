@@ -21,7 +21,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<Blog> getPaging(String search, Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findAllWithSearch(search,pageable);
     }
 
     @Override

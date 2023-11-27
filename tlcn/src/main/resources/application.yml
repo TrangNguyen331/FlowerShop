@@ -9,3 +9,7 @@ application:
     paging:
       page: 0
       size: 20
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
