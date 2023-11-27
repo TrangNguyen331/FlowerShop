@@ -6,8 +6,8 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
-const NotFound = ({ location }) => {
-  const { pathname } = location;
+const NotFound = ({ path }) => {
+  const { pathname } = path;
 
   return (
     <Fragment>
@@ -36,18 +36,6 @@ const NotFound = ({ location }) => {
                     Sorry but the page you are looking for does not exist, have
                     been removed, name changed or is temporarity unavailable.
                   </p>
-                  <form className="searchform mb-50">
-                    <input
-                      type="text"
-                      name="search"
-                      id="error_search"
-                      placeholder="Search..."
-                      className="searchform__input"
-                    />
-                    <button type="submit" className="searchform__submit">
-                      <i className="fa fa-search" />
-                    </button>
-                  </form>
                   <Link to={process.env.PUBLIC_URL + "/"} className="error-btn">
                     Back to home page
                   </Link>
