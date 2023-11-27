@@ -5,16 +5,16 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
-import BlogComment from "../../wrappers/blog/BlogComment";
+// import BlogComment from "../../wrappers/blog/BlogComment";
 import BlogPost from "../../wrappers/blog/BlogPost";
 
 const BlogDetailsStandard = ({ location }) => {
   const { pathname } = location;
-
+  console.log("BlogDetail page");
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Blog Post</title>
+        <title>Floravibe | Blog Post</title>
         <meta
           name="description"
           content="Blog post page of flone react minimalist eCommerce template."
@@ -24,7 +24,7 @@ const BlogDetailsStandard = ({ location }) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Blog Post
       </BreadcrumbsItem>
-      <LayoutOne headerTop="visible">
+      <LayoutOne>
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="blog-area pt-100 pb-100">
@@ -36,7 +36,7 @@ const BlogDetailsStandard = ({ location }) => {
                   <BlogPost />
 
                   {/* blog post comment */}
-                  <BlogComment />
+                  {/* <BlogComment /> */}
                 </div>
               </div>
               <div className="col-lg-3">
@@ -52,7 +52,7 @@ const BlogDetailsStandard = ({ location }) => {
 };
 
 BlogDetailsStandard.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default BlogDetailsStandard;
