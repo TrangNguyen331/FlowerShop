@@ -27,7 +27,7 @@ public class BlogController {
             @RequestParam(name = "sort", required = false, defaultValue = "DESC") String sort,
             @RequestParam(name = "column", required = false, defaultValue = "createdDate") String sortColumn) {
         Pageable pageable = PageUtils.createPageable(page, size, sort, sortColumn);
-        Page<Blog> result = service.getPaging("",pageable);
+        Page<Blog> result = service.getPaging(search,pageable);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BlogRepository extends MongoRepository<Blog,String> {
+
+    @Query("{'title': {$regex: ?0, $options: 'i'}}")
+    Page<Blog> findAllWithSearch(String search, Pageable pageable);
 }
