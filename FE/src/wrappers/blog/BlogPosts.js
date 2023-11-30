@@ -37,7 +37,7 @@ const BlogPosts = (input) => {
                 </Link>
               </h4>
               <p>
-                {blog.getContentLimit()}
+                {blog.getContentLimit(90)}
               </p>
               <div className="blog-share-comment">
                 <div className="blog-btn-2">
