@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BlogModel from "../../model/blogmodel";
 
 const BlogSidebar = (props) => {
   const [formData, setFormData] = useState({
@@ -24,6 +25,16 @@ const BlogSidebar = (props) => {
     event.preventDefault();
     props.onSearchEvent(formData.searchValue);
   }
+
+  const blogs =  props.recentBlogData.blogs.map(blog => new BlogModel(
+    blog.id,
+    blog.content,
+    blog.title,
+    blog.author,
+    blog.image,
+    blog.category,
+    blog.createdDate
+  ));
   return (
     <div className="sidebar-style">
       <div className="sidebar-widget">
@@ -45,88 +56,28 @@ const BlogSidebar = (props) => {
       </div>
       <div className="sidebar-widget">
         <h4 className="pro-sidebar-title">Recent Projects </h4>
-        <div className="sidebar-project-wrap mt-30">
+        {blogs.map(blog =>(
+        <div className="sidebar-project-wrap mt-30" key={blog.id}>
           <div className="single-sidebar-blog">
             <div className="sidebar-blog-img">
-              <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
+              <Link to={process.env.PUBLIC_URL + "/blog-details-standard/" +blog.id}>
                 <img
-                  src={
-                    process.env.PUBLIC_URL + "/assets/img/blog/sidebar-1.jpg"
-                  }
+                  src={blog.image}
                   alt=""
                 />
               </Link>
             </div>
             <div className="sidebar-blog-content">
-              <span>Photography</span>
+              <span>{blog.getTitleLimit()}</span>
               <h4>
-                <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                  T- Shart And Jeans
-                </Link>
-              </h4>
-            </div>
-          </div>
-          <div className="single-sidebar-blog">
-            <div className="sidebar-blog-img">
-              <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                <img
-                  src={
-                    process.env.PUBLIC_URL + "/assets/img/blog/sidebar-2.jpg"
-                  }
-                  alt=""
-                />
-              </Link>
-            </div>
-            <div className="sidebar-blog-content">
-              <span>Branding</span>
-              <h4>
-                <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                  T- Shart And Jeans
-                </Link>
-              </h4>
-            </div>
-          </div>
-          <div className="single-sidebar-blog">
-            <div className="sidebar-blog-img">
-              <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                <img
-                  src={
-                    process.env.PUBLIC_URL + "/assets/img/blog/sidebar-3.jpg"
-                  }
-                  alt=""
-                />
-              </Link>
-            </div>
-            <div className="sidebar-blog-content">
-              <span>Design</span>
-              <h4>
-                <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                  T- Shart And Jeans
-                </Link>
-              </h4>
-            </div>
-          </div>
-          <div className="single-sidebar-blog">
-            <div className="sidebar-blog-img">
-              <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                <img
-                  src={
-                    process.env.PUBLIC_URL + "/assets/img/blog/sidebar-2.jpg"
-                  }
-                  alt=""
-                />
-              </Link>
-            </div>
-            <div className="sidebar-blog-content">
-              <span>Photography</span>
-              <h4>
-                <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                  T- Shart And Jeans
+                <Link to={process.env.PUBLIC_URL + "/blog-details-standard/" + blog.id}>
+                    {blog.getContentLimit(10)}
                 </Link>
               </h4>
             </div>
           </div>
         </div>
+        ))}
       </div>
     </div>
   );

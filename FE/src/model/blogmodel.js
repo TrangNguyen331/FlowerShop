@@ -21,8 +21,12 @@ class BlogModel {
         return formattedDate;
     }
 
-    getContentLimit() {
-        return this.content.length > 90 ? this.content.slice(0, 90) + '...' : this.content
+    getContentLimit(maxchar) {
+        return this.content.length > maxchar ? this.content.slice(0, maxchar) + '...' : this.content
+    }
+
+    getTitleLimit(){
+        return this.title.length > 10 ? this.title.slice(0, 10) + '...' : this.title
     }
 
 }

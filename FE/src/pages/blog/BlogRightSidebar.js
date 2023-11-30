@@ -20,9 +20,28 @@ const BlogRightSidebar = ({ location }) => {
     totalPage: 0,
     blogs: [],
   });
+  const [recentBlogData, setRecentBlogData] = useState({
+    search: '',
+    selectedPage: 0,
+    totalPage: 0,
+    blogs: [],
+  });
 
   useEffect(() => {
+    const loadRecentBlog= async (page) =>{
+      const response = await axiosInstance.get(
+        "/api/v1/blogs/paging?size=5&page=" + page
+      );
+      var resData = response.data;
+      setRecentBlogData({
+        ...recentBlogData,
+        selectedPage: resData.pageable.pageNumber,
+        totalPage: resData.totalPages,
+        blogs: resData.content,
+      });
+    }
     fetchData(0);
+    loadRecentBlog(0);
   }, []);
   const fetchData = async (page, search) => {
     try {
@@ -31,7 +50,6 @@ const BlogRightSidebar = ({ location }) => {
         "/api/v1/blogs/paging?page=" + page + "&search=" + searchKey
       );
       var resData = response.data;
-      console.log("Blog res data", resData);
       setBlogData({
         ...blogData,
         search: searchKey,
@@ -90,7 +108,7 @@ const BlogRightSidebar = ({ location }) => {
             <div className="row">
               <div className="col-lg-3">
                 {/* blog sidebar */}
-                <BlogSidebar onSearchEvent={handelSearchEvent} />
+                <BlogSidebar recentBlogData={recentBlogData} onSearchEvent={handelSearchEvent} />
               </div>
               <div className="col-lg-9">
                 <div className="mr-20">
