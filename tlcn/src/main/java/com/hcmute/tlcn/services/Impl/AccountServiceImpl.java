@@ -26,22 +26,20 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String register(RegisterDto input) {
-        String username=input.getEmail().split("@")[0];
-        Optional<Account> check = accountRepository.findByUsername(username);
+        Optional<Account> check = accountRepository.findByUsername(input.getUsername());
         if(check.isPresent()){
-            throw new BadRequestException("Email was register, please using another email !!!");
+            throw new BadRequestException("Username was register, please using another username !!!");
         }
-        if(!input.getPassword().equals(input.getConfirmPassword())){
-            throw new BadRequestException("Password and Confirm password does not match !!!");
+        Optional<Account> checkEmail = accountRepository.findByEmail(input.getEmail());
+        if(checkEmail.isPresent()){
+            throw new BadRequestException("Email was register, please using another Email !!!");
         }
         Account account=new Account();
-        account.setUsername(username);
+        account.setUsername(input.getUsername());
         account.setEmail(input.getEmail());
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
         String hashPassword=bCryptPasswordEncoder.encode(input.getPassword());
         account.setPassword(hashPassword);
-        account.setFullName(input.getFullName());
-        account.setGender(input.isGender());
         List<String> roles = List.of(Roles.ROLE_USER.name());
         account.setRoles(roles);
         accountRepository.save(account);

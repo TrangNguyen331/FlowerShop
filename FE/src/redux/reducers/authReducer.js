@@ -25,6 +25,18 @@ const authReducer = (state = initState, action) => {
                 token: null,
                 error: action.payload.error,
             };
+        case REGISTER_SUCCESS:
+            return {
+                ...state,
+                token: null,
+                error: null,
+            };
+        case REGISTER_FAIL:
+        return {
+            ...state,
+            token: null,
+            error: action.payload.error,
+        };
         case LOGOUT:
             return {
                 ...state,

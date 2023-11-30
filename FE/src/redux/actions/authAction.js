@@ -23,6 +23,32 @@ export const loginUser = (username, password, addToast) => async (dispatch) => {
 
     }
 }
+
+export const registerUser = (username, password, email, addToast) => async (dispatch) => {
+    var body = {
+        username: username,
+        password: password,
+        email: email
+    }
+    const response = await axiosInstance.post("/api/v1/auth/register", body)
+    .then(response => {
+        let message = response.data;
+        addToast("Register success, please try to login", { appearance: "success", autoDismiss: true });
+        dispatch({ type: REGISTER_SUCCESS, payload: { message } });
+    })
+    .catch(error =>{
+        if (error.response) {
+            let message= error.response.data.message;
+            addToast(message, { appearance: "error", autoDismiss: true });
+            dispatch({ type: REGISTER_FAIL, payload: { error: message } });
+        }
+        else{
+            addToast("Register fail", { appearance: "error", autoDismiss: true });
+            dispatch({ type: REGISTER_FAIL, payload: { error: 'Register fail' } });
+        }
+    });
+    
+}
 export const logOutUser = (addToast) => async (dispatch) => {
     addToast("Logout success", { appearance: "success", autoDismiss: true });
     var token = null;

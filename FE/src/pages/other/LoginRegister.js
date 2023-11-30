@@ -8,7 +8,7 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { loginUser } from "../../redux/actions/authAction";
+import { loginUser, registerUser } from "../../redux/actions/authAction";
 import { useToasts } from "react-toast-notifications";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -36,8 +36,15 @@ const LoginRegister = ({ location }) => {
     await dispatch(loginUser(formData.username, formData.password, addToast));
 
   }
-  const handleRegister = (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault();
+    await dispatch(registerUser(formData.username, formData.password, formData.email, addToast));
+    setFormData({
+      ...formData,
+      username:'',
+      password:'',
+      email:''
+    })
   }
 
   return (
@@ -123,7 +130,7 @@ const LoginRegister = ({ location }) => {
                                 />
                                 <input
                                   type="password"
-                                  name="userpassword"
+                                  name="password"
                                   value={formData.password}
                                   onChange={handleInputChange}
                                   placeholder="Password"

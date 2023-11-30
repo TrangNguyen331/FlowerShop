@@ -15,10 +15,6 @@ public class RegisterDto {
     @Email(message = "Email is not valid")
     @NotBlank(message = "Email field is required")
     private String email;
-    @NotBlank(message = "Password field is required")
+    private String username;
     private String password;
-    @NotBlank(message = "Confirm Password field is required")
-    private String confirmPassword;
-    private String fullName;
-    private boolean gender;
 }
