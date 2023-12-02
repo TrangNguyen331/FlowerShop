@@ -26,7 +26,6 @@ const ProductGrid = ({
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get(`/api/v1/products/paging?size=${8}`);
-        console.log("response", response);
         // Dispatch an action to update the Redux store with the fetched products
         // Note: This assumes you have a Redux action to update the products in the store
         // You may need to create this action based on your Redux setup

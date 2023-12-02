@@ -40,13 +40,13 @@ const ProductGridSingle = ({
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
               <img
                 className="default-img"
-                src={process.env.PUBLIC_URL + product.images[0]}
+                src={product.images? process.env.PUBLIC_URL + product.images[0]: ""}
                 alt=""
               />
               {product.images.length > 1 ? (
                 <img
                   className="hover-img"
-                  src={process.env.PUBLIC_URL + product.images[1]}
+                  src={product.images && product.images.length>1 ? process.env.PUBLIC_URL + product.images[1]: ""}
                   alt=""
                 />
               ) : (
@@ -139,13 +139,13 @@ const ProductGridSingle = ({
             <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
-                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+                  <span>{  finalDiscountedPrice + " "+currency.currencySymbol}</span>{" "}
                   <span className="old">
-                    {currency.currencySymbol + finalProductPrice}
+                    { finalProductPrice +" "+currency.currencySymbol}
                   </span>
                 </Fragment>
               ) : (
-                <span>{currency.currencySymbol + finalProductPrice} </span>
+                <span>{ finalProductPrice +" "+currency.currencySymbol} </span>
               )}
             </div>
           </div>

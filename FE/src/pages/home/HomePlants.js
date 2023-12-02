@@ -8,6 +8,7 @@ import FeatureIconThree from "../../wrappers/feature-icon/FeatureIconThree";
 // import Newsletter from "../../wrappers/newsletter/Newsletter";
 
 const HomePlants = () => {
+  console.log("home")
   return (
     <Fragment>
       <MetaTags>
