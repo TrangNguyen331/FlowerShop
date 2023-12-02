@@ -26,8 +26,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> addNewOrder(@RequestBody OrderDto dto, Principal principal){
-        Order result = service.addNew(principal.getName(),dto);
+    public ResponseEntity<Order> addNewOrder(@RequestBody OrderDto dto){
+        Order result = service.addNew(dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

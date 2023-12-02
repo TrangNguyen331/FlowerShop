@@ -22,5 +22,6 @@ public class Product {
     public List<String> tags;
     public List<String> images;
     public List<Review> reviews;
+    public List<String> collections;
     public boolean isActive=true;
 }

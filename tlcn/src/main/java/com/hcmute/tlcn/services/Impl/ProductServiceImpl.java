@@ -33,18 +33,8 @@ public class ProductServiceImpl  implements ProductService {
 
 
     @Override
-    public Page<Product> getPaging(String collectionId, String search, Pageable pageable) {
-        List<Product> products= new ArrayList<>();
-        if(collectionId.isEmpty() || collectionId.isBlank()) {
-            Collection collection = collectionRepository.findById(collectionId)
-                    .orElseThrow(() -> new NotFoundException("Collection Product not found"));
-            products = collection.getProducts().stream().filter(x->x.isActive).toList();
-        }
-        else {
-            products = repository.findAllByActiveIsTrue();
-        }
-        products = products.stream().filter(x->x.getName().contains(search)).toList();
-        return convertListToPage(products,pageable);
+    public Page<Product> getPaging(String search, Pageable pageable) {
+        return repository.getPaging(search,pageable);
     }
 
     @Override

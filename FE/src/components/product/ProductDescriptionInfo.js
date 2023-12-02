@@ -104,29 +104,29 @@ const ProductDescriptionInfo = ({
                 product.variation.map((single) => {
                   return single.color === selectedProductColor
                     ? single.size.map((singleSize, key) => {
-                        return (
-                          <label
-                            className={`pro-details-size-content--single`}
-                            key={key}
-                          >
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={
-                                singleSize.name === selectedProductSize
-                                  ? "checked"
-                                  : ""
-                              }
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name);
-                                setProductStock(singleSize.stock);
-                                setQuantityCount(1);
-                              }}
-                            />
-                            <span className="size-name">{singleSize.name}</span>
-                          </label>
-                        );
-                      })
+                      return (
+                        <label
+                          className={`pro-details-size-content--single`}
+                          key={key}
+                        >
+                          <input
+                            type="radio"
+                            value={singleSize.name}
+                            checked={
+                              singleSize.name === selectedProductSize
+                                ? "checked"
+                                : ""
+                            }
+                            onChange={() => {
+                              setSelectedProductSize(singleSize.name);
+                              setProductStock(singleSize.stock);
+                              setQuantityCount(1);
+                            }}
+                          />
+                          <span className="size-name">{singleSize.name}</span>
+                        </label>
+                      );
+                    })
                     : "";
                 })}
             </div>

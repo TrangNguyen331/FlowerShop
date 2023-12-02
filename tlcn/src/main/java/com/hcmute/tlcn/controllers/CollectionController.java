@@ -44,14 +44,14 @@ public class CollectionController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping("/product/{id}")
-    public ResponseEntity<Collection> addNewProductToCollection(@PathVariable String id, @RequestParam String productId) {
-        Collection result = service.addProductToCollection(id,productId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-    @PutMapping("/product/{id}")
-    public ResponseEntity<Collection> removeProductInCollection(@PathVariable String id, @RequestParam String productId) {
-        Collection result = service.removeProductFromCollection(id, productId);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+//    @PostMapping("/product/{id}")
+//    public ResponseEntity<Collection> addNewProductToCollection(@PathVariable String id, @RequestParam String productId) {
+//        Collection result = service.addProductToCollection(id,productId);
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+//    @PutMapping("/product/{id}")
+//    public ResponseEntity<Collection> removeProductInCollection(@PathVariable String id, @RequestParam String productId) {
+//        Collection result = service.removeProductFromCollection(id, productId);
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
 }

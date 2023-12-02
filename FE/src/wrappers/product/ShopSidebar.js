@@ -8,14 +8,11 @@ import {
 } from "../../helpers/product";
 import ShopSearch from "../../components/product/ShopSearch";
 import ShopCategories from "../../components/product/ShopCategories";
-import ShopColor from "../../components/product/ShopColor";
-import ShopSize from "../../components/product/ShopSize";
 import ShopTag from "../../components/product/ShopTag";
 
 const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
+  console.log("ShopSidebar", products);
   const uniqueCategories = getIndividualCategories(products);
-  const uniqueColors = getIndividualColors(products);
-  const uniqueSizes = getProductsIndividualSizes(products);
   const uniqueTags = getIndividualTags(products);
 
   return (
@@ -28,12 +25,6 @@ const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
         categories={uniqueCategories}
         getSortParams={getSortParams}
       />
-
-      {/* filter by color */}
-      <ShopColor colors={uniqueColors} getSortParams={getSortParams} />
-
-      {/* filter by size */}
-      <ShopSize sizes={uniqueSizes} getSortParams={getSortParams} />
 
       {/* filter by tag */}
       <ShopTag tags={uniqueTags} getSortParams={getSortParams} />

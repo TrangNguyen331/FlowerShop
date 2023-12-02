@@ -106,29 +106,29 @@ const ProductDescriptionInfoSlider = ({
                 product.variation.map(single => {
                   return single.color === selectedProductColor
                     ? single.size.map((singleSize, key) => {
-                        return (
-                          <label
-                            className={`pro-details-size-content--single`}
-                            key={key}
-                          >
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={
-                                singleSize.name === selectedProductSize
-                                  ? "checked"
-                                  : ""
-                              }
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name);
-                                setProductStock(singleSize.stock);
-                                setQuantityCount(1);
-                              }}
-                            />
-                            <span className="size-name">{singleSize.name}</span>
-                          </label>
-                        );
-                      })
+                      return (
+                        <label
+                          className={`pro-details-size-content--single`}
+                          key={key}
+                        >
+                          <input
+                            type="radio"
+                            value={singleSize.name}
+                            checked={
+                              singleSize.name === selectedProductSize
+                                ? "checked"
+                                : ""
+                            }
+                            onChange={() => {
+                              setSelectedProductSize(singleSize.name);
+                              setProductStock(singleSize.stock);
+                              setQuantityCount(1);
+                            }}
+                          />
+                          <span className="size-name">{singleSize.name}</span>
+                        </label>
+                      );
+                    })
                     : "";
                 })}
             </div>
@@ -180,25 +180,23 @@ const ProductDescriptionInfoSlider = ({
             </button>
           </div>
           <div className="pro-details-cart btn-hover">
-            {productStock && productStock > 0 ? (
-              <button
-                onClick={() =>
-                  addToCart(
-                    product,
-                    addToast,
-                    quantityCount,
-                    selectedProductColor,
-                    selectedProductSize
-                  )
-                }
-                disabled={productCartQty >= productStock}
-              >
-                {" "}
-                Add To Cart{" "}
-              </button>
-            ) : (
-              <button disabled>Out of Stock</button>
-            )}
+
+            <button
+              onClick={() =>
+                addToCart(
+                  product,
+                  addToast,
+                  quantityCount,
+                  selectedProductColor,
+                  selectedProductSize
+                )
+              }
+              disabled={productCartQty >= productStock}
+            >
+              {" "}
+              Add To Cart{" "}
+            </button>
+
           </div>
           <div className="pro-details-wishlist">
             <button

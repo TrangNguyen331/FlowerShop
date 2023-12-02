@@ -92,7 +92,7 @@ const Wishlist = ({
                                       className="img-fluid"
                                       src={
                                         process.env.PUBLIC_URL +
-                                        wishlistItem.image[0]
+                                        wishlistItem.images[0]
                                       }
                                       alt=""
                                     />
@@ -147,8 +147,7 @@ const Wishlist = ({
                                     >
                                       Select option
                                     </Link>
-                                  ) : wishlistItem.stock &&
-                                    wishlistItem.stock > 0 ? (
+                                  ) : (
                                     <button
                                       onClick={() => {
                                         addToCart(wishlistItem, addToast);
@@ -156,7 +155,7 @@ const Wishlist = ({
                                       }}
                                       className={
                                         cartItem !== undefined &&
-                                        cartItem.quantity > 0
+                                          cartItem.quantity > 0
                                           ? "active"
                                           : ""
                                       }
@@ -171,13 +170,9 @@ const Wishlist = ({
                                       }
                                     >
                                       {cartItem !== undefined &&
-                                      cartItem.quantity > 0
+                                        cartItem.quantity > 0
                                         ? "Added"
                                         : "Add to cart"}
-                                    </button>
-                                  ) : (
-                                    <button disabled className="active">
-                                      Out of stock
                                     </button>
                                   )}
                                 </td>

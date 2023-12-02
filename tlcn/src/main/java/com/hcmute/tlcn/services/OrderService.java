@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface OrderService {
     List<Order> getOrderByUser(String user);
-    Order addNew(String user,OrderDto dto);
+    Order addNew(OrderDto dto);
 }

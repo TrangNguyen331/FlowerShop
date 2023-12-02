@@ -23,18 +23,30 @@ public class ProductController {
         this.service = service;
     }
 
-    @GetMapping("/collection/{collectionId}/paging")
-    public ResponseEntity<Page<Product>> getPaging(
-            @PathVariable String collectionId,
+    @GetMapping("/paging")
+    public ResponseEntity<Page<Product>> getProductPaging(
             @RequestParam(name = "search", required = false, defaultValue = "") String search,
-            @RequestParam(name = "page", required = false, defaultValue = "${application.default.paging.page}") int page,
-            @RequestParam(name = "size", required = false, defaultValue = "${application.default.paging.size}") int size,
-            @RequestParam(name = "sort", required = false, defaultValue = "DESC") String sort,
-            @RequestParam(name = "column", required = false, defaultValue = "createdDate") String sortColumn) {
+                                                          @RequestParam(name = "page", required = false, defaultValue = "${application.default.paging.page}") int page,
+                                                          @RequestParam(name = "size", required = false, defaultValue = "${application.default.paging.size}") int size,
+                                                          @RequestParam(name = "sort", required = false, defaultValue = "DESC") String sort,
+                                                          @RequestParam(name = "column", required = false, defaultValue = "createdDate") String sortColumn){
         Pageable pageable = PageUtils.createPageable(page, size, sort, sortColumn);
-        Page<Product> result = service.getPaging(collectionId,search,pageable);
+        Page<Product> result = service.getPaging(search,pageable);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+//    @GetMapping("/collection/{collectionId}/paging")
+//    public ResponseEntity<Page<Product>> getPaging(
+//            @PathVariable String collectionId,
+//            @RequestParam(name = "search", required = false, defaultValue = "") String search,
+//            @RequestParam(name = "page", required = false, defaultValue = "${application.default.paging.page}") int page,
+//            @RequestParam(name = "size", required = false, defaultValue = "${application.default.paging.size}") int size,
+//            @RequestParam(name = "sort", required = false, defaultValue = "DESC") String sort,
+//            @RequestParam(name = "column", required = false, defaultValue = "createdDate") String sortColumn) {
+//        Pageable pageable = PageUtils.createPageable(page, size, sort, sortColumn);
+//        Page<Product> result = service.getPaging(search,pageable);
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
 
     @PostMapping
     public ResponseEntity<Product> addNew(@RequestBody ProductDto dto) {

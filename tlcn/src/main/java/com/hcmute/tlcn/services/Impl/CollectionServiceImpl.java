@@ -54,28 +54,28 @@ public class CollectionServiceImpl implements CollectionService {
         return collection;
     }
 
-    @Override
-    public Collection addProductToCollection(String id, String productId) {
-        Collection collection = repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Collection not found"));
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new NotFoundException("Product not found"));
-        Optional<Product> verifyProduct = collection.getProducts().parallelStream().filter(x->x.getId().equals(productId)).findFirst();
-        if(verifyProduct.isEmpty()){
-            collection.getProducts().add(product);
-            repository.save(collection);
-        }
-        return collection;
-    }
-
-    @Override
-    public Collection removeProductFromCollection(String id, String productId) {
-        Collection collection = repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Collection not found"));
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new NotFoundException("Product not found"));
-        collection.getProducts().removeIf(x->x.getId().equals(productId));
-        repository.save(collection);
-        return collection;
-    }
+//    @Override
+//    public Collection addProductToCollection(String id, String productId) {
+//        Collection collection = repository.findById(id)
+//                .orElseThrow(() -> new NotFoundException("Collection not found"));
+//        Product product = productRepository.findById(productId)
+//                .orElseThrow(() -> new NotFoundException("Product not found"));
+//        Optional<Product> verifyProduct = collection.getProducts().parallelStream().filter(x->x.getId().equals(productId)).findFirst();
+//        if(verifyProduct.isEmpty()){
+//            collection.getProducts().add(product);
+//            repository.save(collection);
+//        }
+//        return collection;
+//    }
+//
+//    @Override
+//    public Collection removeProductFromCollection(String id, String productId) {
+//        Collection collection = repository.findById(id)
+//                .orElseThrow(() -> new NotFoundException("Collection not found"));
+//        Product product = productRepository.findById(productId)
+//                .orElseThrow(() -> new NotFoundException("Product not found"));
+//        collection.getProducts().removeIf(x->x.getId().equals(productId));
+//        repository.save(collection);
+//        return collection;
+//    }
 }

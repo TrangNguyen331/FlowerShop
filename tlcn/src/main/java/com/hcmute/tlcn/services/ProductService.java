@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ProductService {
-    Page<Product> getPaging(String collectionId, String search, Pageable pageable);
+    Page<Product> getPaging(String search, Pageable pageable);
 
     Product addNew(ProductDto dto);
 

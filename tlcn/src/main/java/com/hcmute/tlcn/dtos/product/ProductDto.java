@@ -20,6 +20,5 @@ public class ProductDto {
     public double price;
     public List<String> tags;
     public List<String> images;
-    public List<ReviewDto> reviews;
-    public boolean isActive=true;
+    public List<String> collections;
 }

@@ -19,6 +19,10 @@ public class Account {
     public String password;
     public String email;
     public String fullName;
+    public String firstName;
+    public String lastName;
+    public String address;
+    public String phone;
     public boolean gender; // True is man, False is woman
     public boolean isActive= true;
     public List<String> roles;

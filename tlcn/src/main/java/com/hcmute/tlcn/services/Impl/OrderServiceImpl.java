@@ -24,10 +24,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order addNew(String user, OrderDto dto) {
+    public Order addNew(OrderDto dto) {
         Order order=new Order();
         modelMapper.map(dto,order);
-        order.setUser(user);
         repository.save(order);
         return order;
     }

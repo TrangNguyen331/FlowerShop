@@ -30,9 +30,8 @@ const ProductGridSingle = ({
   return (
     <Fragment>
       <div
-        className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 ${
-          sliderClassName ? sliderClassName : ""
-        }`}
+        className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 ${sliderClassName ? sliderClassName : ""
+          }`}
       >
         <div
           className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
@@ -96,7 +95,7 @@ const ProductGridSingle = ({
                   <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
                     Select Option
                   </Link>
-                ) : product.stock && product.stock > 0 ? (
+                ) : (
                   <button
                     onClick={() => addToCart(product, addToast)}
                     className={
@@ -114,10 +113,6 @@ const ProductGridSingle = ({
                     {cartItem !== undefined && cartItem.quantity > 0
                       ? "Added"
                       : "Add to cart"}
-                  </button>
-                ) : (
-                  <button disabled className="active">
-                    Out of Stock
                   </button>
                 )}
               </div>

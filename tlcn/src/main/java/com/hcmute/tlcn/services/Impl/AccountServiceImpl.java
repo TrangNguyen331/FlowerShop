@@ -45,4 +45,9 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(account);
         return "Success";
     }
+
+    @Override
+    public Account getAccountByAccountName(String userName) {
+        return accountRepository.findByUsername(userName).orElse(new Account());
+    }
 }

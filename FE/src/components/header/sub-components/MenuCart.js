@@ -5,6 +5,7 @@ import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../../helpers/product";
 
 const MenuCart = ({ cartData, currency, deleteFromCart }) => {
+  console.log("cartData", cartData)
   let cartTotalPrice = 0;
   const { addToast } = useToasts();
   return (
@@ -34,7 +35,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                     <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
                       <img
                         alt=""
-                        src={process.env.PUBLIC_URL + single.image[0]}
+                        src={single.images[0]}
                         className="img-fluid"
                       />
                     </Link>
@@ -55,7 +56,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                         : currency.currencySymbol + finalProductPrice}
                     </span>
                     {single.selectedProductColor &&
-                    single.selectedProductSize ? (
+                      single.selectedProductSize ? (
                       <div className="cart-item-variation">
                         <span>Color: {single.selectedProductColor}</span>
                         <span>Size: {single.selectedProductSize}</span>

@@ -82,9 +82,9 @@ const Cart = ({
 
                             discountedPrice != null
                               ? (cartTotalPrice +=
-                                  finalDiscountedPrice * cartItem.quantity)
+                                finalDiscountedPrice * cartItem.quantity)
                               : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
+                                finalProductPrice * cartItem.quantity);
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -99,7 +99,7 @@ const Cart = ({
                                       className="img-fluid"
                                       src={
                                         process.env.PUBLIC_URL +
-                                        cartItem.image[0]
+                                        cartItem.images[0]
                                       }
                                       alt=""
                                     />
@@ -116,19 +116,6 @@ const Cart = ({
                                   >
                                     {cartItem.name}
                                   </Link>
-                                  {cartItem.selectedProductColor &&
-                                  cartItem.selectedProductSize ? (
-                                    <div className="cart-item-variation">
-                                      <span>
-                                        Color: {cartItem.selectedProductColor}
-                                      </span>
-                                      <span>
-                                        Size: {cartItem.selectedProductSize}
-                                      </span>
-                                    </div>
-                                  ) : (
-                                    ""
-                                  )}
                                 </td>
 
                                 <td className="product-price-cart">
@@ -155,8 +142,10 @@ const Cart = ({
                                   <div className="cart-plus-minus">
                                     <button
                                       className="dec qtybutton"
-                                      onClick={() =>
+                                      onClick={() => {
+                                        console.log("click minus")
                                         decreaseQuantity(cartItem, addToast)
+                                      }
                                       }
                                     >
                                       -
@@ -169,22 +158,14 @@ const Cart = ({
                                     />
                                     <button
                                       className="inc qtybutton"
-                                      onClick={() =>
+                                      onClick={() => {
+                                        console.log("click plus")
                                         addToCart(
                                           cartItem,
                                           addToast,
                                           quantityCount
                                         )
                                       }
-                                      disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity &&
-                                        cartItem.quantity >=
-                                          cartItemStock(
-                                            cartItem,
-                                            cartItem.selectedProductColor,
-                                            cartItem.selectedProductSize
-                                          )
                                       }
                                     >
                                       +
@@ -194,13 +175,13 @@ const Cart = ({
                                 <td className="product-subtotal">
                                   {discountedPrice !== null
                                     ? currency.currencySymbol +
-                                      (
-                                        finalDiscountedPrice * cartItem.quantity
-                                      ).toFixed(2)
+                                    (
+                                      finalDiscountedPrice * cartItem.quantity
+                                    ).toFixed(2)
                                     : currency.currencySymbol +
-                                      (
-                                        finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)}
+                                    (
+                                      finalProductPrice * cartItem.quantity
+                                    ).toFixed(2)}
                                 </td>
 
                                 <td className="product-remove">
@@ -241,66 +222,11 @@ const Cart = ({
 
                 <div className="row">
                   <div className="col-lg-4 col-md-6">
-                    <div className="cart-tax">
-                      <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gray">
-                          Estimate Shipping And Tax
-                        </h4>
-                      </div>
-                      <div className="tax-wrapper">
-                        <p>
-                          Enter your destination to get a shipping estimate.
-                        </p>
-                        <div className="tax-select-wrapper">
-                          <div className="tax-select">
-                            <label>* Country</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Region / State</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Zip/Postal Code</label>
-                            <input type="text" />
-                          </div>
-                          <button className="cart-btn-2" type="submit">
-                            Get A Quote
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+
                   </div>
 
                   <div className="col-lg-4 col-md-6">
-                    <div className="discount-code-wrapper">
-                      <div className="title-wrap">
-                        <h4 className="cart-bottom-title section-bg-gray">
-                          Use Coupon Code
-                        </h4>
-                      </div>
-                      <div className="discount-code">
-                        <p>Enter your coupon code if you have one.</p>
-                        <form>
-                          <input type="text" required name="name" />
-                          <button className="cart-btn-2" type="submit">
-                            Apply Coupon
-                          </button>
-                        </form>
-                      </div>
-                    </div>
+
                   </div>
 
                   <div className="col-lg-4 col-md-12">
@@ -350,7 +276,7 @@ const Cart = ({
           </div>
         </div>
       </LayoutOne>
-    </Fragment>
+    </Fragment >
   );
 };
 

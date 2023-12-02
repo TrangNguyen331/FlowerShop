@@ -10,8 +10,10 @@ import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
 import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
+import axiosInstance from "../../axiosInstance";
+import ProductModel from "../../model/productmodel";
 
-const ShopGridStandard = ({location, products}) => {
+const ShopGridStandard = ({ location }) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -21,9 +23,18 @@ const ShopGridStandard = ({location, products}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
-
+    const [products, setProducts] = useState([]);
     const pageLimit = 15;
-    const {pathname} = location;
+    const { pathname } = location;
+
+    const fetchDataProduct = (async (page, search) => {
+        try {
+            const response = await axiosInstance.get(`/api/v1/products/paging?size=${pageLimit}&search=${search}&page=${page}`);
+            return response.data;
+        } catch (error) {
+            return [];
+        }
+    })
 
     const getLayout = (layout) => {
         setLayout(layout)
@@ -40,12 +51,40 @@ const ShopGridStandard = ({location, products}) => {
     }
 
     useEffect(() => {
-        let sortedProducts = getSortedProducts(products, sortType, sortValue);
-        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
-        sortedProducts = filterSortedProducts;
-        setSortedProducts(sortedProducts);
-        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);
+        const fetchDataAndProcess = async () => {
+            try {
+                const response = await fetchDataProduct(0, '');
+
+                const products = response.content.map(item => new ProductModel(
+                    item.id,
+                    item.name,
+                    item.description,
+                    item.additionalInformation,
+                    item.price,
+                    item.tags,
+                    item.images,
+                    item.reviews,
+                    item.collections
+                ));
+
+                setProducts(products);
+
+                let sortedProducts = getSortedProducts(products, sortType, sortValue);
+                const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
+                sortedProducts = filterSortedProducts;
+
+                setSortedProducts(sortedProducts);
+                setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+                console.log("currentData", sortedProducts.slice(offset, offset + pageLimit));
+            } catch (error) {
+                console.error("Error fetching data", error);
+            }
+        };
+
+        fetchDataAndProcess();
+
+        // Dependencies for the effect: offset, sortType, sortValue, filterSortType, filterSortValue
+    }, [offset, sortType, sortValue, filterSortType, filterSortValue]);
 
     return (
         <Fragment>
@@ -66,7 +105,7 @@ const ShopGridStandard = ({location, products}) => {
                         <div className="row">
                             <div className="col-lg-3 order-2 order-lg-1">
                                 {/* shop sidebar */}
-                                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30"/>
+                                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30" />
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
@@ -77,7 +116,7 @@ const ShopGridStandard = ({location, products}) => {
 
                                 {/* shop product pagination */}
                                 <div className="pro-pagination-style text-center mt-30">
-                                    <Paginator
+                                    {/* <Paginator
                                         totalRecords={sortedProducts.length}
                                         pageLimit={pageLimit}
                                         pageNeighbours={2}
@@ -87,7 +126,7 @@ const ShopGridStandard = ({location, products}) => {
                                         pageContainerClass="mb-0 mt-0"
                                         pagePrevText="«"
                                         pageNextText="»"
-                                    />
+                                    /> */}
                                 </div>
                             </div>
                         </div>
@@ -99,12 +138,12 @@ const ShopGridStandard = ({location, products}) => {
 }
 
 ShopGridStandard.propTypes = {
-  location: PropTypes.object,
-  products: PropTypes.array
+    location: PropTypes.object,
+    products: PropTypes.array
 }
 
 const mapStateToProps = state => {
-    return{
+    return {
         products: state.productData.products
     }
 }

@@ -2,8 +2,8 @@
 export const getProducts = (products, category, type, limit) => {
   const finalProducts = category
     ? products.filter(
-        product => product.category.filter(single => single === category)[0]
-      )
+      product => product.category.filter(single => single === category)[0]
+    )
     : products;
 
   if (type && type === "new") {
@@ -62,28 +62,12 @@ export const getSortedProducts = (products, sortType, sortValue) => {
   if (products && sortType && sortValue) {
     if (sortType === "category") {
       return products.filter(
-        product => product.category.filter(single => single === sortValue)[0]
+        product => product.collections.filter(single => single === sortValue)[0]
       );
     }
     if (sortType === "tag") {
       return products.filter(
-        product => product.tag.filter(single => single === sortValue)[0]
-      );
-    }
-    if (sortType === "color") {
-      return products.filter(
-        product =>
-          product.variation &&
-          product.variation.filter(single => single.color === sortValue)[0]
-      );
-    }
-    if (sortType === "size") {
-      return products.filter(
-        product =>
-          product.variation &&
-          product.variation.filter(
-            single => single.size.filter(single => single.name === sortValue)[0]
-          )[0]
+        product => product.tags.filter(single => single === sortValue)[0]
       );
     }
     if (sortType === "filterSort") {
@@ -108,7 +92,7 @@ export const getSortedProducts = (products, sortType, sortValue) => {
 
 // get individual element
 const getIndividualItemArray = array => {
-  let individualItemArray = array.filter(function(v, i, self) {
+  let individualItemArray = array.filter(function (v, i, self) {
     return i === self.indexOf(v);
   });
   return individualItemArray;
@@ -120,8 +104,8 @@ export const getIndividualCategories = products => {
   products &&
     products.map(product => {
       return (
-        product.category &&
-        product.category.map(single => {
+        product.collections &&
+        product.collections.map(single => {
           return productCategories.push(single);
         })
       );
@@ -136,8 +120,8 @@ export const getIndividualTags = products => {
   products &&
     products.map(product => {
       return (
-        product.tag &&
-        product.tag.map(single => {
+        product.tags &&
+        product.tags.map(single => {
           return productTags.push(single);
         })
       );

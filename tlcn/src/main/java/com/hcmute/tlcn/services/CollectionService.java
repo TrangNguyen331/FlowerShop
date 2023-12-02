@@ -16,8 +16,8 @@ public interface CollectionService {
 
     Collection delete(String id);
 
-    Collection addProductToCollection(String id, String productId);
-
-    Collection removeProductFromCollection(String id, String productId);
+//    Collection addProductToCollection(String id, String productId);
+//
+//    Collection removeProductFromCollection(String id, String productId);
 
 }

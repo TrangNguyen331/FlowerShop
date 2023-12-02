@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDto {
     private List<OrderDetail> details;
+    private AdditionalOrderDetailDto additionalOrder;
     private double total;
     private String status;
     private String methodPaid;

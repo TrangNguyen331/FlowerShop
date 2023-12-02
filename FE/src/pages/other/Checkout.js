@@ -1,17 +1,92 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
-import { connect } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import axiosInstance from "../../axiosInstance";
+import { useToasts } from "react-toast-notifications";
+import { deleteAllFromCart } from "../../redux/actions/cartActions";
 
 const Checkout = ({ location, cartItems, currency }) => {
   const { pathname } = location;
+  const { addToast } = useToasts();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  const [submitData, setSubmitData] = useState({
+    firstName: '',
+    lastName: '',
+    fullName: '',
+    streetAddress: '',
+    phone: '',
+    email: '',
+    additionalInformation: ''
+  })
   let cartTotalPrice = 0;
 
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setSubmitData({
+      ...submitData,
+      [name]: value,
+    });
+  };
+
+  const placeOrder = () => {
+    console.log("cartItems", cartItems);
+    console.log("orderInformation", submitData);
+    const totalValue = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
+    const body = {
+      details: cartItems.map(item => ({
+        productId: item.id,
+        quantity: item.quantity,
+        subtotal: item.price * item.quantity
+      })),
+      additionalOrder: {
+        email: submitData.email,
+        phone: submitData.phone,
+        firstName: submitData.firstName,
+        lastName: submitData.lastName,
+        fullName: submitData.fullName,
+        address: submitData.address,
+        additionalInformation: submitData.additionalInformation
+      },
+      total: totalValue,
+      status: "IN_REQUEST",
+      methodPaid: "CAST",
+      paid: false
+    };
+    try {
+      axiosInstance.post("/api/v1/orders", body)
+      addToast("Order success", { appearance: "success", autoDismiss: true });
+      dispatch(deleteAllFromCart(addToast));
+    } catch (error) {
+      addToast("Fail to create Order. Please try again later!", { appearance: "error", autoDismiss: true });
+    }
+  }
+  useEffect(() => {
+    console.log("check")
+    const setDataInit = (async () => {
+      if (token) {
+        const response = await axiosInstance.get("/api/v1/auth/identity");
+        console.log("response", response);
+        setSubmitData({
+          ...submitData,
+          firstName: response.data.firstName || '',
+          lastName: response.data.lastName || '',
+          fullName: response.data.fullName || '',
+          streetAddress: response.data.address || '',
+          phone: response.data.phone || '',
+          email: response.data.email || ''
+        })
+      }
+    });
+    setDataInit();
+  }, []);
   return (
     <Fragment>
       <MetaTags>
@@ -39,32 +114,31 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>First Name</label>
-                          <input type="text" />
+                          <input type="text"
+                            name="firstName"
+                            value={submitData.firstName}
+                            onChange={handleInputChange} />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Last Name</label>
-                          <input type="text" />
+                          <input type="text"
+                            name="lastName"
+                            value={submitData.lastName}
+                            onChange={handleInputChange} />
                         </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
-                          <label>Company Name</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-select mb-20">
-                          <label>Country</label>
-                          <select>
-                            <option>Select a country</option>
-                            <option>Azerbaijan</option>
-                            <option>Bahamas</option>
-                            <option>Bahrain</option>
-                            <option>Bangladesh</option>
-                            <option>Barbados</option>
-                          </select>
+                          <label>Full Name</label>
+                          <input
+                            className="billing-address"
+                            type="text"
+                            name="fullName"
+                            value={submitData.fullName}
+                            onChange={handleInputChange}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-12">
@@ -74,41 +148,29 @@ const Checkout = ({ location, cartItems, currency }) => {
                             className="billing-address"
                             placeholder="House number and street name"
                             type="text"
+                            name="streetAddress"
+                            value={submitData.streetAddress}
+                            onChange={handleInputChange}
                           />
-                          <input
-                            placeholder="Apartment, suite, unit etc."
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Town / City</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>State / County</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Postcode / ZIP</label>
-                          <input type="text" />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Phone</label>
-                          <input type="text" />
+                          <input type="text"
+                            name="phone"
+                            value={submitData.phone}
+                            onChange={handleInputChange}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Email Address</label>
-                          <input type="text" />
+                          <input type="text"
+                            name="email"
+                            value={submitData.email}
+                            onChange={handleInputChange} />
                         </div>
                       </div>
                     </div>
@@ -119,8 +181,9 @@ const Checkout = ({ location, cartItems, currency }) => {
                         <label>Order notes</label>
                         <textarea
                           placeholder="Notes about your order, e.g. special notes for delivery. "
-                          name="message"
-                          defaultValue={""}
+                          name="additionalInformation"
+                          value={submitData.additionalInformation}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
@@ -154,9 +217,9 @@ const Checkout = ({ location, cartItems, currency }) => {
 
                               discountedPrice != null
                                 ? (cartTotalPrice +=
-                                    finalDiscountedPrice * cartItem.quantity)
+                                  finalDiscountedPrice * cartItem.quantity)
                                 : (cartTotalPrice +=
-                                    finalProductPrice * cartItem.quantity);
+                                  finalProductPrice * cartItem.quantity);
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
@@ -165,14 +228,14 @@ const Checkout = ({ location, cartItems, currency }) => {
                                   <span className="order-price">
                                     {discountedPrice !== null
                                       ? currency.currencySymbol +
-                                        (
-                                          finalDiscountedPrice *
-                                          cartItem.quantity
-                                        ).toFixed(2)
+                                      (
+                                        finalDiscountedPrice *
+                                        cartItem.quantity
+                                      ).toFixed(2)
                                       : currency.currencySymbol +
-                                        (
-                                          finalProductPrice * cartItem.quantity
-                                        ).toFixed(2)}
+                                      (
+                                        finalProductPrice * cartItem.quantity
+                                      ).toFixed(2)}
                                   </span>
                                 </li>
                               );
@@ -198,7 +261,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover">Place Order</button>
+                      <button className="btn-hover" onClick={() => placeOrder()}>Place Order</button>
                     </div>
                   </div>
                 </div>
@@ -212,7 +275,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                     </div>
                     <div className="item-empty-area__text">
                       No items found in cart to checkout <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/shop"}>
                         Shop Now
                       </Link>
                     </div>

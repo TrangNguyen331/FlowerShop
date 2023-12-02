@@ -26,13 +26,13 @@ const ProductGridListSingle = ({
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
+  console.log("product", product)
 
   return (
     <Fragment>
       <div
-        className={`col-xl-4 col-sm-6 ${
-          sliderClassName ? sliderClassName : ""
-        }`}
+        className={`col-xl-4 col-sm-6 ${sliderClassName ? sliderClassName : ""
+          }`}
       >
         <div
           className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
@@ -41,13 +41,13 @@ const ProductGridListSingle = ({
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
               <img
                 className="default-img"
-                src={process.env.PUBLIC_URL + product.image[0]}
+                src={product.images[0]}
                 alt=""
               />
-              {product.image.length > 1 ? (
+              {product.images.length > 1 ? (
                 <img
                   className="hover-img"
-                  src={process.env.PUBLIC_URL + product.image[1]}
+                  src={product.images[1]}
                   alt=""
                 />
               ) : (
@@ -96,7 +96,7 @@ const ProductGridListSingle = ({
                   <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
                     Select Option
                   </Link>
-                ) : product.stock && product.stock > 0 ? (
+                ) : (
                   <button
                     onClick={() => addToCart(product, addToast)}
                     className={
@@ -115,10 +115,6 @@ const ProductGridListSingle = ({
                       ? "Added"
                       : "Add to cart"}
                   </button>
-                ) : (
-                  <button disabled className="active">
-                    Out of Stock
-                  </button>
                 )}
               </div>
               <div className="pro-same-action pro-quickview">
@@ -134,13 +130,6 @@ const ProductGridListSingle = ({
                 {product.name}
               </Link>
             </h3>
-            {product.rating && product.rating > 0 ? (
-              <div className="product-rating">
-                <Rating ratingValue={product.rating} />
-              </div>
-            ) : (
-              ""
-            )}
             <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
@@ -163,13 +152,13 @@ const ProductGridListSingle = ({
                   <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
                     <img
                       className="default-img img-fluid"
-                      src={process.env.PUBLIC_URL + product.image[0]}
+                      src={product.images[0]}
                       alt=""
                     />
-                    {product.image.length > 1 ? (
+                    {product.images.length > 1 ? (
                       <img
                         className="hover-img img-fluid"
-                        src={process.env.PUBLIC_URL + product.image[1]}
+                        src={process.env.PUBLIC_URL + product.images[1]}
                         alt=""
                       />
                     ) : (
@@ -244,7 +233,7 @@ const ProductGridListSingle = ({
                       >
                         Select Option
                       </Link>
-                    ) : product.stock && product.stock > 0 ? (
+                    ) : (
                       <button
                         onClick={() => addToCart(product, addToast)}
                         className={
@@ -266,10 +255,6 @@ const ProductGridListSingle = ({
                         {cartItem !== undefined && cartItem.quantity > 0
                           ? "Added"
                           : "Add to cart"}
-                      </button>
-                    ) : (
-                      <button disabled className="active">
-                        Out of Stock
                       </button>
                     )}
                   </div>

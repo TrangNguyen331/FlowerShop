@@ -7,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.Optional;
 
 @SpringBootApplication
 @EnableMongoAuditing
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TlcnApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
