@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { getProducts } from "../../helpers/product";
 import ProductGridSingle from "../../components/product/ProductGridSingle";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
-
+import axiosInstance from "../../axiosInstance";
+import { updateProducts } from "../../redux/actions/productActions";
 const ProductGrid = ({
   products,
   currency,
@@ -17,8 +18,27 @@ const ProductGrid = ({
   wishlistItems,
   compareItems,
   sliderClassName,
-  spaceBottomClass
+  spaceBottomClass,
+  category,
+  dispatch
 }) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get(`/api/v1/products/paging?size=${8}`);
+        console.log("response", response);
+        // Dispatch an action to update the Redux store with the fetched products
+        // Note: This assumes you have a Redux action to update the products in the store
+        // You may need to create this action based on your Redux setup
+        dispatch(updateProducts(response.data.content));
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        // Handle the error (e.g., show an error message)
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
   return (
     <Fragment>
       {products.map(product => {
@@ -104,7 +124,8 @@ const mapDispatchToProps = dispatch => {
     },
     addToCompare: (item, addToast) => {
       dispatch(addToCompare(item, addToast));
-    }
+    },
+    dispatch: dispatch
   };
 };
 

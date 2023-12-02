@@ -6,8 +6,8 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
-const NotFound = ({ path }) => {
-  const { pathname } = path;
+const NotFound = ({ }) => {
+  const { pathname } = '';
 
   return (
     <Fragment>

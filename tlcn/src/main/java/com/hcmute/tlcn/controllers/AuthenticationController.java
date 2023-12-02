@@ -1,9 +1,6 @@
 package com.hcmute.tlcn.controllers;
 
-import com.hcmute.tlcn.dtos.LoginDto;
-import com.hcmute.tlcn.dtos.LoginResultDto;
-import com.hcmute.tlcn.dtos.MessageDto;
-import com.hcmute.tlcn.dtos.RegisterDto;
+import com.hcmute.tlcn.dtos.*;
 import com.hcmute.tlcn.entities.Account;
 import com.hcmute.tlcn.services.AccountService;
 import com.hcmute.tlcn.utils.JwtTokenProvider;
@@ -54,6 +51,20 @@ public class AuthenticationController {
     @GetMapping("/identity")
     public ResponseEntity<Account> getIdentity(Principal principal){
         Account account = accountService.getAccountByAccountName(principal.getName());
+        return ResponseEntity.ok(account);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/info")
+    public ResponseEntity<Account> updateUserInfo(Principal principal, @RequestBody UpdateUserInfoDto dto){
+        Account account = accountService.updateAccountInfo(principal.getName(),dto);
+        return ResponseEntity.ok(account);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/change-password")
+    public ResponseEntity<Account> updatePassword(Principal principal, @RequestBody UpdatePasswordDto dto){
+        Account account = accountService.updatePassword(principal.getName(),dto);
         return ResponseEntity.ok(account);
     }
 }

@@ -143,7 +143,6 @@ const Cart = ({
                                     <button
                                       className="dec qtybutton"
                                       onClick={() => {
-                                        console.log("click minus")
                                         decreaseQuantity(cartItem, addToast)
                                       }
                                       }
@@ -159,7 +158,6 @@ const Cart = ({
                                     <button
                                       className="inc qtybutton"
                                       onClick={() => {
-                                        console.log("click plus")
                                         addToCart(
                                           cartItem,
                                           addToast,

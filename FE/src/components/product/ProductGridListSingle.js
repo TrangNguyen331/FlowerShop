@@ -26,8 +26,6 @@ const ProductGridListSingle = ({
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
-  console.log("product", product)
-
   return (
     <Fragment>
       <div

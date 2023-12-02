@@ -41,9 +41,9 @@ const LoginRegister = ({ location }) => {
     await dispatch(registerUser(formData.username, formData.password, formData.email, addToast));
     setFormData({
       ...formData,
-      username:'',
-      password:'',
-      email:''
+      username: '',
+      password: '',
+      email: ''
     })
   }
 
@@ -102,13 +102,13 @@ const LoginRegister = ({ location }) => {
                                   placeholder="Password"
                                 />
                                 <div className="button-box">
-                                  <div className="login-toggle-btn">
+                                  {/* <div className="login-toggle-btn">
                                     <input type="checkbox" />
                                     <label className="ml-10">Remember me</label>
                                     <Link to={process.env.PUBLIC_URL + "/"}>
                                       Forgot Password?
                                     </Link>
-                                  </div>
+                                  </div> */}
                                   <button type="submit">
                                     <span>Login</span>
                                   </button>

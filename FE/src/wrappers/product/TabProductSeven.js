@@ -14,9 +14,8 @@ const TabProductSeven = ({
 }) => {
   return (
     <div
-      className={`product-area ${spaceBottomClass ? spaceBottomClass : ""} ${
-        extraClass ? extraClass : ""
-      }`}
+      className={`product-area ${spaceBottomClass ? spaceBottomClass : ""} ${extraClass ? extraClass : ""
+        }`}
     >
       <div className={`${containerClass ? containerClass : "container"}`}>
         <SectionTitle titleText="DAILY DEALS!" positionClass="text-center" />

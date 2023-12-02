@@ -41,13 +41,7 @@ const Product = ({ location, product }) => {
         {/* product description tab */}
         <ProductDescriptionTab
           spaceBottomClass="pb-90"
-          productFullDesc={product.fullDescription}
-        />
-
-        {/* related product slider */}
-        <RelatedProductSlider
-          spaceBottomClass="pb-95"
-          category={product.category[0]}
+          product={product}
         />
       </LayoutOne>
     </Fragment>

@@ -37,8 +37,6 @@ const Checkout = ({ location, cartItems, currency }) => {
   };
 
   const placeOrder = () => {
-    console.log("cartItems", cartItems);
-    console.log("orderInformation", submitData);
     const totalValue = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
     const body = {
       details: cartItems.map(item => ({
@@ -57,7 +55,7 @@ const Checkout = ({ location, cartItems, currency }) => {
       },
       total: totalValue,
       status: "IN_REQUEST",
-      methodPaid: "CAST",
+      methodPaid: "CASH",
       paid: false
     };
     try {
@@ -69,11 +67,9 @@ const Checkout = ({ location, cartItems, currency }) => {
     }
   }
   useEffect(() => {
-    console.log("check")
     const setDataInit = (async () => {
       if (token) {
         const response = await axiosInstance.get("/api/v1/auth/identity");
-        console.log("response", response);
         setSubmitData({
           ...submitData,
           firstName: response.data.firstName || '',

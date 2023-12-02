@@ -28,7 +28,6 @@ const Wishlist = ({
   const { addToast } = useToasts();
   const { pathname } = location;
   useEffect(() => {
-    console.log("Wishlist page");
   }, []);
 
   return (
@@ -151,7 +150,6 @@ const Wishlist = ({
                                     <button
                                       onClick={() => {
                                         addToCart(wishlistItem, addToast);
-                                        console.log("addToCart in wishlist");
                                       }}
                                       className={
                                         cartItem !== undefined &&
@@ -184,9 +182,6 @@ const Wishlist = ({
                                         wishlistItem,
                                         addToast
                                       );
-                                      console.log(
-                                        "delete single from wishlist"
-                                      );
                                     }}
                                   >
                                     <i className="fa fa-times"></i>
@@ -213,7 +208,6 @@ const Wishlist = ({
                         <button
                           onClick={() => {
                             deleteAllFromWishlist(addToast);
-                            console.log("delete all from wishlist");
                           }}
                         >
                           Clear Wishlist

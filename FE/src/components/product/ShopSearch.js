@@ -12,7 +12,7 @@ const ShopSearch = () => {
             onFocus={() => console.log("search product")}
           />
           <button>
-            <i className="pe-7s-search" />
+            <i className="pe-7s-search" disabled />
           </button>
         </form>
       </div>

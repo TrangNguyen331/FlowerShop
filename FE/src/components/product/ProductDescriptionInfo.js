@@ -37,7 +37,6 @@ const ProductDescriptionInfo = ({
     selectedProductColor,
     selectedProductSize
   );
-
   return (
     <div className="product-details-content ml-70">
       <h2>{product.name}</h2>
@@ -167,9 +166,7 @@ const ProductDescriptionInfo = ({
             <button
               onClick={() =>
                 setQuantityCount(
-                  quantityCount < productStock - productCartQty
-                    ? quantityCount + 1
-                    : quantityCount
+                  quantityCount + 1
                 )
               }
               className="inc qtybutton"
@@ -178,7 +175,7 @@ const ProductDescriptionInfo = ({
             </button>
           </div>
           <div className="pro-details-cart btn-hover">
-            {productStock && productStock > 0 ? (
+            {(
               <button
                 onClick={() =>
                   addToCart(
@@ -193,8 +190,6 @@ const ProductDescriptionInfo = ({
               >
                 Add To Cart
               </button>
-            ) : (
-              <button disabled>Out of Stock</button>
             )}
           </div>
           <div className="pro-details-wishlist">
@@ -213,16 +208,14 @@ const ProductDescriptionInfo = ({
           </div>
         </div>
       )}
-      {product.category ? (
+      {product.collections ? (
         <div className="pro-details-meta">
           <span>Categories :</span>
           <ul>
-            {product.category.map((single, key) => {
+            {product.collections.map((single, key) => {
               return (
                 <li key={key}>
-                  <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                    {single}
-                  </Link>
+                  {single}
                 </li>
               );
             })}
@@ -231,16 +224,14 @@ const ProductDescriptionInfo = ({
       ) : (
         ""
       )}
-      {product.tag ? (
+      {product.tags ? (
         <div className="pro-details-meta">
           <span>Tags :</span>
           <ul>
-            {product.tag.map((single, key) => {
+            {product.tags.map((single, key) => {
               return (
                 <li key={key}>
-                  <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                    {single}
-                  </Link>
+                  {single}
                 </li>
               );
             })}

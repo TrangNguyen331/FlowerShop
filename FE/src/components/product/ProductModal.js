@@ -86,7 +86,6 @@ function ProductModal(props) {
       </button>
     )
   };
-
   return (
     <Fragment>
       <Modal
@@ -101,8 +100,8 @@ function ProductModal(props) {
             <div className="col-md-5 col-sm-12 col-xs-12">
               <div className="product-large-image-wrapper">
                 <Swiper {...gallerySwiperParams}>
-                  {product.image &&
-                    product.image.map((single, key) => {
+                  {product.images &&
+                    product.images.map((single, key) => {
                       return (
                         <div key={key}>
                           <div className="single-image">
@@ -119,8 +118,9 @@ function ProductModal(props) {
               </div>
               <div className="product-small-image-wrapper mt-15">
                 <Swiper {...thumbnailSwiperParams}>
-                  {product.image &&
-                    product.image.map((single, key) => {
+                  {
+                    product.images &&
+                    product.images.map((single, key) => {
                       return (
                         <div key={key}>
                           <div className="single-image">
@@ -206,34 +206,34 @@ function ProductModal(props) {
                           product.variation.map(single => {
                             return single.color === selectedProductColor
                               ? single.size.map((singleSize, key) => {
-                                  return (
-                                    <label
-                                      className={`pro-details-size-content--single`}
-                                      key={key}
-                                    >
-                                      <input
-                                        type="radio"
-                                        value={singleSize.name}
-                                        checked={
-                                          singleSize.name ===
+                                return (
+                                  <label
+                                    className={`pro-details-size-content--single`}
+                                    key={key}
+                                  >
+                                    <input
+                                      type="radio"
+                                      value={singleSize.name}
+                                      checked={
+                                        singleSize.name ===
                                           selectedProductSize
-                                            ? "checked"
-                                            : ""
-                                        }
-                                        onChange={() => {
-                                          setSelectedProductSize(
-                                            singleSize.name
-                                          );
-                                          setProductStock(singleSize.stock);
-                                          setQuantityCount(1);
-                                        }}
-                                      />
-                                      <span className="size-name">
-                                        {singleSize.name}
-                                      </span>
-                                    </label>
-                                  );
-                                })
+                                          ? "checked"
+                                          : ""
+                                      }
+                                      onChange={() => {
+                                        setSelectedProductSize(
+                                          singleSize.name
+                                        );
+                                        setProductStock(singleSize.stock);
+                                        setQuantityCount(1);
+                                      }}
+                                    />
+                                    <span className="size-name">
+                                      {singleSize.name}
+                                    </span>
+                                  </label>
+                                );
+                              })
                               : "";
                           })}
                       </div>
@@ -276,9 +276,7 @@ function ProductModal(props) {
                       <button
                         onClick={() =>
                           setQuantityCount(
-                            quantityCount < productStock - productCartQty
-                              ? quantityCount + 1
-                              : quantityCount
+                            quantityCount + 1
                           )
                         }
                         className="inc qtybutton"
@@ -287,7 +285,7 @@ function ProductModal(props) {
                       </button>
                     </div>
                     <div className="pro-details-cart btn-hover">
-                      {productStock && productStock > 0 ? (
+                      {(
                         <button
                           onClick={() =>
                             addToCart(
@@ -298,13 +296,10 @@ function ProductModal(props) {
                               selectedProductSize
                             )
                           }
-                          disabled={productCartQty >= productStock}
                         >
                           {" "}
                           Add To Cart{" "}
                         </button>
-                      ) : (
-                        <button disabled>Out of Stock</button>
                       )}
                     </div>
                     <div className="pro-details-wishlist">
@@ -319,20 +314,6 @@ function ProductModal(props) {
                         onClick={() => addToWishlist(product, addToast)}
                       >
                         <i className="pe-7s-like" />
-                      </button>
-                    </div>
-                    <div className="pro-details-compare">
-                      <button
-                        className={compareItem !== undefined ? "active" : ""}
-                        disabled={compareItem !== undefined}
-                        title={
-                          compareItem !== undefined
-                            ? "Added to compare"
-                            : "Add to compare"
-                        }
-                        onClick={() => addToCompare(product, addToast)}
-                      >
-                        <i className="pe-7s-shuffle" />
                       </button>
                     </div>
                   </div>

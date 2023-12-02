@@ -3,7 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BannerEighteenSingle = ({ data, spaceBottomClass }) => {
-  console.log("test");
   return (
     <div className="col-xl-4 col-md-6">
       <div

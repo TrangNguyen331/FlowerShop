@@ -11,7 +11,6 @@ import axiosInstance from "../../axiosInstance";
 import { useToasts } from "react-toast-notifications";
 
 const BlogRightSidebar = ({ location }) => {
-  console.log("Blog page");
   const { pathname } = location;
   const { addToast } = useToasts();
   const [blogData, setBlogData] = useState({
@@ -28,7 +27,7 @@ const BlogRightSidebar = ({ location }) => {
   });
 
   useEffect(() => {
-    const loadRecentBlog= async (page) =>{
+    const loadRecentBlog = async (page) => {
       const response = await axiosInstance.get(
         "/api/v1/blogs/paging?size=5&page=" + page
       );
@@ -58,7 +57,7 @@ const BlogRightSidebar = ({ location }) => {
         blogs: resData.content,
       });
     } catch (error) {
-      console.log(error);
+
       addToast("Fail to load data Blog", {
         appearance: "error",
         autoDismiss: true,
@@ -70,20 +69,20 @@ const BlogRightSidebar = ({ location }) => {
     if (blogData.selectedPage < blogData.totalPage - 1) {
       fetchData(blogData.selectedPage + 1)
     }
-    console.log("nextEvent blog");
+
   };
   const handlePreviousEvent = () => {
     if (blogData.selectedPage > 0) {
       fetchData(blogData.selectedPage + 1);
     }
-    console.log("prevEvent blog");
+
   };
   const handleSelectPageEvent = (page) => {
     fetchData(page);
-    console.log("selectPageEvent", page);
+
   };
   const handelSearchEvent = (search) => {
-    console.log("Trigger search", search)
+
     fetchData(0, search);
   }
 
