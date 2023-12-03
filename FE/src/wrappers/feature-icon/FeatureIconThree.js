@@ -6,7 +6,7 @@ import FeatureIconThreeSingle from "../../components/feature-icon/FeatureIconThr
 const FeatureIconThree = ({
   bgColorClass,
   spaceBottomClass,
-  featureShapeClass
+  featureShapeClass,
 }) => {
   return (
     <div
@@ -36,7 +36,7 @@ const FeatureIconThree = ({
 FeatureIconThree.propTypes = {
   bgColorClass: PropTypes.string,
   featureShapeClass: PropTypes.string,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default FeatureIconThree;
