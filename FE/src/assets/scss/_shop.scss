@@ -108,10 +108,7 @@
       span {
         font-size: 24px;
         line-height: 1;
-
         display: inline-block;
-
-        color: #fe5252;
         &.old {
           font-size: 18px;
 
@@ -184,21 +181,15 @@
         font-size: 14px;
         font-weight: 500;
         line-height: 1;
-
         z-index: 1;
-
         display: inline-block;
-
         padding: 14px 32px 15px;
-
         text-transform: uppercase;
-
         color: #fff;
         border: 1px solid transparent;
         background-color: #343538;
         @media #{$xs-layout} {
           font-size: 13px;
-
           padding: 10px 20px 11px;
         }
         &:hover {
