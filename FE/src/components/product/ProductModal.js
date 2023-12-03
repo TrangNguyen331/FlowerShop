@@ -9,9 +9,9 @@ import { connect } from "react-redux";
 function ProductModal(props) {
   const { product } = props;
   const { currency } = props;
-  const { discountedprice } = props;
+  // const { discountedprice } = props;
   const { finalproductprice } = props;
-  const { finaldiscountedprice } = props;
+  // const { finaldiscountedprice } = props;
 
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
@@ -27,12 +27,9 @@ function ProductModal(props) {
   const [quantityCount, setQuantityCount] = useState(1);
 
   const wishlistItem = props.wishlistitem;
-  const compareItem = props.compareitem;
 
   const addToCart = props.addtocart;
   const addToWishlist = props.addtowishlist;
-  const addToCompare = props.addtocompare;
-
   const addToast = props.addtoast;
   const cartItems = props.cartitems;
 
@@ -59,7 +56,7 @@ function ProductModal(props) {
     getSwiper: getGallerySwiper,
     spaceBetween: 10,
     loopedSlides: 4,
-    loop: true
+    loop: true,
   };
 
   const thumbnailSwiperParams = {
@@ -73,7 +70,7 @@ function ProductModal(props) {
     slideToClickedSlide: true,
     navigation: {
       nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev"
+      prevEl: ".swiper-button-prev",
     },
     renderPrevButton: () => (
       <button className="swiper-button-prev ht-swiper-button-nav">
@@ -84,7 +81,7 @@ function ProductModal(props) {
       <button className="swiper-button-next ht-swiper-button-nav">
         <i className="pe-7s-angle-right" />
       </button>
-    )
+    ),
   };
   return (
     <Fragment>
@@ -118,8 +115,7 @@ function ProductModal(props) {
               </div>
               <div className="product-small-image-wrapper mt-15">
                 <Swiper {...thumbnailSwiperParams}>
-                  {
-                    product.images &&
+                  {product.images &&
                     product.images.map((single, key) => {
                       return (
                         <div key={key}>
@@ -140,7 +136,7 @@ function ProductModal(props) {
               <div className="product-details-content quickview-content">
                 <h2>{product.name}</h2>
                 <div className="product-details-price">
-                  {discountedprice !== null ? (
+                  {/* {discountedprice !== null ? (
                     <Fragment>
                       <span>
                         {currency.currencySymbol + finaldiscountedprice}
@@ -149,9 +145,12 @@ function ProductModal(props) {
                         {currency.currencySymbol + finalproductprice}
                       </span>
                     </Fragment>
-                  ) : (
-                    <span>{currency.currencySymbol + finalproductprice} </span>
-                  )}
+                  ) : ( */}
+                  <span>
+                    {finalproductprice.toLocaleString("vi-VN") +
+                      currency.currencySymbol}{" "}
+                  </span>
+                  {/* )} */}
                 </div>
                 {product.rating && product.rating > 0 ? (
                   <div className="pro-details-rating-wrap">
@@ -203,37 +202,37 @@ function ProductModal(props) {
                       <span>Size</span>
                       <div className="pro-details-size-content">
                         {product.variation &&
-                          product.variation.map(single => {
+                          product.variation.map((single) => {
                             return single.color === selectedProductColor
                               ? single.size.map((singleSize, key) => {
-                                return (
-                                  <label
-                                    className={`pro-details-size-content--single`}
-                                    key={key}
-                                  >
-                                    <input
-                                      type="radio"
-                                      value={singleSize.name}
-                                      checked={
-                                        singleSize.name ===
+                                  return (
+                                    <label
+                                      className={`pro-details-size-content--single`}
+                                      key={key}
+                                    >
+                                      <input
+                                        type="radio"
+                                        value={singleSize.name}
+                                        checked={
+                                          singleSize.name ===
                                           selectedProductSize
-                                          ? "checked"
-                                          : ""
-                                      }
-                                      onChange={() => {
-                                        setSelectedProductSize(
-                                          singleSize.name
-                                        );
-                                        setProductStock(singleSize.stock);
-                                        setQuantityCount(1);
-                                      }}
-                                    />
-                                    <span className="size-name">
-                                      {singleSize.name}
-                                    </span>
-                                  </label>
-                                );
-                              })
+                                            ? "checked"
+                                            : ""
+                                        }
+                                        onChange={() => {
+                                          setSelectedProductSize(
+                                            singleSize.name
+                                          );
+                                          setProductStock(singleSize.stock);
+                                          setQuantityCount(1);
+                                        }}
+                                      />
+                                      <span className="size-name">
+                                        {singleSize.name}
+                                      </span>
+                                    </label>
+                                  );
+                                })
                               : "";
                           })}
                       </div>
@@ -274,18 +273,14 @@ function ProductModal(props) {
                         readOnly
                       />
                       <button
-                        onClick={() =>
-                          setQuantityCount(
-                            quantityCount + 1
-                          )
-                        }
+                        onClick={() => setQuantityCount(quantityCount + 1)}
                         className="inc qtybutton"
                       >
                         +
                       </button>
                     </div>
                     <div className="pro-details-cart btn-hover">
-                      {(
+                      {
                         <button
                           onClick={() =>
                             addToCart(
@@ -300,7 +295,7 @@ function ProductModal(props) {
                           {" "}
                           Add To Cart{" "}
                         </button>
-                      )}
+                      }
                     </div>
                     <div className="pro-details-wishlist">
                       <button
@@ -341,12 +336,12 @@ ProductModal.propTypes = {
   onHide: PropTypes.func,
   product: PropTypes.object,
   show: PropTypes.bool,
-  wishlistitem: PropTypes.object
+  wishlistitem: PropTypes.object,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    cartitems: state.cartData
+    cartitems: state.cartData,
   };
 };
 
