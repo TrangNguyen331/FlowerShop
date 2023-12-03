@@ -8,7 +8,7 @@ const TextGridOneSingle = ({ data, spaceBottomClass }) => {
         className={`single-mission ${spaceBottomClass ? spaceBottomClass : ""}`}
       >
         <h3>{data.title}</h3>
-        <p>{data.text}</p>
+        <p className="text-justify">{data.text}</p>
       </div>
     </div>
   );
@@ -16,7 +16,7 @@ const TextGridOneSingle = ({ data, spaceBottomClass }) => {
 
 TextGridOneSingle.propTypes = {
   data: PropTypes.object,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default TextGridOneSingle;
