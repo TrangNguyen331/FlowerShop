@@ -39,7 +39,7 @@ const ProductDescriptionInfo = ({
   );
   return (
     <div className="product-details-content ml-70">
-      <h2>{product.name}</h2>
+      <h2 style={{ fontSize: "28px" }}>{product.name}</h2>
       <div className="product-details-price">
         {/* {discountedPrice !== null ? (
           <Fragment>
@@ -64,7 +64,7 @@ const ProductDescriptionInfo = ({
         ""
       )}
       <div className="pro-details-list">
-        <p>{product.shortDescription}</p>
+        <p>{product.description}</p>
       </div>
 
       {product.variation ? (

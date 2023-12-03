@@ -10,16 +10,14 @@ const ProductDescriptionTab = ({ spaceBottomClass, product }) => {
     <div className={`description-review-area ${spaceBottomClass}`}>
       <div className="container">
         <div className="description-review-wrapper">
-          <Tab.Container defaultActiveKey="productDescription">
+          <Tab.Container defaultActiveKey="productReviews">
             <Nav variant="pills" className="description-review-topbar">
               <Nav.Item>
                 <Nav.Link eventKey="additionalInfo">
                   Additional Information
                 </Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="productDescription">Description</Nav.Link>
-              </Nav.Item>
+
               <Nav.Item>
                 <Nav.Link eventKey="productReviews">Reviews(2)</Nav.Link>
               </Nav.Item>
@@ -31,12 +29,6 @@ const ProductDescriptionTab = ({ spaceBottomClass, product }) => {
                   dangerouslySetInnerHTML={{
                     __html: product.additionalInformation,
                   }}
-                ></div>
-              </Tab.Pane>
-              <Tab.Pane eventKey="productDescription">
-                <div
-                  className="product-anotherinfo-wrapper"
-                  dangerouslySetInnerHTML={{ __html: product.description }}
                 ></div>
               </Tab.Pane>
               <Tab.Pane eventKey="productReviews">
