@@ -5,8 +5,8 @@
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Khanh Dip",
-    "position": "GVHD"
+    "name": "Kim Hanh",
+    "position": "Developer"
   },
   {
     "id": "2",
@@ -14,21 +14,11 @@
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Kim Hanh",
+    "name": "Minh Chau",
     "position": "Developer"
   },
   {
     "id": "3",
-    "image": "/assets/img/team/team.jpg",
-    "fbLink": "//www.facebook.com",
-    "twitterLink": "//www.twitter.com",
-    "instagramLink": "//www.instagram.com",
-    "name": "Minh Chau",
-    "position": "Developer"
-  }
-  ,
-  {
-    "id": "4",
     "image": "/assets/img/team/team.jpg",
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",

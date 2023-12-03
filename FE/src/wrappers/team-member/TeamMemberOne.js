@@ -20,7 +20,7 @@ const TeamMemberOne = ({ spaceTopClass, spaceBottomClass }) => {
           spaceClass="mb-60"
         />
 
-        <div className="row">
+        <div className="row justify-content-center">
           {teamMemberData &&
             teamMemberData.map((single, key) => {
               return (
@@ -39,7 +39,7 @@ const TeamMemberOne = ({ spaceTopClass, spaceBottomClass }) => {
 
 TeamMemberOne.propTypes = {
   spaceBottomClass: PropTypes.string,
-  spaceTopClass: PropTypes.string
+  spaceTopClass: PropTypes.string,
 };
 
 export default TeamMemberOne;
