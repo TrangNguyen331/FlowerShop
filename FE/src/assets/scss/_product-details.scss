@@ -266,7 +266,7 @@
   }
 }
 
-.ratting-form-wrapper {
+.rating-form-wrapper {
   @media #{$md-layout} {
     &.pl-50 {
       margin-top: 50px;
@@ -286,23 +286,9 @@
 
     margin: 0;
   }
-  .ratting-form {
+  .rating-form {
+    margin-top: 20px;
     form {
-      .star-box {
-        display: flex;
-
-        margin: 6px 0 20px;
-        span {
-          margin: 0 15px 0 0;
-        }
-        .ratting-star {
-          font-size: 12px;
-
-          margin: 2px 0 0;
-
-          color: #ffa900;
-        }
-      }
       .rating-form-style {
         input,
         textarea {
