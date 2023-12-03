@@ -1,7 +1,6 @@
 .blog-wrap {
   .blog-img {
     position: relative;
-
     overflow: hidden;
     img {
       width: 100%;
@@ -82,7 +81,6 @@
       }
       span {
         font-style: italic;
-
         color: #666;
         a {
           color: #666;
@@ -111,14 +109,15 @@
 
 .blog-wrap-2 {
   box-shadow: 0 3px 5px rgba(85, 85, 85, 0.2);
+  height: 559px;
+  position: relative;
   .blog-img-2 {
     position: relative;
-
+    height: 275px;
     overflow: hidden;
     a {
       img {
         width: 100%;
-
         transition: all 0.5s ease 0s;
         transform: scale(1);
       }
@@ -128,18 +127,14 @@
       top: 50%;
       right: 0;
       left: 0;
-
       transform: translateY(-50%);
       text-align: center;
       a {
         font-size: 25px;
         line-height: 61px;
-
         display: inline-block;
-
         width: 60px;
         height: 60px;
-
         color: #fff;
         border-radius: 50px;
         background-color: #ff0000;
@@ -166,30 +161,21 @@
         li {
           font-size: 14px;
           line-height: 1;
-
           position: relative;
-
           display: inline-block;
-
           margin: 0 17px 0 0;
-
           list-style: outside none none;
-
           letter-spacing: 1px;
           text-transform: uppercase;
-
           color: #333;
           &::before {
             position: absolute;
             top: 6px;
             right: -13px;
-
             width: 5px;
             height: 2px;
-
             content: "";
             transition: all 0.4s ease 0s;
-
             background-color: #555;
           }
           &:last-child::before {
@@ -231,14 +217,15 @@
     }
     p {
       margin: 0;
-
       color: #666;
     }
     .blog-share-comment {
-      display: flex;
-      justify-content: space-between;
-
-      margin: 22px 0 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      // justify-content: space-between;
+      position: absolute;
+      bottom: 20px;
       @media #{$xs-layout} {
         margin: 14px 0 0;
       }
@@ -415,7 +402,6 @@
         text-transform: uppercase;
 
         color: #000000;
-
 
         &::last-child {
           margin-right: 0;
