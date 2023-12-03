@@ -65,7 +65,7 @@ const Contact = ({ location }) => {
                     </div>
                     <div className="contact-info-dec">
                       <p>Address goes here, </p>
-                      <p>street, Crossroad 123.</p>
+                      <p>street, 1 Vo Van Ngan.</p>
                     </div>
                   </div>
                   <div className="contact-social text-center">

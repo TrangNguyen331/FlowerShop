@@ -2,16 +2,16 @@
 [
   {
     "id": 1,
-    "title": "-20% Off All Items",
-    "subtitle": "Green Up <br/> Your Room",
-    "image": "/assets/img/slider/single-slide-11-1.png",
+    "title": "Visit Our Flower Wonderland!",
+    "subtitle": "Nature's Beauty <br/> Your Choice",
+    "image": "/assets/img/slider/slider-2.png",
     "url": "/shop"
   },
   {
     "id": 2,
-    "title": "-40% Off All Items",
-    "subtitle": "Summer Offer <br/> 2020 Collection",
-    "image": "/assets/img/slider/single-slide-11-2.png",
+    "title": "Express Emotions, Send Blooms",
+    "subtitle": "Summer Offer <br/> 2023 Collection",
+    "image": "/assets/img/slider/slider-1.png",
     "url": "/shop"
   }
 ]

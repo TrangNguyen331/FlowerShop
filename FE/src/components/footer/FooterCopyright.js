@@ -18,7 +18,7 @@ const FooterCopyright = ({ spaceBottomClass, colorClass }) => {
         
         
         >
-        Flower for Thought
+        Floravibe
         </Link>
       </div>
       <p>
@@ -28,7 +28,7 @@ const FooterCopyright = ({ spaceBottomClass, colorClass }) => {
           rel="noopener noreferrer"
           target="_blank"
         >
-          Flower For Thought
+          Floravibe
         </a>
         .<br /> All Rights Reserved
       </p>

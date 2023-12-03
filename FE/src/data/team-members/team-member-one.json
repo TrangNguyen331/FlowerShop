@@ -1,38 +1,39 @@
 [
   {
     "id": "1",
-    "image": "/assets/img/team/team-1.jpg",
+    "image": "/assets/img/team/team.jpg",
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Mr.Mike Banding",
-    "position": "Manager"
+    "name": "Khanh Dip",
+    "position": "GVHD"
   },
   {
     "id": "2",
-    "image": "/assets/img/team/team-3.jpg",
+    "image": "/assets/img/team/team.jpg",
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Mr.Peter Pan",
+    "name": "Kim Hanh",
     "position": "Developer"
   },
   {
     "id": "3",
-    "image": "/assets/img/team/team-2.jpg",
+    "image": "/assets/img/team/team.jpg",
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Ms.Sophia",
-    "position": "Designer"
-  },
+    "name": "Minh Chau",
+    "position": "Developer"
+  }
+  ,
   {
     "id": "4",
-    "image": "/assets/img/team/team-4.jpg",
+    "image": "/assets/img/team/team.jpg",
     "fbLink": "//www.facebook.com",
     "twitterLink": "//www.twitter.com",
     "instagramLink": "//www.instagram.com",
-    "name": "Mr.John Lee",
-    "position": "Chairman"
+    "name": "Thuy Trang",
+    "position": "Developer"
   }
 ]
