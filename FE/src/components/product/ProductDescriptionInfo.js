@@ -50,9 +50,7 @@ const ProductDescriptionInfo = ({
           </Fragment>
         ) : ( */}
         <span>
-          {finalProductPrice.toLocaleString("vi-VN") +
-            " " +
-            currency.currencySymbol}{" "}
+          {finalProductPrice.toLocaleString("vi-VN") + currency.currencySymbol}{" "}
         </span>
         {/* )} */}
       </div>

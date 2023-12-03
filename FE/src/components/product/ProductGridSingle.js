@@ -154,7 +154,6 @@ const ProductGridSingle = ({
               ) : ( */}
               <span>
                 {finalProductPrice.toLocaleString("vi-VN") +
-                  " " +
                   currency.currencySymbol}{" "}
               </span>
               {/* )} */}

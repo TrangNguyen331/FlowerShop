@@ -27,8 +27,7 @@ const Wishlist = ({
 }) => {
   const { addToast } = useToasts();
   const { pathname } = location;
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <Fragment>
@@ -64,16 +63,15 @@ const Wishlist = ({
                         </thead>
                         <tbody>
                           {wishlistItems.map((wishlistItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              wishlistItem.price,
-                              wishlistItem.discount
-                            );
-                            const finalProductPrice = (
-                              wishlistItem.price * currency.currencyRate
-                            ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
+                            // const discountedPrice = getDiscountPrice(
+                            //   wishlistItem.price,
+                            //   wishlistItem.discount
+                            // );
+                            const finalProductPrice =
+                              wishlistItem.price * currency.currencyRate;
+                            // const finalDiscountedPrice = (
+                            //   discountedPrice * currency.currencyRate
+                            // ).toFixed(2);
                             const cartItem = cartItems.filter(
                               (item) => item.id === wishlistItem.id
                             )[0];
@@ -111,7 +109,7 @@ const Wishlist = ({
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
+                                  {/* {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
                                         {currency.currencySymbol +
@@ -122,12 +120,12 @@ const Wishlist = ({
                                           finalDiscountedPrice}
                                       </span>
                                     </Fragment>
-                                  ) : (
-                                    <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice}
-                                    </span>
-                                  )}
+                                  ) : ( */}
+                                  <span className="amount">
+                                    {finalProductPrice.toLocaleString("vi-VN") +
+                                      currency.currencySymbol}
+                                  </span>
+                                  {/* )} */}
                                 </td>
 
                                 <td className="product-wishlist-cart">
@@ -153,7 +151,7 @@ const Wishlist = ({
                                       }}
                                       className={
                                         cartItem !== undefined &&
-                                          cartItem.quantity > 0
+                                        cartItem.quantity > 0
                                           ? "active"
                                           : ""
                                       }
@@ -168,7 +166,7 @@ const Wishlist = ({
                                       }
                                     >
                                       {cartItem !== undefined &&
-                                        cartItem.quantity > 0
+                                      cartItem.quantity > 0
                                         ? "Added"
                                         : "Add to cart"}
                                     </button>

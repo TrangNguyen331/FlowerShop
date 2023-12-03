@@ -106,7 +106,6 @@ const ProductGridListSingle = ({
             <div className="product-price">
               <span>
                 {finalProductPrice.toLocaleString("vi-VN") +
-                  " " +
                   currency.currencySymbol}{" "}
               </span>
             </div>
