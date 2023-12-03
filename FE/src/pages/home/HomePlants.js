@@ -8,7 +8,7 @@ import FeatureIconThree from "../../wrappers/feature-icon/FeatureIconThree";
 // import Newsletter from "../../wrappers/newsletter/Newsletter";
 
 const HomePlants = () => {
-  console.log("home")
+  console.log("home");
   return (
     <Fragment>
       <MetaTags>
@@ -24,7 +24,7 @@ const HomePlants = () => {
           spaceTopClass="pt-60"
           spaceBottomClass="pb-70"
           bgColorClass="bg-gray-2"
-          category="plant"
+          // category="plant"
         />
         {/* feature icon */}
         <FeatureIconThree
