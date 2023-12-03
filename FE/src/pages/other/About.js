@@ -13,15 +13,12 @@ import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 
 const About = ({ location }) => {
   const { pathname } = location;
-
+  console.log("About page");
   return (
     <Fragment>
       <MetaTags>
         <title>About us</title>
-        <meta
-          name="About us"
-          content="About page"
-        />
+        <meta name="About us" content="About page" />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
@@ -35,13 +32,10 @@ const About = ({ location }) => {
         <SectionTitleWithText spaceTopClass="pt-100" spaceBottomClass="pb-95" />
 
         {/* banner */}
-      
-       
         <BannerOne spaceBottomClass="pb-70" />
 
         {/* text grid */}
-        <TextGridOne spaceBottomClass="pb-70" 
-        />
+        <TextGridOne spaceBottomClass="pb-70" />
 
         {/* fun fact */}
         <FunFactOne
@@ -61,7 +55,7 @@ const About = ({ location }) => {
 };
 
 About.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default About;
