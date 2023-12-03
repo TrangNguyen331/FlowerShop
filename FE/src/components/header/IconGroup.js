@@ -68,6 +68,9 @@ const IconGroup = ({
                 </Link>
               </li>
               <li>
+                <Link to={process.env.PUBLIC_URL + "/my-order"}>My orders</Link>
+              </li>
+              <li>
                 <Link to="" onClick={handleLogout}>
                   Logout
                 </Link>
@@ -99,7 +102,16 @@ const IconGroup = ({
         </Link>
       </div>
       <div className="same-style cart-wrap d-none d-lg-block">
-        <button className="icon-cart" onClick={(e) => handleClick(e)}>
+        <button
+          className="icon-cart"
+          onClick={(e) => {
+            if (cartData.length === 0) {
+              window.location.href = process.env.PUBLIC_URL + "/cart";
+            } else {
+              handleClick(e);
+            }
+          }}
+        >
           <i className="pe-7s-shopbag" />
           <span className="count-style">
             {cartData && cartData.length ? cartData.length : 0}
