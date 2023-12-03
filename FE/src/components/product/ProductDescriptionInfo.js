@@ -41,16 +41,20 @@ const ProductDescriptionInfo = ({
     <div className="product-details-content ml-70">
       <h2>{product.name}</h2>
       <div className="product-details-price">
-        {discountedPrice !== null ? (
+        {/* {discountedPrice !== null ? (
           <Fragment>
-            <span>{ finalDiscountedPrice + " "+currency.currencySymbol}</span>{" "}
+            <span>{finalDiscountedPrice + " " + currency.currencySymbol}</span>{" "}
             <span className="old">
-              { finalProductPrice +" "+ currency.currencySymbol }
+              {finalProductPrice + " " + currency.currencySymbol}
             </span>
           </Fragment>
-        ) : (
-          <span>{ finalProductPrice+ " "+currency.currencySymbol} </span>
-        )}
+        ) : ( */}
+        <span>
+          {finalProductPrice.toLocaleString("vi-VN") +
+            " " +
+            currency.currencySymbol}{" "}
+        </span>
+        {/* )} */}
       </div>
       {product.rating && product.rating > 0 ? (
         <div className="pro-details-rating-wrap">
@@ -103,29 +107,29 @@ const ProductDescriptionInfo = ({
                 product.variation.map((single) => {
                   return single.color === selectedProductColor
                     ? single.size.map((singleSize, key) => {
-                      return (
-                        <label
-                          className={`pro-details-size-content--single`}
-                          key={key}
-                        >
-                          <input
-                            type="radio"
-                            value={singleSize.name}
-                            checked={
-                              singleSize.name === selectedProductSize
-                                ? "checked"
-                                : ""
-                            }
-                            onChange={() => {
-                              setSelectedProductSize(singleSize.name);
-                              setProductStock(singleSize.stock);
-                              setQuantityCount(1);
-                            }}
-                          />
-                          <span className="size-name">{singleSize.name}</span>
-                        </label>
-                      );
-                    })
+                        return (
+                          <label
+                            className={`pro-details-size-content--single`}
+                            key={key}
+                          >
+                            <input
+                              type="radio"
+                              value={singleSize.name}
+                              checked={
+                                singleSize.name === selectedProductSize
+                                  ? "checked"
+                                  : ""
+                              }
+                              onChange={() => {
+                                setSelectedProductSize(singleSize.name);
+                                setProductStock(singleSize.stock);
+                                setQuantityCount(1);
+                              }}
+                            />
+                            <span className="size-name">{singleSize.name}</span>
+                          </label>
+                        );
+                      })
                     : "";
                 })}
             </div>
@@ -164,18 +168,14 @@ const ProductDescriptionInfo = ({
               readOnly
             />
             <button
-              onClick={() =>
-                setQuantityCount(
-                  quantityCount + 1
-                )
-              }
+              onClick={() => setQuantityCount(quantityCount + 1)}
               className="inc qtybutton"
             >
               +
             </button>
           </div>
           <div className="pro-details-cart btn-hover">
-            {(
+            {
               <button
                 onClick={() =>
                   addToCart(
@@ -190,7 +190,7 @@ const ProductDescriptionInfo = ({
               >
                 Add To Cart
               </button>
-            )}
+            }
           </div>
           <div className="pro-details-wishlist">
             <button
@@ -213,11 +213,7 @@ const ProductDescriptionInfo = ({
           <span>Categories :</span>
           <ul>
             {product.collections.map((single, key) => {
-              return (
-                <li key={key}>
-                  {single}
-                </li>
-              );
+              return <li key={key}>{single}</li>;
             })}
           </ul>
         </div>
@@ -229,11 +225,7 @@ const ProductDescriptionInfo = ({
           <span>Tags :</span>
           <ul>
             {product.tags.map((single, key) => {
-              return (
-                <li key={key}>
-                  {single}
-                </li>
-              );
+              return <li key={key}>{single}</li>;
             })}
           </ul>
         </div>
