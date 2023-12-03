@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import { getDiscountPrice } from "../../helpers/product";
+// import { getDiscountPrice } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import ProductModal from "./ProductModal";
 
@@ -18,12 +18,8 @@ const ProductGridListSingle = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
-
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
-  ).toFixed(2);
+
   return (
     <Fragment>
       <div
@@ -108,7 +104,11 @@ const ProductGridListSingle = ({
               </Link>
             </h3>
             <div className="product-price">
-              <span>{finalProductPrice + " " + currency.currencySymbol} </span>
+              <span>
+                {finalProductPrice.toLocaleString("vi-VN") +
+                  " " +
+                  currency.currencySymbol}{" "}
+              </span>
             </div>
           </div>
         </div>
@@ -157,7 +157,9 @@ const ProductGridListSingle = ({
                 </h3>
                 <div className="product-list-price">
                   <span>
-                    {finalProductPrice + " " + currency.currencySymbol}{" "}
+                    {finalProductPrice.toLocaleString("vi-VN") +
+                      " " +
+                      currency.currencySymbol}
                   </span>
                 </div>
                 {product.rating && product.rating > 0 ? (
@@ -244,9 +246,7 @@ const ProductGridListSingle = ({
         onHide={() => setModalShow(false)}
         product={product}
         currency={currency}
-        discountedprice={discountedPrice}
         finalproductprice={finalProductPrice}
-        finaldiscountedprice={finalDiscountedPrice}
         cartitem={cartItem}
         wishlistitem={wishlistItem}
         addtocart={addToCart}
