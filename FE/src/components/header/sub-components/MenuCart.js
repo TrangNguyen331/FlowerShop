@@ -53,7 +53,8 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                       <span>
                         {/* {discountedPrice !== null
                         ? finalDiscountedPrice + " " + currency.currencySymbol */}
-                        : finalProductPrice + " " + currency.currencySymbol
+                        {finalProductPrice.toLocaleString("vi-VN") +
+                          currency.currencySymbol}
                       </span>
                       {single.selectedProductColor &&
                       single.selectedProductSize ? (
