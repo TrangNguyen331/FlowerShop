@@ -3,26 +3,30 @@ import { Link } from "react-router-dom";
 import BlogModel from "../../model/blogmodel";
 
 const BlogPosts = (input) => {
-  const blogs = input.data.map(blog => new BlogModel(
-    blog.id,
-    blog.content,
-    blog.title,
-    blog.author,
-    blog.image,
-    blog.category,
-    blog.createdDate
-  ))
+  const blogs = input.data.map(
+    (blog) =>
+      new BlogModel(
+        blog.id,
+        blog.content,
+        blog.title,
+        blog.author,
+        blog.image,
+        blog.category,
+        blog.createdDate
+      )
+  );
   return (
     <Fragment>
-      {blogs.map(blog => (
+      {blogs.map((blog) => (
         <div key={blog.id} className="col-lg-6 col-md-6 col-sm-12">
           <div className="blog-wrap-2 mb-30">
             <div className="blog-img-2">
-              <Link to={process.env.PUBLIC_URL + "/blog-details-standard/" + blog.id}>
-                <img
-                  src={blog.image}
-                  alt=""
-                />
+              <Link
+                to={
+                  process.env.PUBLIC_URL + "/blog-details-standard/" + blog.id
+                }
+              >
+                <img src={blog.image} alt="" />
               </Link>
             </div>
             <div className="blog-content-2">
@@ -31,17 +35,25 @@ const BlogPosts = (input) => {
                   <li>{blog.getCreatedDate()}</li>
                 </ul>
               </div>
-              <h4>
-                <Link to={process.env.PUBLIC_URL + "/blog-details-standard/" + blog.id}>
+              <h4 style={{ lineHeight: "26px" }}>
+                <Link
+                  to={
+                    process.env.PUBLIC_URL + "/blog-details-standard/" + blog.id
+                  }
+                >
                   {blog.title}
                 </Link>
               </h4>
-              <p>
-                {blog.getContentLimit(90)}
-              </p>
+              <p>{blog.getContentLimit(90)}</p>
               <div className="blog-share-comment">
                 <div className="blog-btn-2">
-                  <Link to={process.env.PUBLIC_URL + "/blog-details-standard/" + blog.id}>
+                  <Link
+                    to={
+                      process.env.PUBLIC_URL +
+                      "/blog-details-standard/" +
+                      blog.id
+                    }
+                  >
                     read more
                   </Link>
                 </div>
