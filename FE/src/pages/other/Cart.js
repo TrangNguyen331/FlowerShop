@@ -11,7 +11,7 @@ import {
   decreaseQuantity,
   deleteFromCart,
   cartItemStock,
-  deleteAllFromCart
+  deleteAllFromCart,
 } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -23,7 +23,7 @@ const Cart = ({
   decreaseQuantity,
   addToCart,
   deleteFromCart,
-  deleteAllFromCart
+  deleteAllFromCart,
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
@@ -34,10 +34,7 @@ const Cart = ({
     <Fragment>
       <MetaTags>
         <title>Cart</title>
-        <meta
-          name="Cart"
-          content="Cart"
-        />
+        <meta name="Cart" content="Cart" />
       </MetaTags>
 
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
@@ -82,9 +79,9 @@ const Cart = ({
 
                             discountedPrice != null
                               ? (cartTotalPrice +=
-                                finalDiscountedPrice * cartItem.quantity)
+                                  finalDiscountedPrice * cartItem.quantity)
                               : (cartTotalPrice +=
-                                finalProductPrice * cartItem.quantity);
+                                  finalProductPrice * cartItem.quantity);
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -143,9 +140,8 @@ const Cart = ({
                                     <button
                                       className="dec qtybutton"
                                       onClick={() => {
-                                        decreaseQuantity(cartItem, addToast)
-                                      }
-                                      }
+                                        decreaseQuantity(cartItem, addToast);
+                                      }}
                                     >
                                       -
                                     </button>
@@ -162,9 +158,8 @@ const Cart = ({
                                           cartItem,
                                           addToast,
                                           quantityCount
-                                        )
-                                      }
-                                      }
+                                        );
+                                      }}
                                     >
                                       +
                                     </button>
@@ -173,13 +168,13 @@ const Cart = ({
                                 <td className="product-subtotal">
                                   {discountedPrice !== null
                                     ? currency.currencySymbol +
-                                    (
-                                      finalDiscountedPrice * cartItem.quantity
-                                    ).toFixed(2)
+                                      (
+                                        finalDiscountedPrice * cartItem.quantity
+                                      ).toFixed(2)
                                     : currency.currencySymbol +
-                                    (
-                                      finalProductPrice * cartItem.quantity
-                                    ).toFixed(2)}
+                                      (
+                                        finalProductPrice * cartItem.quantity
+                                      ).toFixed(2)}
                                 </td>
 
                                 <td className="product-remove">
@@ -203,9 +198,7 @@ const Cart = ({
                   <div className="col-lg-12">
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
-                        <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
-                        >
+                        <Link to={process.env.PUBLIC_URL + "/shop"}>
                           Continue Shopping
                         </Link>
                       </div>
@@ -219,13 +212,9 @@ const Cart = ({
                 </div>
 
                 <div className="row">
-                  <div className="col-lg-4 col-md-6">
+                  <div className="col-lg-4 col-md-6"></div>
 
-                  </div>
-
-                  <div className="col-lg-4 col-md-6">
-
-                  </div>
+                  <div className="col-lg-4 col-md-6"></div>
 
                   <div className="col-lg-4 col-md-12">
                     <div className="grand-totall">
@@ -274,7 +263,7 @@ const Cart = ({
           </div>
         </div>
       </LayoutOne>
-    </Fragment >
+    </Fragment>
   );
 };
 
@@ -285,17 +274,17 @@ Cart.propTypes = {
   decreaseQuantity: PropTypes.func,
   location: PropTypes.object,
   deleteAllFromCart: PropTypes.func,
-  deleteFromCart: PropTypes.func
+  deleteFromCart: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (item, addToast, quantityCount) => {
       dispatch(addToCart(item, addToast, quantityCount));
@@ -306,9 +295,9 @@ const mapDispatchToProps = dispatch => {
     deleteFromCart: (item, addToast) => {
       dispatch(deleteFromCart(item, addToast));
     },
-    deleteAllFromCart: addToast => {
+    deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
-    }
+    },
   };
 };
 
