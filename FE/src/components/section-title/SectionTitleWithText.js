@@ -11,12 +11,14 @@ const SectionTitleWithText = ({ spaceTopClass, spaceBottomClass }) => {
       <div className="container">
         <div className="welcome-content text-center">
           <h5>Who Are We</h5>
-          <h1>Welcome To Flower for Thought</h1>
+          <h1>Welcome To Floravibe</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt labor et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commo consequat irure{" "}
+            Our curated collection promises fresh, vibrant arrangements for
+            every occasion. Whether you're celebrating or expressing love, find
+            the perfect bouquet crafted with care. We're not just a flower shop;
+            we're your destination for creating memorable moments through the
+            language of flowers. Thank you for choosing Floravibe – where beauty
+            blooms!
           </p>
         </div>
       </div>
@@ -26,7 +28,7 @@ const SectionTitleWithText = ({ spaceTopClass, spaceBottomClass }) => {
 
 SectionTitleWithText.propTypes = {
   spaceBottomClass: PropTypes.string,
-  spaceTopClass: PropTypes.string
+  spaceTopClass: PropTypes.string,
 };
 
 export default SectionTitleWithText;
