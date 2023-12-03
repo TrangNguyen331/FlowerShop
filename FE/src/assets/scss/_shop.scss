@@ -111,11 +111,8 @@
         display: inline-block;
         &.old {
           font-size: 18px;
-
           margin-left: 15px;
-
           text-decoration: line-through;
-
           color: #cfcfcf;
         }
       }
@@ -126,7 +123,6 @@
       .product-list-rating {
         i {
           font-size: 17px;
-
           margin: 0 3px 0;
 
           color: #5f5d5d;
@@ -138,11 +134,8 @@
       a {
         font-size: 15px;
         line-height: 1;
-
         position: relative;
-
         margin-left: 40px;
-
         color: #ffcf75;
         &:before {
           position: absolute;
@@ -200,9 +193,7 @@
   }
   &:hover .product-wrap .hover-img {
     visibility: visible;
-
     transform: translate(-50%, 0);
-
     opacity: 1;
   }
 }
@@ -215,7 +206,6 @@
   ul {
     li {
       display: inline-block;
-
       margin: 0 4px;
       a,
       button {
@@ -251,7 +241,6 @@
       a.prev,
       a.next {
         font-size: 17px;
-
         color: $theme-color;
         background-color: #f6f6f6;
         box-shadow: none;
