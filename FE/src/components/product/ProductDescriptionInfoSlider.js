@@ -20,7 +20,7 @@ const ProductDescriptionInfoSlider = ({
   addToast,
   addToCart,
   addToWishlist,
-  addToCompare
+  addToCompare,
 }) => {
   const [selectedProductColor, setSelectedProductColor] = useState(
     product.variation ? product.variation[0].color : ""
@@ -46,13 +46,13 @@ const ProductDescriptionInfoSlider = ({
       <div className="product-details-price justify-content-center">
         {discountedPrice !== null ? (
           <Fragment>
-            <span>{ finalDiscountedPrice +" "+currency.currencySymbol}</span>{" "}
+            <span>{finalDiscountedPrice + " " + currency.currencySymbol}</span>{" "}
             <span className="old">
-              { finalProductPrice+" "+currency.currencySymbol}
+              {finalProductPrice + " " + currency.currencySymbol}
             </span>
           </Fragment>
         ) : (
-          <span>{ finalProductPrice+" "+currency.currencySymbol} </span>
+          <span>{finalProductPrice + " " + currency.currencySymbol} </span>
         )}
       </div>
       {product.rating && product.rating > 0 ? (
@@ -103,32 +103,32 @@ const ProductDescriptionInfoSlider = ({
             <span>Size</span>
             <div className="pro-details-size-content">
               {product.variation &&
-                product.variation.map(single => {
+                product.variation.map((single) => {
                   return single.color === selectedProductColor
                     ? single.size.map((singleSize, key) => {
-                      return (
-                        <label
-                          className={`pro-details-size-content--single`}
-                          key={key}
-                        >
-                          <input
-                            type="radio"
-                            value={singleSize.name}
-                            checked={
-                              singleSize.name === selectedProductSize
-                                ? "checked"
-                                : ""
-                            }
-                            onChange={() => {
-                              setSelectedProductSize(singleSize.name);
-                              setProductStock(singleSize.stock);
-                              setQuantityCount(1);
-                            }}
-                          />
-                          <span className="size-name">{singleSize.name}</span>
-                        </label>
-                      );
-                    })
+                        return (
+                          <label
+                            className={`pro-details-size-content--single`}
+                            key={key}
+                          >
+                            <input
+                              type="radio"
+                              value={singleSize.name}
+                              checked={
+                                singleSize.name === selectedProductSize
+                                  ? "checked"
+                                  : ""
+                              }
+                              onChange={() => {
+                                setSelectedProductSize(singleSize.name);
+                                setProductStock(singleSize.stock);
+                                setQuantityCount(1);
+                              }}
+                            />
+                            <span className="size-name">{singleSize.name}</span>
+                          </label>
+                        );
+                      })
                     : "";
                 })}
             </div>
@@ -180,7 +180,6 @@ const ProductDescriptionInfoSlider = ({
             </button>
           </div>
           <div className="pro-details-cart btn-hover">
-
             <button
               onClick={() =>
                 addToCart(
@@ -196,11 +195,10 @@ const ProductDescriptionInfoSlider = ({
               {" "}
               Add To Cart{" "}
             </button>
-
           </div>
           <div className="pro-details-wishlist">
             <button
-              className={wishlistItem !== undefined ? "active" : ""}
+              // className={wishlistItem !== undefined ? "active" : ""}
               disabled={wishlistItem !== undefined}
               title={
                 wishlistItem !== undefined
@@ -209,7 +207,11 @@ const ProductDescriptionInfoSlider = ({
               }
               onClick={() => addToWishlist(product, addToast)}
             >
-              <i className="pe-7s-like" />
+              {wishlistItem !== undefined ? (
+                <i className="fa fa-heart" style={{ color: "#a749ff" }} />
+              ) : (
+                <i className="fa fa-heart-o" />
+              )}
             </button>
           </div>
           <div className="pro-details-compare">
@@ -310,10 +312,10 @@ ProductDescriptionInfoSlider.propTypes = {
   finalDiscountedPrice: PropTypes.number,
   finalProductPrice: PropTypes.number,
   product: PropTypes.object,
-  wishlistItem: PropTypes.object
+  wishlistItem: PropTypes.object,
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (
       item,
@@ -337,7 +339,7 @@ const mapDispatchToProps = dispatch => {
     },
     addToCompare: (item, addToast) => {
       dispatch(addToCompare(item, addToast));
-    }
+    },
   };
 };
 

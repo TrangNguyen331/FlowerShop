@@ -192,7 +192,7 @@ const ProductDescriptionInfo = ({
           </div>
           <div className="pro-details-wishlist">
             <button
-              className={wishlistItem !== undefined ? "active" : ""}
+              // className={wishlistItem !== undefined ? "active" : ""}
               disabled={wishlistItem !== undefined}
               title={
                 wishlistItem !== undefined
@@ -201,7 +201,11 @@ const ProductDescriptionInfo = ({
               }
               onClick={() => addToWishlist(product, addToast)}
             >
-              <i className="pe-7s-like" />
+              {wishlistItem !== undefined ? (
+                <i className="fa fa-heart" style={{ color: "#a749ff" }} />
+              ) : (
+                <i className="fa fa-heart-o" />
+              )}
             </button>
           </div>
         </div>
