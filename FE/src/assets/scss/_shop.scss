@@ -111,7 +111,9 @@
         display: inline-block;
         &.old {
           font-size: 18px;
+
           margin-left: 15px;
+
           text-decoration: line-through;
           color: #cfcfcf;
         }
