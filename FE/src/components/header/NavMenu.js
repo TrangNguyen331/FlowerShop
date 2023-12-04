@@ -6,38 +6,28 @@ import { multilanguage } from "redux-multilanguage";
 const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
   return (
     <div
-      className={` ${sidebarMenu
+      className={` ${
+        sidebarMenu
           ? "sidebar-menu"
           : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
-        } `}
+      } `}
     >
       <nav>
         <ul>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/"}>
-              {strings["home"]}
-              
-            </Link>
+            <Link to={process.env.PUBLIC_URL + "/"}>Home</Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/shop"}>
-              {strings["collection"]}
-            </Link>
+            <Link to={process.env.PUBLIC_URL + "/shop"}>Collection</Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/about"}>
-              {strings["about_us"]}
-            </Link>
+            <Link to={process.env.PUBLIC_URL + "/about"}>About Us</Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/blog"}>
-              {strings["blog"]}
-            </Link>
+            <Link to={process.env.PUBLIC_URL + "/blog"}>Blog</Link>
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/contact"}>
-              {strings["contact_us"]}
-            </Link>
+            <Link to={process.env.PUBLIC_URL + "/contact"}>Contact Us</Link>
           </li>
         </ul>
       </nav>
@@ -48,7 +38,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
 NavMenu.propTypes = {
   menuWhiteClass: PropTypes.string,
   sidebarMenu: PropTypes.bool,
-  strings: PropTypes.object
+  strings: PropTypes.object,
 };
 
 export default multilanguage(NavMenu);
