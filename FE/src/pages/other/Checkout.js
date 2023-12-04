@@ -17,16 +17,15 @@ const Checkout = ({ location, cartItems, currency }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const [submitData, setSubmitData] = useState({
-    firstName: '',
-    lastName: '',
-    fullName: '',
-    streetAddress: '',
-    phone: '',
-    email: '',
-    additionalInformation: ''
-  })
+    firstName: "",
+    lastName: "",
+    fullName: "",
+    streetAddress: "",
+    phone: "",
+    email: "",
+    additionalInformation: "",
+  });
   let cartTotalPrice = 0;
-
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -37,12 +36,15 @@ const Checkout = ({ location, cartItems, currency }) => {
   };
 
   const placeOrder = () => {
-    const totalValue = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
+    const totalValue = cartItems.reduce(
+      (sum, item) => sum + item.quantity * item.price,
+      0
+    );
     const body = {
-      details: cartItems.map(item => ({
+      details: cartItems.map((item) => ({
         productId: item.id,
         quantity: item.quantity,
-        subtotal: item.price * item.quantity
+        subtotal: item.price * item.quantity,
       })),
       additionalOrder: {
         email: submitData.email,
@@ -51,46 +53,46 @@ const Checkout = ({ location, cartItems, currency }) => {
         lastName: submitData.lastName,
         fullName: submitData.fullName,
         address: submitData.address,
-        additionalInformation: submitData.additionalInformation
+        additionalInformation: submitData.additionalInformation,
       },
       total: totalValue,
       status: "IN_REQUEST",
       methodPaid: "CASH",
-      paid: false
+      paid: false,
     };
     try {
-      axiosInstance.post("/api/v1/orders", body)
+      axiosInstance.post("/api/v1/orders", body);
       addToast("Order success", { appearance: "success", autoDismiss: true });
       dispatch(deleteAllFromCart(addToast));
     } catch (error) {
-      addToast("Fail to create Order. Please try again later!", { appearance: "error", autoDismiss: true });
+      addToast("Fail to create Order. Please try again later!", {
+        appearance: "error",
+        autoDismiss: true,
+      });
     }
-  }
+  };
   useEffect(() => {
-    const setDataInit = (async () => {
+    const setDataInit = async () => {
       if (token) {
         const response = await axiosInstance.get("/api/v1/auth/identity");
         setSubmitData({
           ...submitData,
-          firstName: response.data.firstName || '',
-          lastName: response.data.lastName || '',
-          fullName: response.data.fullName || '',
-          streetAddress: response.data.address || '',
-          phone: response.data.phone || '',
-          email: response.data.email || ''
-        })
+          firstName: response.data.firstName || "",
+          lastName: response.data.lastName || "",
+          fullName: response.data.fullName || "",
+          streetAddress: response.data.address || "",
+          phone: response.data.phone || "",
+          email: response.data.email || "",
+        });
       }
-    });
+    };
     setDataInit();
   }, []);
   return (
     <Fragment>
       <MetaTags>
         <title>Checkout</title>
-        <meta
-          name="Checkout"
-          content="Checkout"
-        />
+        <meta name="Checkout" content="Checkout" />
       </MetaTags>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
@@ -110,19 +112,23 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>First Name</label>
-                          <input type="text"
+                          <input
+                            type="text"
                             name="firstName"
                             value={submitData.firstName}
-                            onChange={handleInputChange} />
+                            onChange={handleInputChange}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Last Name</label>
-                          <input type="text"
+                          <input
+                            type="text"
                             name="lastName"
                             value={submitData.lastName}
-                            onChange={handleInputChange} />
+                            onChange={handleInputChange}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-12">
@@ -153,7 +159,8 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Phone</label>
-                          <input type="text"
+                          <input
+                            type="text"
                             name="phone"
                             value={submitData.phone}
                             onChange={handleInputChange}
@@ -163,10 +170,12 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Email Address</label>
-                          <input type="text"
+                          <input
+                            type="text"
                             name="email"
                             value={submitData.email}
-                            onChange={handleInputChange} />
+                            onChange={handleInputChange}
+                          />
                         </div>
                       </div>
                     </div>
@@ -200,38 +209,38 @@ const Checkout = ({ location, cartItems, currency }) => {
                         <div className="your-order-middle">
                           <ul>
                             {cartItems.map((cartItem, key) => {
-                              const discountedPrice = getDiscountPrice(
-                                cartItem.price,
-                                cartItem.discount
-                              );
-                              const finalProductPrice = (
-                                cartItem.price * currency.currencyRate
-                              ).toFixed(2);
-                              const finalDiscountedPrice = (
-                                discountedPrice * currency.currencyRate
-                              ).toFixed(2);
+                              // const discountedPrice = getDiscountPrice(
+                              //   cartItem.price,
+                              //   cartItem.discount
+                              // );
+                              const finalProductPrice =
+                                cartItem.price * currency.currencyRate;
+                              // const finalDiscountedPrice = (
+                              //   discountedPrice * currency.currencyRate
+                              // ).toFixed(2);
 
-                              discountedPrice != null
-                                ? (cartTotalPrice +=
-                                  finalDiscountedPrice * cartItem.quantity)
-                                : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
+                              // discountedPrice != null
+                              //   ? (cartTotalPrice +=
+                              //     finalDiscountedPrice * cartItem.quantity)
+                              cartTotalPrice +=
+                                finalProductPrice * cartItem.quantity;
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
                                     {cartItem.name} X {cartItem.quantity}
                                   </span>{" "}
                                   <span className="order-price">
-                                    {discountedPrice !== null
+                                    {/* {discountedPrice !== null
                                       ? currency.currencySymbol +
                                       (
                                         finalDiscountedPrice *
                                         cartItem.quantity
                                       ).toFixed(2)
-                                      : currency.currencySymbol +
-                                      (
-                                        finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)}
+                                      :  */}
+                                    {(
+                                      finalProductPrice * cartItem.quantity
+                                    ).toLocaleString("vi-VN") +
+                                      currency.currencySymbol}
                                   </span>
                                 </li>
                               );
@@ -248,8 +257,8 @@ const Checkout = ({ location, cartItems, currency }) => {
                           <ul>
                             <li className="order-total">Total</li>
                             <li>
-                              {currency.currencySymbol +
-                                cartTotalPrice.toFixed(2)}
+                              {cartTotalPrice.toLocaleString("vi-VN") +
+                                currency.currencySymbol}
                             </li>
                           </ul>
                         </div>
@@ -257,7 +266,12 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover" onClick={() => placeOrder()}>Place Order</button>
+                      <button
+                        className="btn-hover"
+                        onClick={() => placeOrder()}
+                      >
+                        Place Order
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -270,7 +284,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <i className="pe-7s-cash"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in cart to checkout <br />{" "}
+                      No items found in cart to checkout <br />
                       <Link to={process.env.PUBLIC_URL + "/shop"}>
                         Shop Now
                       </Link>
@@ -289,13 +303,13 @@ const Checkout = ({ location, cartItems, currency }) => {
 Checkout.propTypes = {
   cartItems: PropTypes.array,
   currency: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
