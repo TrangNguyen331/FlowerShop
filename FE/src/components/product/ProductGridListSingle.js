@@ -157,7 +157,6 @@ const ProductGridListSingle = ({
                 <div className="product-list-price">
                   <span>
                     {finalProductPrice.toLocaleString("vi-VN") +
-                      " " +
                       currency.currencySymbol}
                   </span>
                 </div>
@@ -170,11 +169,7 @@ const ProductGridListSingle = ({
                 ) : (
                   ""
                 )}
-                {product.shortDescription ? (
-                  <p>{product.shortDescription}</p>
-                ) : (
-                  ""
-                )}
+                {product.description ? <p>{product.description}</p> : ""}
 
                 <div className="shop-list-actions d-flex align-items-center">
                   <div className="shop-list-btn btn-hover">
@@ -210,7 +205,6 @@ const ProductGridListSingle = ({
                             : "Add to cart"
                         }
                       >
-                        {" "}
                         <i className="pe-7s-cart"></i>{" "}
                         {cartItem !== undefined && cartItem.quantity > 0
                           ? "Added"
@@ -221,7 +215,7 @@ const ProductGridListSingle = ({
 
                   <div className="shop-list-wishlist ml-10">
                     <button
-                      className={wishlistItem !== undefined ? "active" : ""}
+                      // className={wishlistItem !== undefined ? "active" : ""}
                       disabled={wishlistItem !== undefined}
                       title={
                         wishlistItem !== undefined
@@ -230,7 +224,14 @@ const ProductGridListSingle = ({
                       }
                       onClick={() => addToWishlist(product, addToast)}
                     >
-                      <i className="pe-7s-like" />
+                      {wishlistItem !== undefined ? (
+                        <i
+                          className="fa fa-heart"
+                          style={{ color: "#a749ff" }}
+                        />
+                      ) : (
+                        <i className="fa fa-heart-o" />
+                      )}
                     </button>
                   </div>
                 </div>
