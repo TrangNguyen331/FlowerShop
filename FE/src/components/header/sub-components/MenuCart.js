@@ -77,9 +77,10 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
             </ul>
             <div className="shopping-cart-total">
               <h4>
-                Total :{" "}
+                Total :
                 <span className="shop-total">
-                  {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                  {cartTotalPrice.toLocaleString("vi-VN") +
+                    currency.currencySymbol}
                 </span>
               </h4>
             </div>

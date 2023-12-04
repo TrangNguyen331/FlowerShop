@@ -210,13 +210,9 @@ const Cart = ({
                     </div>
                   </div>
                 </div>
-
                 <div className="row">
-                  <div className="col-lg-4 col-md-6"></div>
-
-                  <div className="col-lg-4 col-md-6"></div>
-
-                  <div className="col-lg-4 col-md-12">
+                  {/* <div className="col-lg-4 col-md-6"></div> */}
+                  <div className="col-lg-12">
                     <div className="grand-totall">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gary-cart">
@@ -224,13 +220,19 @@ const Cart = ({
                         </h4>
                       </div>
                       <h5>
-                        Total products{" "}
-                        <span>{currency.currencySymbol + cartTotalPrice}</span>
+                        Total products
+                        <span>
+                          {cartTotalPrice.toLocaleString("vi-VN") +
+                            currency.currencySymbol}
+                        </span>
                       </h5>
 
                       <h4 className="grand-totall-title">
-                        Grand Total{" "}
-                        <span>{currency.currencySymbol + cartTotalPrice}</span>
+                        Grand Total
+                        <span>
+                          {cartTotalPrice.toLocaleString("vi-VN") +
+                            currency.currencySymbol}
+                        </span>
                       </h4>
                       <Link to={process.env.PUBLIC_URL + "/checkout"}>
                         Proceed to Checkout
