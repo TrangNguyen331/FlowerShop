@@ -24,14 +24,19 @@ public class ProductController {
     }
 
     @GetMapping("/paging")
-    public ResponseEntity<Page<Product>> getProductPaging(
-            @RequestParam(name = "search", required = false, defaultValue = "") String search,
+    public ResponseEntity<Page<Product>> getProductPaging(@RequestParam(name = "search", required = false, defaultValue = "") String search,
                                                           @RequestParam(name = "page", required = false, defaultValue = "${application.default.paging.page}") int page,
                                                           @RequestParam(name = "size", required = false, defaultValue = "${application.default.paging.size}") int size,
                                                           @RequestParam(name = "sort", required = false, defaultValue = "DESC") String sort,
                                                           @RequestParam(name = "column", required = false, defaultValue = "createdDate") String sortColumn){
         Pageable pageable = PageUtils.createPageable(page, size, sort, sortColumn);
         Page<Product> result = service.getPaging(search,pageable);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable String id){
+        Product result = service.getProductById(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -69,15 +74,13 @@ public class ProductController {
 
     @PostMapping("/review/{id}")
     public ResponseEntity<Product> addNewReview(@PathVariable String id, @RequestBody ReviewDto dto, Principal principal) {
-        dto.setAccountName(principal.getName());
-        Product result = service.addReview(id,dto);
+        Product result = service.addReview(id,dto,principal.getName());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
     @PutMapping("/review/{id}/{reviewId}")
     public ResponseEntity<Product> updateNewReview(@PathVariable String id,@PathVariable String reviewId, @RequestBody ReviewDto dto, Principal principal) {
-        dto.setAccountName(principal.getName());
         Product result = service.updateReview(id,reviewId, dto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

@@ -5,7 +5,7 @@ import com.hcmute.tlcn.dtos.review.ReviewDto;
 import com.hcmute.tlcn.entities.*;
 import com.hcmute.tlcn.entities.Product;
 import com.hcmute.tlcn.exceptions.NotFoundException;
-import com.hcmute.tlcn.repositories.CollectionRepository;
+import com.hcmute.tlcn.repositories.AccountRepository;
 import com.hcmute.tlcn.repositories.ProductRepository;
 import com.hcmute.tlcn.services.ProductService;
 import org.modelmapper.ModelMapper;
@@ -13,28 +13,31 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.security.Principal;
 import java.util.Optional;
-
-import static com.hcmute.tlcn.utils.PageUtils.convertListToPage;
 
 @Service
 public class ProductServiceImpl  implements ProductService {
 
     private final ProductRepository repository;
-    private final CollectionRepository collectionRepository;
+
+    private final AccountRepository accountRepository;
     ModelMapper modelMapper = new ModelMapper();
 
-    public ProductServiceImpl(ProductRepository repository, CollectionRepository collectionRepository) {
+    public ProductServiceImpl(ProductRepository repository, AccountRepository accountRepository) {
         this.repository = repository;
-        this.collectionRepository = collectionRepository;
+        this.accountRepository = accountRepository;
     }
 
 
     @Override
     public Page<Product> getPaging(String search, Pageable pageable) {
         return repository.getPaging(search,pageable);
+    }
+
+    @Override
+    public Product getProductById(String id) {
+        return repository.findById(id).orElseThrow(()->new NotFoundException("Product not found !!!"));
     }
 
     @Override
@@ -64,11 +67,13 @@ public class ProductServiceImpl  implements ProductService {
     }
 
     @Override
-    public Product addReview(String id, ReviewDto reviewDto) {
+    public Product addReview(String id, ReviewDto reviewDto, String accountName) {
         Product product = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
         Review review = new Review();
+        Account account=accountRepository.findByUsername(accountName).orElse(null);
         modelMapper.map(reviewDto,review);
+        review.setAccount(account);
         product.getReviews().add(review);
         repository.save(product);
         return product;
