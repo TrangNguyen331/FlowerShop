@@ -1,6 +1,7 @@
 package com.hcmute.tlcn.controllers;
 
 import com.hcmute.tlcn.dtos.order.OrderDto;
+import com.hcmute.tlcn.dtos.order.ResponseOrderDto;
 import com.hcmute.tlcn.entities.Order;
 import com.hcmute.tlcn.services.OrderService;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getAllOrder(Principal principal){
-        List<Order> result = service.getOrderByUser(principal.getName());
+    public ResponseEntity<List<ResponseOrderDto>> getAllOrder(Principal principal){
+        List<ResponseOrderDto> result = service.getOrderByUser(principal.getName());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

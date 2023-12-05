@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import MetaTags from "react-meta-tags";
-import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
