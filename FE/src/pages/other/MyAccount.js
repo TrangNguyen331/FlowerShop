@@ -21,6 +21,7 @@ const MyAccount = ({ location }) => {
     address: '',
     phone: '',
     email: '',
+    avatar: '',
   })
   const token = useSelector((state) => state.auth.token);
 
@@ -152,6 +153,15 @@ const MyAccount = ({ location }) => {
                                     <input type="text" name="fullName"
                                       value={userInfo.fullName}
                                       onChange={handleInputChange} />
+                                  </div>
+                                </div>
+                                <div className="col-lg-12 col-md-12">
+                                  <div className="billing-info">
+                                    <label>Avatar</label>
+                                    <input type="text" name="avatar"
+                                           value={userInfo.avatar}
+                                           placeholder="Avatar url"
+                                           onChange={handleInputChange} />
                                   </div>
                                 </div>
                                 <div className="col-lg-12 col-md-12">

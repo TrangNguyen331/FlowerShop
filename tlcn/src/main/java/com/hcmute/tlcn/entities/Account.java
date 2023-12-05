@@ -25,5 +25,6 @@ public class Account {
     public String phone;
     public boolean gender; // True is man, False is woman
     public boolean isActive= true;
+    public String avatar;
     public List<String> roles;
 }

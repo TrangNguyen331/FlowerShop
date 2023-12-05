@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,9 +20,9 @@ public class Product {
     public String description;
     public String additionalInformation;
     public double price;
-    public List<String> tags;
-    public List<String> images;
-    public List<Review> reviews;
-    public List<String> collections;
+    public List<String> tags=new ArrayList<>();
+    public List<String> images=new ArrayList<>();
+    public List<Review> reviews=new ArrayList<>();
+    public List<String> collections=new ArrayList<>();
     public boolean isActive=true;
 }

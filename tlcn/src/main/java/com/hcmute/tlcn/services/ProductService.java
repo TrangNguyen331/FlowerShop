@@ -14,13 +14,15 @@ import java.util.List;
 public interface ProductService {
     Page<Product> getPaging(String search, Pageable pageable);
 
+    Product getProductById(String id);
+
     Product addNew(ProductDto dto);
 
     Product update(String id, ProductDto dto);
 
     Product delete(String id);
 
-    Product addReview(String id, ReviewDto reviewDto);
+    Product addReview(String id, ReviewDto reviewDto,String accountName);
 
     Product updateReview(String id, String reviewId,ReviewDto reviewDto);
 
