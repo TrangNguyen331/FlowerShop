@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -6,31 +6,31 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import axiosInstance from "../../axiosInstance";
 import product from "../shop-product/Product";
 
-const MyOrders = ({ location}) => {
+const MyOrders = ({ location }) => {
   const token = useSelector((state) => state.auth.token);
-  const [orders,setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [currentFilterOrder, setCurrentOrderFilter] = useState([]);
 
-  const  formatReadableDate = (date)=>{
+  const formatReadableDate = (date) => {
     const parsedDate = new Date(date);
 
     // Format the date using Intl.DateTimeFormat
-    const formattedDateTime = new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
+    const formattedDateTime = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
     }).format(parsedDate);
     return formattedDateTime;
-  }
+  };
 
-  const  getStatus = (key) =>{
+  const getStatus = (key) => {
     switch (key) {
       case "IN_REQUEST":
         return "In Progress";
@@ -41,33 +41,33 @@ const MyOrders = ({ location}) => {
       default:
         return "";
     }
-  }
-  const filterOrderByStatus= (orders, status) =>{
-    if(orders && status){
-      switch (status){
+  };
+  const filterOrderByStatus = (orders, status) => {
+    if (orders && status) {
+      switch (status) {
         case "All":
-          return [...orders].sort((a,b) => a.createdDate - b.createdDate)
+          return [...orders].sort((a, b) => a.createdDate - b.createdDate);
         case "InProgress":
-            return [...orders]
-                .filter(x=>x.status === "IN_REQUEST")
-                .sort((a,b) => a.createdDate - b.createdDate)
+          return [...orders]
+            .filter((x) => x.status === "IN_REQUEST")
+            .sort((a, b) => a.createdDate - b.createdDate);
         case "Processing":
           return [...orders]
-              .filter(x=>x.status === "PROCESSING")
-              .sort((a,b) => a.createdDate - b.createdDate)
+            .filter((x) => x.status === "PROCESSING")
+            .sort((a, b) => a.createdDate - b.createdDate);
         case "Completed":
           return [...orders]
-              .filter(x=>x.status === "COMPLETED")
-              .sort((a,b) => a.createdDate - b.createdDate)
+            .filter((x) => x.status === "COMPLETED")
+            .sort((a, b) => a.createdDate - b.createdDate);
         default:
-          return [...orders].sort((a,b) => a.createdDate - b.createdDate);
+          return [...orders].sort((a, b) => a.createdDate - b.createdDate);
       }
     }
     return [];
-  }
-  const filterOrder= (key) => {
-    setCurrentOrderFilter(filterOrderByStatus(orders,key));
-  }
+  };
+  const filterOrder = (key) => {
+    setCurrentOrderFilter(filterOrderByStatus(orders, key));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +75,9 @@ const MyOrders = ({ location}) => {
         const response = await axiosInstance.get("/api/v1/orders");
 
         setOrders((prevOrders) => response.data);
-        setCurrentOrderFilter((prevFilter) => filterOrderByStatus(response.data, 'All'));
+        setCurrentOrderFilter((prevFilter) =>
+          filterOrderByStatus(response.data, "All")
+        );
       } catch (error) {
         console.log("Fail to load my orders");
       }
@@ -109,82 +111,132 @@ const MyOrders = ({ location}) => {
                       className="order-tab-list-5 pt-30 pb-55 text-center"
                     >
                       <Nav.Item>
-                        <Nav.Link eventKey="all" onSelect={() =>filterOrder("All")}>
+                        <Nav.Link
+                          eventKey="all"
+                          onSelect={() => filterOrder("All")}
+                        >
                           <h4>All Orders</h4>
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="inRequest" onSelect={() =>filterOrder("InProgress")}>
+                        <Nav.Link
+                          eventKey="inRequest"
+                          onSelect={() => filterOrder("InProgress")}
+                        >
                           <h4>In Request</h4>
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="processing" onSelect={() =>filterOrder("Processing")}>
+                        <Nav.Link
+                          eventKey="processing"
+                          onSelect={() => filterOrder("Processing")}
+                        >
                           <h4>Processing</h4>
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
-                        <Nav.Link eventKey="completed" onSelect={() =>filterOrder("Completed")}>
+                        <Nav.Link
+                          eventKey="completed"
+                          onSelect={() => filterOrder("Completed")}
+                        >
                           <h4>Completed</h4>
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
                     <Tab.Content>
                       <Tab.Pane eventKey="all">
-                        {currentFilterOrder.map((order)=>(
-                          <div className="row" key={order.id}>
-                            <div className="col-lg-12">
-                              <div className="order-wrap">
-                                <div className="order-product-info">
-                                  <div className="order-top">
-                                    <ul>
-                                      <li>
-                                        <div className="order-id-date">
-                                          <p>Order ID: {order.id}</p>
-                                          <p className="order-datetime">
-                                            Order Date: { formatReadableDate(order.createdDate)}
-                                          </p>
-                                        </div>
-                                      </li>
-                                      <li className="order-status">{getStatus(order.status)}</li>
-                                    </ul>
-                                  </div>
-                                  <div className="order-middle">
-                                    <ul>
-                                      {order.details.map((detail) => detail.product ? (
-                                        <li key={detail.productId}>
-                                      <span className="order-middle-left">
-                                        {detail.product.name} X {detail.quantity}
-                                      </span>
-                                          <span className="order-price">
-                                        {detail.subtotal}đ
-                                      </span>
+                        {currentFilterOrder.length > 0 ? (
+                          currentFilterOrder.map((order) => (
+                            <div className="row" key={order.id}>
+                              <div className="col-lg-12">
+                                <div className="order-wrap">
+                                  <div className="order-product-info">
+                                    <div className="order-top">
+                                      <ul>
+                                        <li>
+                                          <div className="order-id-date">
+                                            <p>Order ID: {order.id}</p>
+                                            <p className="order-datetime">
+                                              Order Date:{" "}
+                                              {formatReadableDate(
+                                                order.createdDate
+                                              )}
+                                            </p>
+                                          </div>
                                         </li>
-                                      ) : (""))}
-                                    </ul>
+                                        <li className="order-status">
+                                          {getStatus(order.status)}
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <div className="order-middle">
+                                      <ul>
+                                        {order.details.map((detail) =>
+                                          detail.product ? (
+                                            <li key={detail.productId}>
+                                              <span className="order-middle-left">
+                                                {detail.product.name} X{" "}
+                                                {detail.quantity}
+                                              </span>
+                                              <span className="order-price">
+                                                {detail.subtotal.toLocaleString(
+                                                  "vi-VN"
+                                                )}
+                                                đ
+                                              </span>
+                                            </li>
+                                          ) : (
+                                            ""
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                    <div className="order-total-wrap">
+                                      <ul>
+                                        <li className="order-total">Total</li>
+                                        <li>
+                                          {order.total.toLocaleString("vi-VN")}đ
+                                        </li>
+                                      </ul>
+                                    </div>
                                   </div>
-                                  <div className="order-total-wrap">
-                                    <ul>
-                                      <li className="order-total">Total</li>
-                                      <li>{order.total}đ</li>
-                                    </ul>
+                                  <div className="order-details-link">
+                                    <Link
+                                      to={
+                                        process.env.PUBLIC_URL +
+                                        "/order/" +
+                                        order.id
+                                      }
+                                    >
+                                      View Details{" "}
+                                      <i class="fa fa-long-arrow-right"></i>
+                                    </Link>
                                   </div>
-                                </div>
-                                {/*<div className="order-details-link">*/}
-                                {/*  <Link>*/}
-                                {/*    View Details{" "}*/}
-                                {/*    <i class="fa fa-long-arrow-right"></i>*/}
-                                {/*  </Link>*/}
-                                {/*</div>*/}
 
-                                <div className="payment-method"></div>
+                                  <div className="payment-method"></div>
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="item-empty-area text-center">
+                                <div className="item-empty-area__icon mb-30">
+                                  <i class="fa fa-file-text-o"></i>
+                                </div>
+                                <div className="item-empty-area__text">
+                                  No orders yet
+                                  <br />
+                                </div>
                               </div>
                             </div>
                           </div>
-                        ))}
+                        )}
                       </Tab.Pane>
                       <Tab.Pane eventKey="inRequest">
-                        {currentFilterOrder.map((order)=>(
+                        {currentFilterOrder.length > 0 ? (
+                          currentFilterOrder.map((order) => (
                             <div className="row" key={order.id}>
                               <div className="col-lg-12">
                                 <div className="order-wrap">
@@ -195,49 +247,82 @@ const MyOrders = ({ location}) => {
                                           <div className="order-id-date">
                                             <p>Order ID: {order.id}</p>
                                             <p className="order-datetime">
-                                              Order Date: {order.createdDate}
+                                              Order Date:{" "}
+                                              {formatReadableDate(
+                                                order.createdDate
+                                              )}
                                             </p>
                                           </div>
                                         </li>
-                                        <li className="order-status">{order.status}</li>
+                                        <li className="order-status">
+                                          {order.status}
+                                        </li>
                                       </ul>
                                     </div>
                                     <div className="order-middle">
                                       <ul>
-                                        {order.details.map((detail) =>(
-                                            <li key={detail.productId}>
-                                      <span className="order-middle-left">
-                                        {detail.productId} X {detail.quantity}
-                                      </span>
-                                              <span className="order-price">
-                                        {detail.subtotal}đ
-                                      </span>
-                                            </li>
+                                        {order.details.map((detail) => (
+                                          <li key={detail.productId}>
+                                            <span className="order-middle-left">
+                                              {detail.product.name} X{" "}
+                                              {detail.quantity}
+                                            </span>
+                                            <span className="order-price">
+                                              {detail.subtotal.toLocaleString(
+                                                "vi-VN"
+                                              )}
+                                              đ
+                                            </span>
+                                          </li>
                                         ))}
                                       </ul>
                                     </div>
                                     <div className="order-total-wrap">
                                       <ul>
                                         <li className="order-total">Total</li>
-                                        <li>{order.total}</li>
+                                        <li>
+                                          {order.total.toLocaleString("vi-VN")}đ
+                                        </li>
                                       </ul>
                                     </div>
                                   </div>
-                                  {/*<div className="order-details-link">*/}
-                                  {/*  <Link>*/}
-                                  {/*    View Details{" "}*/}
-                                  {/*    <i class="fa fa-long-arrow-right"></i>*/}
-                                  {/*  </Link>*/}
-                                  {/*</div>*/}
+                                  <div className="order-details-link">
+                                    <Link
+                                      to={
+                                        process.env.PUBLIC_URL +
+                                        "/order/" +
+                                        order.id
+                                      }
+                                    >
+                                      View Details{" "}
+                                      <i class="fa fa-long-arrow-right"></i>
+                                    </Link>
+                                  </div>
 
                                   <div className="payment-method"></div>
                                 </div>
                               </div>
                             </div>
-                        ))}
+                          ))
+                        ) : (
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="item-empty-area text-center">
+                                <div className="item-empty-area__icon mb-30">
+                                  <i class="fa fa-file-text-o"></i>
+                                </div>
+                                <div className="item-empty-area__text">
+                                  No orders yet
+                                  <br />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </Tab.Pane>
                       <Tab.Pane eventKey="processing">
-                        {currentFilterOrder.map((order)=>(
+                        {currentFilterOrder.length > 0 ? (
+                          currentFilterOrder.map((order) => (
                             <div className="row" key={order.id}>
                               <div className="col-lg-12">
                                 <div className="order-wrap">
@@ -248,49 +333,82 @@ const MyOrders = ({ location}) => {
                                           <div className="order-id-date">
                                             <p>Order ID: {order.id}</p>
                                             <p className="order-datetime">
-                                              Order Date: {order.createdDate}
+                                              Order Date:{" "}
+                                              {formatReadableDate(
+                                                order.createdDate
+                                              )}
                                             </p>
                                           </div>
                                         </li>
-                                        <li className="order-status">{order.status}</li>
+                                        <li className="order-status">
+                                          {order.status}
+                                        </li>
                                       </ul>
                                     </div>
                                     <div className="order-middle">
                                       <ul>
-                                        {order.details.map((detail) =>(
-                                            <li key={detail.productId}>
-                                      <span className="order-middle-left">
-                                        {detail.productId} X {detail.quantity}
-                                      </span>
-                                              <span className="order-price">
-                                        {detail.subtotal}đ
-                                      </span>
-                                            </li>
+                                        {order.details.map((detail) => (
+                                          <li key={detail.productId}>
+                                            <span className="order-middle-left">
+                                              {detail.product.name} X{" "}
+                                              {detail.quantity}
+                                            </span>
+                                            <span className="order-price">
+                                              {detail.subtotal.toLocaleString(
+                                                "vi-VN"
+                                              )}
+                                              đ
+                                            </span>
+                                          </li>
                                         ))}
                                       </ul>
                                     </div>
                                     <div className="order-total-wrap">
                                       <ul>
                                         <li className="order-total">Total</li>
-                                        <li>{order.total}</li>
+                                        <li>
+                                          {order.total.toLocaleString("vi-VN")}đ
+                                        </li>
                                       </ul>
                                     </div>
                                   </div>
-                                  {/*<div className="order-details-link">*/}
-                                  {/*  <Link>*/}
-                                  {/*    View Details{" "}*/}
-                                  {/*    <i class="fa fa-long-arrow-right"></i>*/}
-                                  {/*  </Link>*/}
-                                  {/*</div>*/}
+                                  <div className="order-details-link">
+                                    <Link
+                                      to={
+                                        process.env.PUBLIC_URL +
+                                        "/order/" +
+                                        order.id
+                                      }
+                                    >
+                                      View Details{" "}
+                                      <i class="fa fa-long-arrow-right"></i>
+                                    </Link>
+                                  </div>
 
                                   <div className="payment-method"></div>
                                 </div>
                               </div>
                             </div>
-                        ))}
+                          ))
+                        ) : (
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="item-empty-area text-center">
+                                <div className="item-empty-area__icon mb-30">
+                                  <i class="fa fa-file-text-o"></i>
+                                </div>
+                                <div className="item-empty-area__text">
+                                  No orders yet
+                                  <br />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </Tab.Pane>
                       <Tab.Pane eventKey="completed">
-                        {currentFilterOrder.map((order)=>(
+                        {currentFilterOrder.length > 0 ? (
+                          currentFilterOrder.map((order) => (
                             <div className="row" key={order.id}>
                               <div className="col-lg-12">
                                 <div className="order-wrap">
@@ -301,78 +419,84 @@ const MyOrders = ({ location}) => {
                                           <div className="order-id-date">
                                             <p>Order ID: {order.id}</p>
                                             <p className="order-datetime">
-                                              Order Date: {order.createdDate}
+                                              Order Date:{" "}
+                                              {formatReadableDate(
+                                                order.createdDate
+                                              )}
                                             </p>
                                           </div>
                                         </li>
-                                        <li className="order-status">{order.status}</li>
+                                        <li className="order-status">
+                                          {order.status}
+                                        </li>
                                       </ul>
                                     </div>
                                     <div className="order-middle">
                                       <ul>
-                                        {order.details.map((detail) =>(
-                                            <li key={detail.productId}>
-                                      <span className="order-middle-left">
-                                        {detail.productId} X {detail.quantity}
-                                      </span>
-                                              <span className="order-price">
-                                        {detail.subtotal}đ
-                                      </span>
-                                            </li>
+                                        {order.details.map((detail) => (
+                                          <li key={detail.productId}>
+                                            <span className="order-middle-left">
+                                              {detail.product.name} X{" "}
+                                              {detail.quantity}
+                                            </span>
+                                            <span className="order-price">
+                                              {detail.subtotal.toLocaleString(
+                                                "vi-VN"
+                                              )}
+                                              đ
+                                            </span>
+                                          </li>
                                         ))}
                                       </ul>
                                     </div>
                                     <div className="order-total-wrap">
                                       <ul>
                                         <li className="order-total">Total</li>
-                                        <li>{order.total}</li>
+                                        <li>
+                                          {order.total.toLocaleString("vi-VN")}đ
+                                        </li>
                                       </ul>
                                     </div>
                                   </div>
-                                  {/*<div className="order-details-link">*/}
-                                  {/*  <Link>*/}
-                                  {/*    View Details{" "}*/}
-                                  {/*    <i class="fa fa-long-arrow-right"></i>*/}
-                                  {/*  </Link>*/}
-                                  {/*</div>*/}
+                                  <div className="order-details-link">
+                                    <Link
+                                      to={
+                                        process.env.PUBLIC_URL +
+                                        "/order/" +
+                                        order.id
+                                      }
+                                    >
+                                      View Details{" "}
+                                      <i class="fa fa-long-arrow-right"></i>
+                                    </Link>
+                                  </div>
 
                                   <div className="payment-method"></div>
                                 </div>
                               </div>
                             </div>
-                        ))}
+                          ))
+                        ) : (
+                          <div className="row">
+                            <div className="col-lg-12">
+                              <div className="item-empty-area text-center">
+                                <div className="item-empty-area__icon mb-30">
+                                  <i class="fa fa-file-text-o"></i>
+                                </div>
+                                <div className="item-empty-area__text">
+                                  No orders yet
+                                  <br />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </Tab.Pane>
                     </Tab.Content>
                   </Tab.Container>
                 </div>
               </div>
             </Fragment>
-            {/* {orderItems && orderItems.length >= 1 ? (
-              <Fragment>
-                <h3 className="cart-page-title">Your orders</h3>
-                <div className="row">
-                  <div className="col-12">
-                    <div className="table-content table-responsive cart-table-content"></div>
-                  </div>
-                </div>
-              </Fragment>
-            ) : (
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="item-empty-area text-center">
-                    <div className="item-empty-area__icon mb-30">
-                      <i class="fa fa-file-text-o"></i>
-                    </div>
-                    <div className="item-empty-area__text">
-                      You dont't have any orders in history <br />
-                      <Link to={process.env.PUBLIC_URL + "/cart"}>
-                        Checkout Now
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )} */}
           </div>
         </div>
       </LayoutOne>

@@ -17,6 +17,7 @@
     }
     .order-product-info {
       .order-top {
+        font-size: 16px;
         ul {
           display: flex;
           justify-content: space-between;
@@ -31,25 +32,72 @@
             font-weight: 400;
           }
         }
-        li.order-status {
+        .order-status {
+          font-size: 16px;
           text-transform: uppercase;
           letter-spacing: 1px;
           color: $theme-color;
         }
+        .order-status-qty {
+          p {
+            font-size: 16px;
+            display: flex;
+            justify-content: end;
+          }
+        }
       }
       .order-middle {
-        margin: 20px 0;
-        padding: 15px 0 18px;
+        margin: 20px 0 0;
+        padding: 15px 0;
         border-top: 1px solid #dee0e4;
         ul {
           li {
             display: flex;
             justify-content: space-between;
-            margin: 0 0 10px;
+            margin-bottom: 10px;
           }
         }
       }
+      .order-details-middle {
+        margin: 20px 0 0;
+        padding: 15px 0;
+        border-top: 1px solid #dee0e4;
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          span {
+            font-weight: 600;
+          }
+          p {
+            font-size: 16px;
+          }
+        }
+      }
+      .order-bottom {
+        padding: 15px 0;
+        border-top: 1px solid #dee0e4;
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          font-size: 16px;
+          li {
+            display: flex;
+            justify-content: space-between;
 
+            font-weight: 400;
+          }
+          li.order-shipping {
+            font-size: 16px;
+            font-weight: 400;
+            color: #212121;
+          }
+          p {
+            font-size: 16px;
+          }
+        }
+      }
       .order-total-wrap {
         margin: 18px 0 20px;
         padding: 17px 0 10px;
@@ -58,13 +106,12 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
+          font-size: 18px;
           li.order-total {
-            font-size: 18px;
             font-weight: 500;
             color: #212121;
           }
           li {
-            font-size: 16px;
             font-weight: 500;
             list-style: outside none none;
             color: $theme-color;

@@ -7,6 +7,7 @@ import { ToastProvider } from "react-toast-notifications";
 // import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import MyOrders from "./pages/other/MyOrders";
+import Order from "./pages/other/Order";
 
 const HomePlants = lazy(() => import("./pages/home/HomePlants"));
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
@@ -99,6 +100,11 @@ const App = () => {
                   path={process.env.PUBLIC_URL + "/my-order"}
                   component={MyOrders}
                 />
+                <Route
+                  path={process.env.PUBLIC_URL + "/order/:id"}
+                  component={Order}
+                />
+
                 <Route
                   path={process.env.PUBLIC_URL + "/login-register"}
                   component={LoginRegister}
