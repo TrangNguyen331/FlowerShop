@@ -55,6 +55,9 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
     }
   }
   const getSortedReview = (reviews) => {
+    if(!reviews){
+      reviews=[];
+    }
     return [...reviews].sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
   };
 
@@ -95,12 +98,10 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
                     }}
                 ></div>):("")}
               </Tab.Pane>
-              {token? (
                   <Tab.Pane eventKey="productReviews">
                     <div className="row">
                       <div className="col-lg-7">
-                        {product && product.reviews ?
-                            getSortedReview(product.reviews).map((review)=>(
+                        {getSortedReview(product? product.reviews: []).map((review)=>(
                             <div className="review-wrapper" key={review.id}>
                               <div className="single-review">
                                 <div className="review-img">
@@ -128,8 +129,7 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
                                 </div>
                               </div>
                             </div>
-                        )):
-                            ("")}
+                        ))}
                       </div>
                       <div className="col-lg-5">
                         <div className="rating-form-wrapper pl-50">
@@ -158,7 +158,6 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
                       </div>
                     </div>
                   </Tab.Pane>
-              ):("")}
             </Tab.Content>
           </Tab.Container>
         </div>
