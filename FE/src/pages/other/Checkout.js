@@ -52,7 +52,7 @@ const Checkout = ({ location, cartItems, currency }) => {
         firstName: submitData.firstName,
         lastName: submitData.lastName,
         fullName: submitData.fullName,
-        address: submitData.address,
+        address: submitData.streetAddress,
         additionalInformation: submitData.additionalInformation,
       },
       total: totalValue,
