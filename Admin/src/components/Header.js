@@ -6,8 +6,6 @@ import {
   SunIcon,
   BellIcon,
   MenuIcon,
-  OutlinePersonIcon,
-  OutlineCogIcon,
   OutlineLogoutIcon,
 } from "../icons";
 import {
@@ -18,12 +16,17 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@windmill/react-ui";
-import { Link } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import response from "../utils/demo/profileData";
+import {useToasts} from "react-toast-notifications";
+import { useHistory } from "react-router-dom";
+import logout from "./Logout";
 
 function Header() {
+  console.log("Header")
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
+  const history = useHistory();
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -35,6 +38,11 @@ function Header() {
   function handleProfileClick() {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   }
+  const logout=()=>{
+    history.push("/app/log-out")
+  }
+
+
 
   return (
     <header className="z-40 py-4 bg-white shadow-bottom dark:bg-gray-800">
@@ -137,18 +145,7 @@ function Header() {
               isOpen={isProfileMenuOpen}
               onClose={() => setIsProfileMenuOpen(false)}
             >
-              <DropdownItem tag="a" href="/app/manage-profile">
-                <OutlinePersonIcon
-                  className="w-4 h-4 mr-3"
-                  aria-hidden="true"
-                />
-                <span>Profile</span>
-              </DropdownItem>
-              <DropdownItem tag="a" href="/app/settings">
-                <OutlineCogIcon className="w-4 h-4 mr-3" aria-hidden="true" />
-                <span>Settings</span>
-              </DropdownItem>
-              <DropdownItem onClick={() => alert("Log out!")}>
+              <DropdownItem onClick={() =>logout()} >
                 <OutlineLogoutIcon
                   className="w-4 h-4 mr-3"
                   aria-hidden="true"

@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import AccessibleNavigationAnnouncer from "./components/AccessibleNavigationAnnouncer";
 import { ToastProvider } from 'react-toast-notifications';
+import Logout from "./components/Logout";
 
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./pages/Login"));
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/create-account" component={CreateAccount} />
             <Route path="/forgot-password" component={ForgotPassword} />
+            <Route path="/app/log-out" component={Logout} />
 
             {/* Place new routes over this */}
             <Route path="/app" component={Layout} />

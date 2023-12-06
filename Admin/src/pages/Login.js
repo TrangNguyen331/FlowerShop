@@ -6,10 +6,12 @@ import ImageDark from '../assets/img/login-office-dark.jpeg'
 import { Label, Input, Button } from '@windmill/react-ui'
 import axiosInstance from "../axiosInstance";
 import {useToasts} from "react-toast-notifications";
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const token=localStorage.getItem("token");
   const { addToast } = useToasts();
+  const history = useHistory();
   const [login,setLogin]= useState({
     username:'',
     password:''
@@ -33,7 +35,7 @@ function Login() {
       var token = response.data.token;
       addToast("Login success", { appearance: "success", autoDismiss: true });
       localStorage.setItem("token", token);
-      return <Redirect to="/app"></Redirect>
+      history.push("/app");
     } catch (error) {
       addToast("Invalid credentials", { appearance: "error", autoDismiss: true });
     }

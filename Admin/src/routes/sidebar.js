@@ -51,7 +51,7 @@ const routes = [
     name: "Settings",
   },
   {
-    path: "/app/logout",
+    path: "/app/log-out",
     icon: "OutlineLogoutIcon",
     name: "Logout",
   },
