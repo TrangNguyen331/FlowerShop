@@ -54,4 +54,15 @@ public class OrderServiceImpl implements OrderService {
         repository.save(order);
         return order;
     }
+
+    @Override
+    public ResponseOrderDto getById(String id) {
+        Order order = repository.findById(id).orElseThrow(()->new NotFoundException("Order not found!"));
+        ResponseOrderDto orderDto = modelMapper.map(order, ResponseOrderDto.class);
+        for (OrderDetailDto detailDto:
+                orderDto.getDetails() ) {
+            detailDto.setProduct(productRepository.findById(detailDto.getProductId()).orElse(null));
+        }
+        return orderDto;
+    }
 }

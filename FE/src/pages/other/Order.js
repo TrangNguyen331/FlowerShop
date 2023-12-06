@@ -1,13 +1,34 @@
-import React, { Fragment } from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import axiosInstance from "../../axiosInstance";
+import {useParams} from "react-router-dom";
+import {formatReadableDate, getStatus} from "../../helpers/helper";
 
 const Order = ({ location }) => {
   console.log("Order details page");
+  const [order,setOrder]=useState(null);
+  const { id } = useParams();
+  console.log(id)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get("/api/v1/orders/"+id);
+        console.log("response",response)
+        setOrder((prevOrders) => response.data);
+      } catch (error) {
+        console.log("Fail to load Order");
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(order);
   const { pathname } = location;
-  return (
+  return !order?(""):(
     <Fragment>
       <MetaTags>
         <title>Orders</title>
@@ -32,26 +53,18 @@ const Order = ({ location }) => {
                         <ul>
                           <li>
                             <div className="order-id-date">
-                              <p>Order ID: 656f2c927aa517073fd97539</p>
+                              <p>Order ID: {order.id} </p>
                               <p className="order-datetime">
-                                Order Date: 05.12.2023
+                                Order Date: {formatReadableDate(order.createdDate)}
                               </p>
                             </div>
                           </li>
                           {/* <li className="order-status">IN PROGRESS</li> */}
                           <li>
                             <div className="order-status-qty">
-                              <p className="order-status">IN PROGRESS</p>
-                              <p>2 Products</p>
+                              <p className="order-status">{getStatus(order.status)}</p>
+                              <p>{order.details.length} Products</p>
                             </div>
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="order-middle">
-                        <ul>
-                          <li>
-                            <span className="order-middle-left">Subtotal</span>
-                            <span className="order-price">50.000 đ</span>
                           </li>
                         </ul>
                       </div>
@@ -65,14 +78,14 @@ const Order = ({ location }) => {
                             <span className="order-bottom-left">
                               Payment Method
                             </span>
-                            <span>Paypal</span>
+                            <span>{order.methodPaid}</span>
                           </li>
                         </ul>
                       </div>
                       <div className="order-total-wrap">
                         <ul>
                           <li className="order-total">Total</li>
-                          <li>100.000đ</li>
+                          <li>{order.total}đ</li>
                         </ul>
                       </div>
                     </div>
@@ -89,20 +102,21 @@ const Order = ({ location }) => {
                       <div className="order-details-middle">
                         <ul>
                           <li>
-                            <span>Full Name</span>
+                            <span>Full Name:</span> {order.additionalOrder.fullName}
+                          </li>
+                          <li>
+                            <span>Address</span>
                           </li>
                           <li>
                             <p>
-                              East Tejturi Bazar, Word No. 04, Road No. 13/x,
-                              House no. 1320/C, Flat No. 5D, Dhaka - 1200,
-                              Bangladesh
+                              {order.additionalOrder.address || ""}
                             </p>
                           </li>
                           <li>
-                            <span>Phone:</span> 1-202-555-0118
+                            <span>Phone:</span> {order.additionalOrder.phone}
                           </li>
                           <li>
-                            <span>Email:</span> name@gmail.com
+                            <span>Email:</span> {order.additionalOrder.email}
                           </li>
                         </ul>
                       </div>
@@ -111,9 +125,7 @@ const Order = ({ location }) => {
                           <h4>Order notes</h4>
                           <li>
                             <p>
-                              Donec ac vehicula turpis. Aenean sagittis est eu
-                              arcu ornare, eget venenatis purus lobortis.
-                              Aliquam erat volutpat. Aliquam magna odio.
+                              {order.additionalOrder.additionalInformation}
                             </p>
                           </li>
                         </ul>
@@ -136,40 +148,25 @@ const Order = ({ location }) => {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td className="product-thumbnail">
-                            <img
-                              className="img-fluid"
-                              src="https://lh3.googleusercontent.com/drive-viewer/AK7aPaC_maXEt68lGIACi3R2ZPbYHUCVhqV9JMmvRlYCi-FxvB_gYo15tveaLrVfMGq5vI0JPsOa7L4rRbPOnEff0vzclrdR=s2560"
-                              alt=""
-                            />
-                          </td>
-                          <td className="product-name text-center">
-                            Pink Gerbera
-                          </td>
-                          <td className="product-price-cart">
-                            <span className="amount">123.000đ</span>
-                          </td>
-                          <td className="product-quantity text-center">x1</td>
-                          <td className="product-subtotal">123.000đ</td>
-                        </tr>
-                        <tr>
-                          <td className="product-thumbnail">
-                            <img
-                              className="img-fluid"
-                              src="https://lh3.googleusercontent.com/drive-viewer/AK7aPaC_maXEt68lGIACi3R2ZPbYHUCVhqV9JMmvRlYCi-FxvB_gYo15tveaLrVfMGq5vI0JPsOa7L4rRbPOnEff0vzclrdR=s2560"
-                              alt=""
-                            />
-                          </td>
-                          <td className="product-name text-center">
-                            Baby Flower
-                          </td>
-                          <td className="product-price-cart">
-                            <span className="amount">123.000đ</span>
-                          </td>
-                          <td className="product-quantity text-center">x2</td>
-                          <td className="product-subtotal">246.000đ</td>
-                        </tr>
+                      {order.details.map(detail =>(
+                          <tr key={detail.productId}>
+                            <td className="product-thumbnail">
+                              <img
+                                  className="img-fluid"
+                                  src={detail.product.images[0]}
+                                  alt=""
+                              />
+                            </td>
+                            <td className="product-name text-center">
+                              {detail.product.name}
+                            </td>
+                            <td className="product-price-cart">
+                              <span className="amount">{detail.product.price}đ</span>
+                            </td>
+                            <td className="product-quantity text-center">x{detail.quantity}</td>
+                            <td className="product-subtotal">{detail.subtotal}đ</td>
+                          </tr>
+                      ))}
                       </tbody>
                     </table>
                   </div>

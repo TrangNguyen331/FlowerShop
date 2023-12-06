@@ -9,4 +9,6 @@ import java.util.List;
 public interface OrderService {
     List<ResponseOrderDto> getOrderByUser(String user);
     Order addNew(OrderDto dto);
+
+    ResponseOrderDto getById(String id);
 }

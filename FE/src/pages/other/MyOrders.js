@@ -9,62 +9,13 @@ import Tab from "react-bootstrap/Tab";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../axiosInstance";
 import product from "../shop-product/Product";
+import {filterOrderByStatus, formatReadableDate, getStatus} from "../../helpers/helper";
 
 const MyOrders = ({ location }) => {
   const token = useSelector((state) => state.auth.token);
   const [orders, setOrders] = useState([]);
   const [currentFilterOrder, setCurrentOrderFilter] = useState([]);
 
-  const formatReadableDate = (date) => {
-    const parsedDate = new Date(date);
-
-    // Format the date using Intl.DateTimeFormat
-    const formattedDateTime = new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-    }).format(parsedDate);
-    return formattedDateTime;
-  };
-
-  const getStatus = (key) => {
-    switch (key) {
-      case "IN_REQUEST":
-        return "In Progress";
-      case "PROCESSING":
-        return "Processing";
-      case "COMPLETED":
-        return "COMPLETED";
-      default:
-        return "";
-    }
-  };
-  const filterOrderByStatus = (orders, status) => {
-    if (orders && status) {
-      switch (status) {
-        case "All":
-          return [...orders].sort((a, b) => a.createdDate - b.createdDate);
-        case "InProgress":
-          return [...orders]
-            .filter((x) => x.status === "IN_REQUEST")
-            .sort((a, b) => a.createdDate - b.createdDate);
-        case "Processing":
-          return [...orders]
-            .filter((x) => x.status === "PROCESSING")
-            .sort((a, b) => a.createdDate - b.createdDate);
-        case "Completed":
-          return [...orders]
-            .filter((x) => x.status === "COMPLETED")
-            .sort((a, b) => a.createdDate - b.createdDate);
-        default:
-          return [...orders].sort((a, b) => a.createdDate - b.createdDate);
-      }
-    }
-    return [];
-  };
   const filterOrder = (key) => {
     setCurrentOrderFilter(filterOrderByStatus(orders, key));
   };

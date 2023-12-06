@@ -71,6 +71,7 @@ public class ProductServiceImpl  implements ProductService {
         Product product = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
         Review review = new Review();
+
         Account account=accountRepository.findByUsername(accountName).orElse(null);
         modelMapper.map(reviewDto,review);
         review.setAccount(account);
