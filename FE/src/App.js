@@ -31,18 +31,6 @@ const Checkout = lazy(() => import("./pages/other/Checkout"));
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
 const App = () => {
-  // useEffect(() => {
-  //   props.dispatch(
-  //     loadLanguages({
-  //       languages: {
-  //         en: require("./translations/english.json"),
-  //         fn: require("./translations/french.json"),
-  //         de: require("./translations/germany.json"),
-  //       },
-  //     })
-  //   );
-  // });
-
   return (
     <ToastProvider placement="bottom-left">
       <BreadcrumbsProvider>

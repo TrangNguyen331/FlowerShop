@@ -115,7 +115,7 @@ const MyOrders = ({ location }) => {
                           eventKey="all"
                           onSelect={() => filterOrder("All")}
                         >
-                          <h4>All Orders</h4>
+                          <h4>All</h4>
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>

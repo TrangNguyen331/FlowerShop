@@ -3,7 +3,6 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import MetaTags from "react-meta-tags";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { Link } from "react-router-dom";
 
 const Order = ({ location }) => {
   console.log("Order details page");
