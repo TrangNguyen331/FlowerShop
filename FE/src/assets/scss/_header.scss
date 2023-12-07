@@ -410,7 +410,7 @@
 
 .stick .logo,
 .stick .header-right-wrap {
-  margin-top: 22px;
+  margin-top: 17px;
   @media #{$md-layout} {
     margin-top: 0;
   }
@@ -436,15 +436,11 @@
   }
 }
 
-
-
-
-
 .header-right-wrap {
   display: flex;
   justify-content: flex-end;
-
-  margin-top: 32px;
+  align-items: flex-end;
+  margin-top: 26px;
   @media #{$md-layout} {
     margin-top: 0;
   }
@@ -467,7 +463,6 @@
     > a,
     button {
       font-size: 23px;
-
       color: #000;
     }
     > button {
@@ -484,8 +479,8 @@
     .account-dropdown {
       position: absolute;
       z-index: 220;
-      top: 190%;
-      right: 0;
+      top: 160%;
+      right: -120%;
 
       visibility: hidden;
 
@@ -528,17 +523,12 @@
           a {
             font-size: 13px;
             line-height: 30px;
-
             display: block;
-
             padding: 0;
-
             text-transform: capitalize;
-
             color: #000;
             &:hover {
               padding-left: 5px;
-
               color: $theme-color;
             }
           }
@@ -551,7 +541,12 @@
     button {
       font-size: 24px;
     }
-
+    .avatar {
+      border-radius: 50%;
+      height: 34px;
+      width: 34px;
+      overflow: hidden;
+    }
     > button {
       border: none;
       background: none;
@@ -738,9 +733,7 @@
         a {
           font-size: 14px;
           font-weight: 500;
-
           display: block;
-
           margin-bottom: 20px;
           padding: 16px 40px 17px;
         }
@@ -938,7 +931,6 @@
     }
   }
 }
-
 
 /* header 3 */
 
@@ -1176,7 +1168,6 @@
   }
   .header-right-wrap {
     justify-content: flex-start;
-
     margin-top: 46px;
     margin-bottom: 67px;
     padding: 0 0 0 108px;
@@ -1268,8 +1259,6 @@
     margin-left: 0;
   }
 }
-
-
 
 .sidebar-menu {
   padding: 0 0 0 108px;
@@ -1536,7 +1525,6 @@
   }
 }
 
-
 .header-hm4-none {
   display: none;
   @media #{$xs-layout} {
@@ -1546,7 +1534,6 @@
     display: block;
   }
 }
-
 
 /* home 5 */
 
@@ -1585,8 +1572,6 @@
     padding: 0 15px;
   }
 }
-
-
 
 /* home 7 */
 
@@ -1769,8 +1754,6 @@
   }
 }
 
-
-
 .header-hm-7.stick {
   .clickable-menu {
     margin-top: 19px;
@@ -1847,7 +1830,6 @@
   }
 }
 
-
 /* home 8 */
 
 .header-hm8 {
@@ -1920,10 +1902,10 @@
   }
   .logo {
     @media #{$md-layout} {
-      text-align: left!important;
+      text-align: left !important;
     }
     @media #{$xs-layout} {
-      text-align: left!important;
+      text-align: left !important;
     }
   }
 }
@@ -1944,8 +1926,6 @@
 }
 
 /* home 9 */
-
-
 
 .header-hm9 {
   .main-menu {
@@ -2010,7 +1990,6 @@
   }
 }
 
-
 /* header hm10 */
 
 @media #{$sm-layout} {
@@ -2032,7 +2011,6 @@
   }
 }
 
-
 @media #{$xs-layout} {
   .header-hm9 {
     .header-right-wrap {
@@ -2047,13 +2025,9 @@
   }
 }
 
-
 .mobile-aside-button {
   padding: 0;
 }
-
-
-
 
 /* offcanvas mobile menu */
 
@@ -2124,7 +2098,6 @@
   transition: 0.6s;
   transform: translateX(100%);
 
-
   &.active {
     transform: translateX(0);
   }
@@ -2152,7 +2125,6 @@
   color: #fff;
   border: none;
   background: #343538;
-
 
   // @media #{$sm-layout}{
   //     width: 50px;
@@ -2328,7 +2300,6 @@
         text-transform: uppercase;
       }
 
-
       &.menu-item-has-children {
         position: relative;
 
@@ -2447,7 +2418,6 @@
   }
 }
 
-
 .transparent-bar {
   position: absolute;
   z-index: 999;
@@ -2467,7 +2437,6 @@
   }
 }
 
-
 .mobile-menu-middle {
   margin-bottom: 50px;
   .lang-curr-style {
@@ -2479,7 +2448,6 @@
       border: none;
       background: none;
     }
-
 
     .title {
       font-weight: 500;

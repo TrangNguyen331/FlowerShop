@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect, useSelector, useDispatch } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
@@ -7,7 +7,7 @@ import { deleteFromCart } from "../../redux/actions/cartActions";
 import { logOutUser } from "../../redux/actions/authAction";
 import { useToasts } from "react-toast-notifications";
 import { useHistory } from "react-router-dom";
-
+import axiosInstance from "../../axiosInstance";
 const IconGroup = ({
   currency,
   cartData,
@@ -34,7 +34,26 @@ const IconGroup = ({
     dispatch(logOutUser(addToast));
     history.push(process.env.PUBLIC_URL + "/");
   };
-
+  const [userAvatar, setUserAvatar] = useState({
+    firstName: "",
+    lastName: "",
+    fullName: "",
+    avatar: "",
+  });
+  useEffect(() => {
+    const setDataInit = async () => {
+      if (isLogin) {
+        const response = await axiosInstance.get("/api/v1/auth/identity");
+        setUserAvatar({
+          firstName: response.data.firstName || "",
+          lastName: response.data.lastName || "",
+          fullName: response.data.fullName || "",
+          avatar: response.data.avatar || "",
+        });
+      }
+    };
+    setDataInit();
+  }, []);
   return (
     <div
       className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ""}`}
@@ -57,7 +76,12 @@ const IconGroup = ({
           className="account-setting-active"
           onClick={(e) => handleClick(e)}
         >
-          <i className="pe-7s-user-female" />
+          {isLogin ? (
+            <img src={userAvatar.avatar} alt="" className="avatar" />
+          ) : (
+            <i className="pe-7s-user-female" />
+          )}
+          {/* <i className="pe-7s-user-female" /> */}
         </button>
         <div className="account-dropdown">
           {isLogin ? (
