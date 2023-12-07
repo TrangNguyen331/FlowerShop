@@ -23,7 +23,14 @@ const MyOrders = ({ location }) => {
   const filterOrder = (key) => {
     setCurrentOrderFilter(filterOrderByStatus(orders, key));
   };
-
+  const getSortedOrder = (orders) => {
+    if (!orders) {
+      orders = [];
+    }
+    return [...orders].sort(
+      (a, b) => new Date(b.createdDate) - new Date(a.createdDate)
+    );
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -101,7 +108,7 @@ const MyOrders = ({ location }) => {
                     <Tab.Content>
                       <Tab.Pane eventKey="all">
                         {currentFilterOrder.length > 0 ? (
-                          currentFilterOrder.map((order) => (
+                          getSortedOrder(currentFilterOrder).map((order) => (
                             <div className="row" key={order.id}>
                               <div className="col-lg-12">
                                 <div className="order-wrap">
@@ -191,7 +198,7 @@ const MyOrders = ({ location }) => {
                       </Tab.Pane>
                       <Tab.Pane eventKey="inRequest">
                         {currentFilterOrder.length > 0 ? (
-                          currentFilterOrder.map((order) => (
+                          getSortedOrder(currentFilterOrder).map((order) => (
                             <div className="row" key={order.id}>
                               <div className="col-lg-12">
                                 <div className="order-wrap">
@@ -277,7 +284,7 @@ const MyOrders = ({ location }) => {
                       </Tab.Pane>
                       <Tab.Pane eventKey="processing">
                         {currentFilterOrder.length > 0 ? (
-                          currentFilterOrder.map((order) => (
+                          getSortedOrder(currentFilterOrder).map((order) => (
                             <div className="row" key={order.id}>
                               <div className="col-lg-12">
                                 <div className="order-wrap">
@@ -363,7 +370,7 @@ const MyOrders = ({ location }) => {
                       </Tab.Pane>
                       <Tab.Pane eventKey="completed">
                         {currentFilterOrder.length > 0 ? (
-                          currentFilterOrder.map((order) => (
+                          getSortedOrder(currentFilterOrder).map((order) => (
                             <div className="row" key={order.id}>
                               <div className="col-lg-12">
                                 <div className="order-wrap">
