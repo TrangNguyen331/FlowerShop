@@ -15,7 +15,7 @@ const ProductGridSingleThree = ({
   wishlistItem,
   compareItem,
   sliderClassName,
-  spaceBottomClass
+  spaceBottomClass,
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
@@ -82,7 +82,7 @@ const ProductGridSingleThree = ({
                   to={`${process.env.PUBLIC_URL}/product/${product.id}`}
                   title="Select options"
                 >
-                  <i class="fa fa-cog"></i>
+                  <i className="fa fa-cog"></i>
                 </Link>
               ) : product.stock && product.stock > 0 ? (
                 <button
@@ -194,7 +194,7 @@ ProductGridSingleThree.propTypes = {
   product: PropTypes.object,
   sliderClassName: PropTypes.string,
   spaceBottomClass: PropTypes.string,
-  wishlistItem: PropTypes.object
+  wishlistItem: PropTypes.object,
 };
 
 export default ProductGridSingleThree;

@@ -9,7 +9,11 @@ import Tab from "react-bootstrap/Tab";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../axiosInstance";
 import product from "../shop-product/Product";
-import {filterOrderByStatus, formatReadableDate, getStatus} from "../../helpers/helper";
+import {
+  filterOrderByStatus,
+  formatReadableDate,
+  getStatus,
+} from "../../helpers/helper";
 
 const MyOrders = ({ location }) => {
   const token = useSelector((state) => state.auth.token);
@@ -160,7 +164,7 @@ const MyOrders = ({ location }) => {
                                       }
                                     >
                                       View Details{" "}
-                                      <i class="fa fa-long-arrow-right"></i>
+                                      <i className="fa fa-long-arrow-right"></i>
                                     </Link>
                                   </div>
 
@@ -174,7 +178,7 @@ const MyOrders = ({ location }) => {
                             <div className="col-lg-12">
                               <div className="item-empty-area text-center">
                                 <div className="item-empty-area__icon mb-30">
-                                  <i class="fa fa-file-text-o"></i>
+                                  <i className="fa fa-file-text-o"></i>
                                 </div>
                                 <div className="item-empty-area__text">
                                   No orders yet
@@ -246,7 +250,7 @@ const MyOrders = ({ location }) => {
                                       }
                                     >
                                       View Details{" "}
-                                      <i class="fa fa-long-arrow-right"></i>
+                                      <i className="fa fa-long-arrow-right"></i>
                                     </Link>
                                   </div>
 
@@ -260,7 +264,7 @@ const MyOrders = ({ location }) => {
                             <div className="col-lg-12">
                               <div className="item-empty-area text-center">
                                 <div className="item-empty-area__icon mb-30">
-                                  <i class="fa fa-file-text-o"></i>
+                                  <i className="fa fa-file-text-o"></i>
                                 </div>
                                 <div className="item-empty-area__text">
                                   No orders yet
@@ -332,7 +336,7 @@ const MyOrders = ({ location }) => {
                                       }
                                     >
                                       View Details{" "}
-                                      <i class="fa fa-long-arrow-right"></i>
+                                      <i className="fa fa-long-arrow-right"></i>
                                     </Link>
                                   </div>
 
@@ -346,7 +350,7 @@ const MyOrders = ({ location }) => {
                             <div className="col-lg-12">
                               <div className="item-empty-area text-center">
                                 <div className="item-empty-area__icon mb-30">
-                                  <i class="fa fa-file-text-o"></i>
+                                  <i className="fa fa-file-text-o"></i>
                                 </div>
                                 <div className="item-empty-area__text">
                                   No orders yet
@@ -418,7 +422,7 @@ const MyOrders = ({ location }) => {
                                       }
                                     >
                                       View Details{" "}
-                                      <i class="fa fa-long-arrow-right"></i>
+                                      <i className="fa fa-long-arrow-right"></i>
                                     </Link>
                                   </div>
 
@@ -432,7 +436,7 @@ const MyOrders = ({ location }) => {
                             <div className="col-lg-12">
                               <div className="item-empty-area text-center">
                                 <div className="item-empty-area__icon mb-30">
-                                  <i class="fa fa-file-text-o"></i>
+                                  <i className="fa fa-file-text-o"></i>
                                 </div>
                                 <div className="item-empty-area__text">
                                   No orders yet
