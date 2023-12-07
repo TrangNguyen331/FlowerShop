@@ -20,7 +20,7 @@ export const getProducts = (products, category, type, limit) => {
 
   if (type && type === "new") {
     const newProducts = finalProducts.filter((single) =>
-      single.collections.includes("collection1")
+      single.collections.includes("Summer")
     );
     return newProducts.slice(0, limit || newProducts.length);
   }
