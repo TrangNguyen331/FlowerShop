@@ -102,7 +102,7 @@ const Cart = ({
                                   </Link>
                                 </td>
 
-                                <td className="product-name">
+                                <td className="product-name text-center">
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +

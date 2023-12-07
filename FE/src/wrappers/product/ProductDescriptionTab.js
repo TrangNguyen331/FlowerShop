@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import axiosInstance from "../../axiosInstance";
 import { useParams, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
-import { Link } from "react-scroll";
 
 const ProductDescriptionTab = ({ spaceBottomClass }) => {
   const { id } = useParams();
