@@ -33,6 +33,7 @@ import {
 import response from "../utils/demo/productData";
 import Icon from "../components/Icon";
 import { genRating } from "../utils/genarateRating";
+import EditForm from "../components/EditForm";
 
 const ProductsAll = () => {
   const [view, setView] = useState("grid");
@@ -59,11 +60,27 @@ const ProductsAll = () => {
   // Delete action model
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDeleteProduct, setSelectedDeleteProduct] = useState(null);
-  async function openModal(productId) {
+
+  const [mode, setMode] = useState(null); // 'add', 'edit', 'delete'
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // async function openModal(productId) {
+  //   let product = await data.filter((product) => product.id === productId)[0];
+  //   // console.log(product);
+  //   setSelectedDeleteProduct(product);
+  //   setIsModalOpen(true);
+  // }
+  async function openModal(mode, productId) {
     let product = await data.filter((product) => product.id === productId)[0];
-    // console.log(product);
-    setSelectedDeleteProduct(product);
+    setMode(mode);
+    setSelectedProduct(product);
     setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setMode(null);
+    setSelectedProduct(null);
+    setIsModalOpen(false);
   }
 
   function closeModal() {
@@ -150,44 +167,49 @@ const ProductsAll = () => {
         </CardBody>
       </Card>
 
-      {/* Delete product model */}
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <ModalHeader className="flex items-center">
-          {/* <div className="flex items-center"> */}
-          <Icon icon={TrashIcon} className="w-6 h-6 mr-3" />
-          Delete Product
-          {/* </div> */}
-        </ModalHeader>
-        <ModalBody>
-          Make sure you want to delete product{" "}
-          {selectedDeleteProduct && `"${selectedDeleteProduct.name}"`}
-        </ModalBody>
-        <ModalFooter>
-          {/* I don't like this approach. Consider passing a prop to ModalFooter
-           * that if present, would duplicate the buttons in a way similar to this.
-           * Or, maybe find some way to pass something like size="large md:regular"
-           * to Button
-           */}
-          <div className="hidden sm:block">
-            <Button layout="outline" onClick={closeModal}>
-              Cancel
-            </Button>
-          </div>
-          <div className="hidden sm:block">
-            <Button>Delete</Button>
-          </div>
-          <div className="block w-full sm:hidden">
-            <Button block size="large" layout="outline" onClick={closeModal}>
-              Cancel
-            </Button>
-          </div>
-          <div className="block w-full sm:hidden">
-            <Button block size="large">
-              Delete
-            </Button>
-          </div>
-        </ModalFooter>
-      </Modal>
+      {/* <EditForm isModalOpen={isModalOpen} closeModal={closeModal} /> */}
+      {/* Delete product modal */}
+      <div className="modal">
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <ModalHeader className="flex items-center text-2xl">
+            {mode === "edit" && "Edit Product"}
+            {mode === "delete" && "Delete Product"}
+            {mode === "add" && "Add New Product"}
+          </ModalHeader>
+          <ModalBody>
+            {mode === "edit" ? (
+              <EditForm />
+            ) : mode === "delete" ? (
+              <p>
+                Make sure you want to delete product{" "}
+                {selectedProduct && `"${selectedProduct.name}"`}
+              </p>
+            ) : (
+              ""
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <div className="hidden sm:block">
+              <Button layout="outline" onClick={closeModal}>
+                Cancel
+              </Button>
+            </div>
+            <div className="hidden sm:block">
+              <Button>Delete</Button>
+            </div>
+            <div className="block w-full sm:hidden">
+              <Button block size="large" layout="outline" onClick={closeModal}>
+                Cancel
+              </Button>
+            </div>
+            <div className="block w-full sm:hidden">
+              <Button block size="large">
+                Delete
+              </Button>
+            </div>
+          </ModalFooter>
+        </Modal>
+      </div>
 
       {/* Product Views */}
       {view === "list" ? (
@@ -243,12 +265,14 @@ const ProductsAll = () => {
                           className="mr-3"
                           layout="outline"
                           aria-label="Edit"
+                          onClick={() => openModal("edit", product.id)}
                         />
+
                         <Button
                           icon={TrashIcon}
                           layout="outline"
-                          onClick={() => openModal(product.id)}
                           aria-label="Delete"
+                          onClick={() => openModal("delete", product.id)}
                         />
                       </div>
                     </TableCell>
@@ -318,14 +342,14 @@ const ProductsAll = () => {
                           className="mr-3"
                           layout="outline"
                           aria-label="Edit"
-                          size="small"
+                          onClick={() => openModal("edit", product.id)}
                         />
+
                         <Button
                           icon={TrashIcon}
                           layout="outline"
                           aria-label="Delete"
-                          onClick={() => openModal(product.id)}
-                          size="small"
+                          onClick={() => openModal("delete", product.id)}
                         />
                       </div>
                     </div>
