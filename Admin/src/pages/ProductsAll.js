@@ -34,7 +34,10 @@ import response from "../utils/demo/productData";
 import Icon from "../components/Icon";
 import { genRating } from "../utils/genarateRating";
 import EditForm from "../components/EditForm";
-
+import { AddIcon } from "../icons";
+import "../index.css";
+import AddForm from "../components/AddForm";
+import { useHistory } from "react-router-dom";
 const ProductsAll = () => {
   const [view, setView] = useState("grid");
 
@@ -57,9 +60,7 @@ const ProductsAll = () => {
     setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
   }, [page, resultsPerPage]);
 
-  // Delete action model
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDeleteProduct, setSelectedDeleteProduct] = useState(null);
 
   const [mode, setMode] = useState(null); // 'add', 'edit', 'delete'
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -80,10 +81,6 @@ const ProductsAll = () => {
   function closeModal() {
     setMode(null);
     setSelectedProduct(null);
-    setIsModalOpen(false);
-  }
-
-  function closeModal() {
     setIsModalOpen(false);
   }
 
@@ -155,7 +152,16 @@ const ProductsAll = () => {
                 </div>
               </Label>
             </div>
-            <div className="">
+
+            <div className="flex">
+              <Button
+                size="large"
+                iconLeft={AddIcon}
+                className="mx-3"
+                onClick={() => openModal("add", null)}
+              >
+                Add Product
+              </Button>
               <Button
                 icon={view === "list" ? ListViewIcon : GridViewIcon}
                 className="p-2"
@@ -167,7 +173,6 @@ const ProductsAll = () => {
         </CardBody>
       </Card>
 
-      {/* <EditForm isModalOpen={isModalOpen} closeModal={closeModal} /> */}
       {/* Delete product modal */}
       <div className="modal">
         <Modal isOpen={isModalOpen} onClose={closeModal}>
@@ -185,7 +190,7 @@ const ProductsAll = () => {
                 {selectedProduct && `"${selectedProduct.name}"`}
               </p>
             ) : (
-              ""
+              <AddForm />
             )}
           </ModalBody>
           <ModalFooter>
@@ -195,17 +200,19 @@ const ProductsAll = () => {
               </Button>
             </div>
             <div className="hidden sm:block">
-              <Button>Delete</Button>
-            </div>
-            <div className="block w-full sm:hidden">
-              <Button block size="large" layout="outline" onClick={closeModal}>
-                Cancel
-              </Button>
-            </div>
-            <div className="block w-full sm:hidden">
-              <Button block size="large">
-                Delete
-              </Button>
+              {mode === "edit" ? (
+                <Button block size="large">
+                  Save
+                </Button>
+              ) : mode === "delete" ? (
+                <Button block size="large">
+                  Delete
+                </Button>
+              ) : (
+                <Button block size="large">
+                  Add Product
+                </Button>
+              )}
             </div>
           </ModalFooter>
         </Modal>
@@ -228,16 +235,23 @@ const ProductsAll = () => {
               </TableHeader>
               <TableBody>
                 {data.map((product) => (
-                  <TableRow key={product.id}>
+                  <TableRow
+                    key={product.id}
+                    className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                  >
                     <TableCell>
                       <div className="flex items-center text-sm">
-                        <Avatar
-                          className="hidden mr-4 md:block"
-                          src={product.photo}
-                          alt="Product image"
-                        />
+                        <Link to={`/app/product/${product.id}`}>
+                          <Avatar
+                            className="hidden mr-4 md:block"
+                            src={product.photo}
+                            alt="Product image"
+                          />
+                        </Link>
                         <div>
-                          <p className="font-semibold">{product.name}</p>
+                          <Link to={`/app/product/${product.id}`}>
+                            <p className="font-semibold">{product.name}</p>
+                          </Link>
                         </div>
                       </div>
                     </TableCell>
@@ -253,13 +267,6 @@ const ProductsAll = () => {
                     <TableCell className="text-sm">{product.price}</TableCell>
                     <TableCell>
                       <div className="flex">
-                        <Link to={`/app/product/${product.id}`}>
-                          <Button
-                            icon={EyeIcon}
-                            className="mr-3"
-                            aria-label="Preview"
-                          />
-                        </Link>
                         <Button
                           icon={EditIcon}
                           className="mr-3"

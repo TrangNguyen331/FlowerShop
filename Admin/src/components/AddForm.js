@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input, Textarea } from "@windmill/react-ui";
 import { TagsInput } from "react-tag-input-component";
 // import "../index.css";
-const EditForm = () => {
+const AddForm = () => {
   const [tags, setTags] = useState([]);
   return (
     <form action="#">
@@ -67,4 +67,4 @@ const EditForm = () => {
   );
 };
 
-export default EditForm;
+export default AddForm;
