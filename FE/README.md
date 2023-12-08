@@ -1,5 +1,5 @@
 
-# Flower For Thought - React
+# Floravibe - React
 
 
 
@@ -29,13 +29,13 @@ Cao Thi Minh Chau
 Clone the project
 
 ```bash
-  git clone https://github.com/SyedaMahamFahim/Flower-For-Thought-Ecommerce-React.git
+
 ```
 
 Go to the project directory
 
 ```bash
-  cd flower-for-thought-ecommerce-react
+  t
 ```
 
 Install dependencies
