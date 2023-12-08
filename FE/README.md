@@ -9,7 +9,9 @@
 
 # Authors
 
-- [@SyedaMahamFahim](https://github.com/SyedaMahamFahim/)
+Nguyen Thi Thuy Trang
+Nguyen Kim Hanh
+Cao Thi Minh Chau
 
 ## Tech Stack
 - React
