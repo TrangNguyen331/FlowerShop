@@ -10,8 +10,6 @@ import {
 import {
   Card,
   CardBody,
-  Label,
-  Select,
   Button,
   TableBody,
   TableContainer,
@@ -28,18 +26,13 @@ import {
   ModalBody,
   ModalFooter,
 } from "@windmill/react-ui";
-import response from "../utils/demo/productData";
 import Icon from "../components/Icon";
-import { genRating } from "../utils/genarateRating";
 import EditForm from "../components/EditForm";
 import { AddIcon } from "../icons";
 import "../index.css";
-import AddForm from "../components/AddForm";
-import { useHistory } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import {fa, tr} from "faker/lib/locales";
 const ProductsAll = () => {
-  const [view, setView] = useState("list");
 
   // Table and grid data handlling
   const [page, setPage] = useState(1);
@@ -154,19 +147,67 @@ const ProductsAll = () => {
     });
     setIsModalOpen(false);
   }
-  const handleSave = (mode) =>{
+  const handleSave = async (mode) =>{
     try {
       console.log("mode",mode);
-      // Make an API request to save changes
-      // await axiosInstance.put(`/api/v1/products/${selectedProduct.id}`, selectedProduct);
-      //
-      // // Update the local data or refetch the data
-      // // ...
-      //
-      // // Close the modal or reset selectedProduct
+      console.log("current model",selectedProduct);
+      if(mode === "delete"){
+        try {
+          await axiosInstance.delete("/api/v1/products/"+selectedProduct.id);
+        }catch (error){
+          console.log("Error", error);
+        }
+      }
+      if(mode === "edit"){
+        let body = {
+          name: selectedProduct.name,
+          description: selectedProduct.description,
+          additionalInformation: selectedProduct.additionalInformation,
+          price: selectedProduct.price,
+          tags: selectedProduct.tags,
+          images: selectedProduct.images,
+          collections: selectedProduct.collections
+        }
+        try{
+          await axiosInstance.put("/api/v1/products/"+selectedProduct.id,body);
+        }catch (error)
+        {
+          console.log("Error", error);
+        }
+      }
+      if(mode === "add"){
+        let body = {
+          name: selectedProduct.name,
+          description: selectedProduct.description,
+          additionalInformation: selectedProduct.additionalInformation,
+          price: selectedProduct.price,
+          tags: selectedProduct.tags,
+          images: selectedProduct.images,
+          collections: selectedProduct.collections
+        }
+        try{
+          await axiosInstance.post("/api/v1/products",body);
+        }catch (error)
+        {
+          console.log("Error", error);
+        }
+      }
       setMode(null);
-      setSelectedProduct(null);
+      setSelectedProduct({
+        id: '',
+        name: '',
+        description: '',
+        additionalInformation:'',
+        price: 0,
+        tags: [
+        ],
+        images: [
+        ],
+        collections: [
+        ],
+      });
       setIsModalOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error("Save error:", error);
     }
