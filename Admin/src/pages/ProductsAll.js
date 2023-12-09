@@ -59,6 +59,7 @@ const ProductsAll = () => {
     id: '',
     name: '',
     description: '',
+    additionalInformation:'',
     price: 0,
     tags: [
     ],
@@ -112,7 +113,7 @@ const ProductsAll = () => {
   function openModal(mode, productId) {
     console.log("Product ID",productId)
     console.log("mode",mode)
-    if(mode === 'edit'){
+    if(mode === 'edit' || mode === "delete"){
       console.log("Jump in if")
       let product = data.filter(x=>x.id === productId)[0];
       console.log(product);
@@ -123,6 +124,7 @@ const ProductsAll = () => {
         id: '',
         name: '',
         description: '',
+        additionalInformation:'',
         price: 0,
         tags: [
         ],
@@ -141,6 +143,7 @@ const ProductsAll = () => {
       id: '',
       name: '',
       description: '',
+      additionalInformation:'',
       price: 0,
       tags: [
       ],

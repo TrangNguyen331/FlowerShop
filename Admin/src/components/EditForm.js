@@ -16,16 +16,7 @@ const EditForm = ({data,onSave,onChancel,onProductChange}) => {
   return (
     <form action="#">
       <div>
-        <div className="dark:text-white">
-          <strong>Product Image</strong>
-          <TagsInput
-            type="text"
-            rows="5"
-            className="mb-4 mt-2 text-gray-800 dark:text-gray-300"
-            onChange={handleImagesChange}
-            value={ data && data.images|| []}
-          />
-        </div>
+
         <div className="grid gap-4 mb-4 grid-cols-2">
           <div className="block mb-4 text-sm font-medium text-gray-900 dark:text-white">
             <strong>Product Name</strong>
@@ -46,7 +37,16 @@ const EditForm = ({data,onSave,onChancel,onProductChange}) => {
             />
           </div>
         </div>
-
+        <div className="dark:text-white">
+          <strong>Product Image</strong>
+          <TagsInput
+              type="text"
+              rows="5"
+              className="mb-4 mt-2 text-gray-800 dark:text-gray-300"
+              onChange={handleImagesChange}
+              value={ data && data.images|| []}
+          />
+        </div>
         <div className="block mb-4 text-sm font-medium text-gray-900 dark:text-white">
           <strong>Product Collection</strong>
           <TagsInput
@@ -77,6 +77,17 @@ const EditForm = ({data,onSave,onChancel,onProductChange}) => {
             placeholder="Write a description..."
             onChange={(e) => onProductChange('description', e.target?.value || '')}
             value={data && data.description || ""}
+          />
+        </div>
+        <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          <strong>Product Additional Information</strong>
+          <Textarea
+              id="additionalInformation"
+              rows="5"
+              className="block p-2.5 mt-2 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 bg-transparent bg-opacity-0 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="Write a description..."
+              onChange={(e) => onProductChange('additionalInformation', e.target?.value || '')}
+              value={data && data.additionalInformation || ""}
           />
         </div>
       </div>
