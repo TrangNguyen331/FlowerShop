@@ -21,19 +21,13 @@ import {
   ModalBody,
   ModalFooter,
 } from "@windmill/react-ui";
-import response from "../utils/demo/productData";
 import Icon from "../components/Icon";
-import { genRating } from "../utils/genarateRating";
 import EditForm from "../components/EditForm";
 import { AddIcon } from "../icons";
 import "../index.css";
-import AddForm from "../components/AddForm";
-import { useHistory } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import { fa, tr } from "faker/lib/locales";
 const ProductsAll = () => {
-  const [view, setView] = useState("list");
-
   // Table and grid data handlling
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
@@ -48,7 +42,16 @@ const ProductsAll = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState(null); // 'add', 'edit', 'delete'
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState({
+    id: "",
+    name: "",
+    description: "",
+    additionalInformation: "",
+    price: 0,
+    tags: [],
+    images: [],
+    collections: [],
+  });
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -93,15 +96,96 @@ const ProductsAll = () => {
   async function openModal(mode, productId) {
     let product = await data.filter((product) => product.id === productId)[0];
     setMode(mode);
-    setSelectedProduct(productId);
     setIsModalOpen(true);
   }
-
-  function closeModal() {
+  const closeModal = () => {
     setMode(null);
-    setSelectedProduct(null);
+    setSelectedProduct({
+      id: "",
+      name: "",
+      description: "",
+      additionalInformation: "",
+      price: 0,
+      tags: [],
+      images: [],
+      collections: [],
+    });
     setIsModalOpen(false);
-  }
+  };
+  const handleSave = async (mode) => {
+    try {
+      console.log("mode", mode);
+      console.log("current model", selectedProduct);
+      if (mode === "delete") {
+        try {
+          await axiosInstance.delete("/api/v1/products/" + selectedProduct.id);
+        } catch (error) {
+          console.log("Error", error);
+        }
+      }
+      if (mode === "edit") {
+        let body = {
+          name: selectedProduct.name,
+          description: selectedProduct.description,
+          additionalInformation: selectedProduct.additionalInformation,
+          price: selectedProduct.price,
+          tags: selectedProduct.tags,
+          images: selectedProduct.images,
+          collections: selectedProduct.collections,
+        };
+        try {
+          await axiosInstance.put(
+            "/api/v1/products/" + selectedProduct.id,
+            body
+          );
+        } catch (error) {
+          console.log("Error", error);
+        }
+      }
+      if (mode === "add") {
+        let body = {
+          name: selectedProduct.name,
+          description: selectedProduct.description,
+          additionalInformation: selectedProduct.additionalInformation,
+          price: selectedProduct.price,
+          tags: selectedProduct.tags,
+          images: selectedProduct.images,
+          collections: selectedProduct.collections,
+        };
+        try {
+          await axiosInstance.post("/api/v1/products", body);
+        } catch (error) {
+          console.log("Error", error);
+        }
+      }
+      setMode(null);
+      setSelectedProduct({
+        id: "",
+        name: "",
+        description: "",
+        additionalInformation: "",
+        price: 0,
+        tags: [],
+        images: [],
+        collections: [],
+      });
+      setIsModalOpen(false);
+      window.location.reload();
+    } catch (error) {
+      console.error("Save error:", error);
+    }
+  };
+  const handleProductChange = (property, value) => {
+    console.log("trigger update");
+    console.log("property", property);
+    console.log("value", value);
+    setSelectedProduct((prevProduct) => ({
+      ...prevProduct,
+      [property]: value,
+    }));
+    console.log(value);
+  };
+  console.log(selectedProduct);
   return (
     <div>
       <PageTitle>All Products</PageTitle>
@@ -152,14 +236,24 @@ const ProductsAll = () => {
           </ModalHeader>
           <ModalBody>
             {mode === "edit" ? (
-              <EditForm />
+              <EditForm
+                data={selectedProduct}
+                onSave={handleSave}
+                onCancel={closeModal}
+                onProductChange={handleProductChange}
+              />
             ) : mode === "delete" ? (
               <p>
                 Make sure you want to delete product{" "}
                 {selectedProduct && `"${selectedProduct.name}"`}
               </p>
             ) : (
-              <AddForm />
+              <EditForm
+                data={selectedProduct}
+                onSave={handleSave}
+                onCancel={closeModal}
+                onProductChange={handleProductChange}
+              />
             )}
           </ModalBody>
           <ModalFooter>
@@ -170,15 +264,15 @@ const ProductsAll = () => {
             </div>
             <div className="hidden sm:block">
               {mode === "edit" ? (
-                <Button block size="large">
+                <Button block size="large" onClick={() => handleSave("edit")}>
                   Save
                 </Button>
               ) : mode === "delete" ? (
-                <Button block size="large">
+                <Button block size="large" onClick={() => handleSave("delete")}>
                   Delete
                 </Button>
               ) : (
-                <Button block size="large">
+                <Button block size="large" onClick={() => handleSave("add")}>
                   Add Product
                 </Button>
               )}
