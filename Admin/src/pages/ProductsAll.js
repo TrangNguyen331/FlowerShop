@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PageTitle from "../components/Typography/PageTitle";
 import { Link, NavLink } from "react-router-dom";
+import {formatNumberWithDecimal} from "../helper/numberhelper";
 import {
   EditIcon,
   HomeIcon,
@@ -54,7 +55,18 @@ const ProductsAll = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mode, setMode] = useState(null); // 'add', 'edit', 'delete'
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState({
+    id: '',
+    name: '',
+    description: '',
+    price: 0,
+    tags: [
+    ],
+    images: [
+    ],
+    collections: [
+    ],
+  });
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -75,6 +87,15 @@ const ProductsAll = () => {
       console.log("Fetch data error",error);
     }
   }
+  const fetchProductById = async (productId) =>{
+    try {
+      let response = await axiosInstance.get("/api/v1/products/"+productId);
+      setSelectedProduct(response.data);
+    }catch (error){
+      console.log("Error",error)
+    }
+
+  }
   useEffect(() => {
 
     fetchData(1);
@@ -87,30 +108,77 @@ const ProductsAll = () => {
   }
 
 
-  function formatNumberWithDecimal(number) {
-    // Convert the number to a string
-    const numString = String(number);
 
-    // Split the string into groups of three digits
-    const groups = numString.split(/(?=(?:\d{3})+(?!\d))/);
-
-    // Join the groups with a decimal point
-    const formattedNumber = groups.join('.');
-
-    return formattedNumber;
-  }
-  async function openModal(mode, productId) {
-    let product = await data.filter((product) => product.id === productId)[0];
+  function openModal(mode, productId) {
+    console.log("Product ID",productId)
+    console.log("mode",mode)
+    if(mode === 'edit'){
+      console.log("Jump in if")
+      let product = data.filter(x=>x.id === productId)[0];
+      console.log(product);
+      setSelectedProduct(product);
+    }
+    else {
+      setSelectedProduct({
+        id: '',
+        name: '',
+        description: '',
+        price: 0,
+        tags: [
+        ],
+        images: [
+        ],
+        collections: [
+        ],
+      });
+    }
     setMode(mode);
-    setSelectedProduct(productId);
     setIsModalOpen(true);
   }
-
-  function closeModal() {
+  const closeModal =()=> {
     setMode(null);
-    setSelectedProduct(null);
+    setSelectedProduct({
+      id: '',
+      name: '',
+      description: '',
+      price: 0,
+      tags: [
+      ],
+      images: [
+      ],
+      collections: [
+      ],
+    });
     setIsModalOpen(false);
   }
+  const handleSave = (mode) =>{
+    try {
+      console.log("mode",mode);
+      // Make an API request to save changes
+      // await axiosInstance.put(`/api/v1/products/${selectedProduct.id}`, selectedProduct);
+      //
+      // // Update the local data or refetch the data
+      // // ...
+      //
+      // // Close the modal or reset selectedProduct
+      setMode(null);
+      setSelectedProduct(null);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Save error:", error);
+    }
+  }
+  const handleProductChange = (property, value) => {
+    console.log("trigger update")
+    console.log("property",property)
+    console.log("value",value)
+    setSelectedProduct((prevProduct) => ({
+      ...prevProduct,
+      [property]: value,
+    }));
+    console.log(value);
+  };
+  console.log(selectedProduct);
   return (
     <div>
       <PageTitle>All Products</PageTitle>
@@ -161,14 +229,24 @@ const ProductsAll = () => {
           </ModalHeader>
           <ModalBody>
             {mode === "edit" ? (
-              <EditForm />
+              <EditForm
+                  data = {selectedProduct}
+                  onSave={handleSave}
+                  onCancel={closeModal}
+                  onProductChange={handleProductChange}
+              />
             ) : mode === "delete" ? (
               <p>
                 Make sure you want to delete product{" "}
                 {selectedProduct && `"${selectedProduct.name}"`}
               </p>
             ) : (
-              <AddForm />
+                <EditForm
+                    data = {selectedProduct}
+                    onSave={handleSave}
+                    onCancel={closeModal}
+                    onProductChange={handleProductChange}
+                />
             )}
           </ModalBody>
           <ModalFooter>
@@ -179,15 +257,15 @@ const ProductsAll = () => {
             </div>
             <div className="hidden sm:block">
               {mode === "edit" ? (
-                <Button block size="large">
+                <Button block size="large" onClick={() =>handleSave("edit")}>
                   Save
                 </Button>
               ) : mode === "delete" ? (
-                <Button block size="large">
+                <Button block size="large" onClick={() =>handleSave("delete")}>
                   Delete
                 </Button>
               ) : (
-                <Button block size="large">
+                <Button block size="large" onClick={() =>handleSave("add")}>
                   Add Product
                 </Button>
               )}
