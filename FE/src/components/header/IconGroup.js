@@ -77,7 +77,19 @@ const IconGroup = ({
           onClick={(e) => handleClick(e)}
         >
           {isLogin ? (
-            <img src={userAvatar.avatar} alt="" className="avatar" />
+            userAvatar && userAvatar.avatar ? (
+              <img
+                src={userAvatar.avatar}
+                alt="user avatar"
+                className="avatar"
+              />
+            ) : (
+              <img
+                src="https://i.pinimg.com/564x/93/4e/37/934e37c613b24b4c7aa236644dd46fdc.jpg"
+                alt="default"
+                className="avatar"
+              />
+            )
           ) : (
             <i className="pe-7s-user-female" />
           )}
