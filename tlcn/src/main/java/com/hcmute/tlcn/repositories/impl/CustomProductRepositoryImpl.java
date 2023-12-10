@@ -33,7 +33,8 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
             Criteria criteriaCollection = Criteria.where("collections").in(search);
             criteria = criteria.orOperator(criteriaKey,criteriaTags,criteriaCollection);
         }
-        query.addCriteria(criteria);
+        Criteria isActive= Criteria.where("isActive").is(true);
+        query.addCriteria(criteria.andOperator(isActive));
         List<Product> products = mongoTemplate.find(query, Product.class);
         return convertListToPage(products,pageable);
     }

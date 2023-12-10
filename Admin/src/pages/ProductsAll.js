@@ -94,7 +94,22 @@ const ProductsAll = () => {
     return formattedNumber;
   }
   async function openModal(mode, productId) {
-    let product = await data.filter((product) => product.id === productId)[0];
+    console.log("Product",productId);
+    if(mode==='edit' || mode ==='delete') {
+      let product = await data.filter((product) => product.id === productId)[0];
+      setSelectedProduct(product);
+    }else {
+      setSelectedProduct({
+        id: "",
+        name: "",
+        description: "",
+        additionalInformation: "",
+        price: 0,
+        tags: [],
+        images: [],
+        collections: [],
+      })
+    }
     setMode(mode);
     setIsModalOpen(true);
   }
@@ -333,7 +348,7 @@ const ProductsAll = () => {
                     {product &&
                     product.collections &&
                     product.collections.length > 0
-                      ? product.collections.map((collection, index) => (
+                      ? product.collections.map((collection,index) => (
                           <Badge type="success" key={index}>
                             {collection}
                           </Badge>
