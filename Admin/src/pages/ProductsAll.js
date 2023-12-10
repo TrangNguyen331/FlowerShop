@@ -94,11 +94,11 @@ const ProductsAll = () => {
     return formattedNumber;
   }
   async function openModal(mode, productId) {
-    console.log("Product",productId);
-    if(mode==='edit' || mode ==='delete') {
+    console.log("Product", productId);
+    if (mode === "edit" || mode === "delete") {
       let product = await data.filter((product) => product.id === productId)[0];
       setSelectedProduct(product);
-    }else {
+    } else {
       setSelectedProduct({
         id: "",
         name: "",
@@ -108,7 +108,7 @@ const ProductsAll = () => {
         tags: [],
         images: [],
         collections: [],
-      })
+      });
     }
     setMode(mode);
     setIsModalOpen(true);
@@ -348,7 +348,7 @@ const ProductsAll = () => {
                     {product &&
                     product.collections &&
                     product.collections.length > 0
-                      ? product.collections.map((collection,index) => (
+                      ? product.collections.map((collection, index) => (
                           <Badge type="success" key={index}>
                             {collection}
                           </Badge>

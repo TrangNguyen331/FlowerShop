@@ -35,21 +35,21 @@ const routes = [
     icon: "GroupIcon",
     name: "Customers",
   },
-  {
-    path: "/app/chats",
-    icon: "ChatIcon",
-    name: "Chats",
-  },
+  // {
+  //   path: "/app/chats",
+  //   icon: "ChatIcon",
+  //   name: "Chats",
+  // },
   {
     path: "/app/manage-profile",
     icon: "UserIcon",
     name: "Profile",
   },
-  {
-    path: "/app/settings",
-    icon: "OutlineCogIcon",
-    name: "Settings",
-  },
+  // {
+  //   path: "/app/settings",
+  //   icon: "OutlineCogIcon",
+  //   name: "Settings",
+  // },
   {
     path: "/app/log-out",
     icon: "OutlineLogoutIcon",

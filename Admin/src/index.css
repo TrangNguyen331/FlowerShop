@@ -18,7 +18,7 @@ code {
   --rti-tag-padding: 5px 8px;
   margin-top: 0.5rem;
   --rti-main: 0 0 0 3px hsla(210, 2.4%, 83.9%, 0.45);
-  --rti-border: rgba(76, 79, 82, 1);
+  /* --rti-border: rgba(76, 79, 82, 1); */
 }
 
 .rti--input {
@@ -30,7 +30,8 @@ code {
 }
 @media (min-width: 640px) {
   .sm\:max-w-xl {
-    max-width: 48rem;
+    max-width: 68rem;
+    /* max-width: none; */
   }
 }
 .theme-dark .dark\:border-gray-600 {
@@ -43,7 +44,7 @@ code {
 
 .form-input,
 .form-textarea {
-  border-color: rgba(76, 79, 82, 1);
+  /* border-color: rgba(76, 79, 82, 1); */
 }
 
 .ck-editor__editable {
