@@ -104,13 +104,9 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
                   Additional Information
                 </Nav.Link>
               </Nav.Item>
-              {token ? (
-                <Nav.Item>
-                  <Nav.Link eventKey="productReviews">Reviews</Nav.Link>
-                </Nav.Item>
-              ) : (
-                ""
-              )}
+              <Nav.Item>
+                <Nav.Link eventKey="productReviews">Reviews</Nav.Link>
+              </Nav.Item>
             </Nav>
             <Tab.Content className="description-review-bottom">
               <Tab.Pane eventKey="additionalInfo">
