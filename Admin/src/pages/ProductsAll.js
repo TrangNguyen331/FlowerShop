@@ -340,15 +340,22 @@ const ProductsAll = () => {
                         ))
                       : ""}
                   </TableCell>
-                  <TableCell className="text-sm space-x-2">
+                  <TableCell className="text-sm">
                     {product && product.tags && product.tags.length > 0
                       ? product.tags.map((tag, index) => (
-                          <Badge type="success" key={index}>
-                            {tag}
-                          </Badge>
+                          <div className="flex">
+                            <span
+                              key={index}
+                              className="px-2 inline-flex text-xs leading-5
+                      font-semibold rounded-full bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100 mb-2 mt-2"
+                            >
+                              {tag}
+                            </span>
+                          </div>
                         ))
                       : ""}
                   </TableCell>
+
                   <TableCell>
                     <div className="flex">
                       <Button
