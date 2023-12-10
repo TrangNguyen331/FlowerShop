@@ -88,6 +88,12 @@ const Checkout = ({ location, cartItems, currency }) => {
     };
     setDataInit();
   }, []);
+
+  const [paymentMethod, setPaymentMethod] = useState("CASH");
+
+  const handlePaymentMethodChange = (event) => {
+    setPaymentMethod(event.target.value);
+  };
   return (
     <Fragment>
       <MetaTags>
@@ -101,6 +107,13 @@ const Checkout = ({ location, cartItems, currency }) => {
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
+        <div className="container mt-5">
+          <ul className="progressbar">
+            <li className="active">Shopping Cart</li>
+            <li className="active">Checkout</li>
+            <li>Order Complete</li>
+          </ul>
+        </div>
         <div className="checkout-area pt-95 pb-100">
           <div className="container">
             {cartItems && cartItems.length >= 1 ? (
@@ -250,7 +263,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                         <div className="your-order-bottom">
                           <ul>
                             <li className="your-order-shipping">Shipping</li>
-                            <li>Free shipping</li>
+                            <li>Free</li>
                           </ul>
                         </div>
                         <div className="your-order-total">
@@ -263,7 +276,28 @@ const Checkout = ({ location, cartItems, currency }) => {
                           </ul>
                         </div>
                       </div>
-                      <div className="payment-method"></div>
+                      <div className="payment-method">
+                        <div>
+                          <input
+                            type="radio"
+                            value="CASH"
+                            checked={paymentMethod === "CASH"}
+                            onChange={handlePaymentMethodChange}
+                            className="radio-input"
+                          />
+                          <span>Cash</span>
+                        </div>
+                        <div>
+                          <input
+                            type="radio"
+                            value="VNPAY"
+                            checked={paymentMethod === "VNPAY"}
+                            onChange={handlePaymentMethodChange}
+                            className="radio-input"
+                          />
+                          <span>VNPay</span>
+                        </div>
+                      </div>
                     </div>
                     <div className="place-order mt-25">
                       <button

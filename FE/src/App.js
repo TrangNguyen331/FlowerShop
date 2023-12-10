@@ -8,6 +8,7 @@ import { ToastProvider } from "react-toast-notifications";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import MyOrders from "./pages/other/MyOrders";
 import Order from "./pages/other/Order";
+import OrderSuccess from "./pages/other/OrderSuccess";
 
 const HomePlants = lazy(() => import("./pages/home/HomePlants"));
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
@@ -27,7 +28,6 @@ const Cart = lazy(() => import("./pages/other/Cart"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
 // const Compare = lazy(() => import("./pages/other/Compare"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
-
 const NotFound = lazy(() => import("./pages/other/NotFound"));
 
 const App = () => {
@@ -92,7 +92,10 @@ const App = () => {
                   path={process.env.PUBLIC_URL + "/order/:id"}
                   component={Order}
                 />
-
+                <Route
+                  path={process.env.PUBLIC_URL + "/order-thankyou"}
+                  component={OrderSuccess}
+                />
                 <Route
                   path={process.env.PUBLIC_URL + "/login-register"}
                   component={LoginRegister}

@@ -45,6 +45,18 @@ const Cart = ({
       <LayoutOne headerTop="visible">
         {/* breadcrumb */}
         <Breadcrumb />
+        {cartItems && cartItems.length >= 1 ? (
+          <div className="container mt-5">
+            <ul className="progressbar">
+              <li className="active">Shopping Cart</li>
+              <li>Checkout</li>
+              <li>Order Complete</li>
+            </ul>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
             {cartItems && cartItems.length >= 1 ? (
