@@ -103,6 +103,7 @@ const EditForm = ({ data, onSave, onCancel, onProductChange }) => {
             onChange={(event, editor) => {
               handleAdditionalInfoChange(event, editor);
             }}
+            data={(data && data.additionalInformation) || ""}
             config={{
               heading: {
                 options: [

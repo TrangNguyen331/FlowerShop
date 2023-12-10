@@ -10,6 +10,8 @@ import com.hcmute.tlcn.repositories.AccountRepository;
 import com.hcmute.tlcn.services.AccountService;
 import com.hcmute.tlcn.utils.Roles;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,11 @@ public class AccountServiceImpl implements AccountService {
         account.setRoles(roles);
         accountRepository.save(account);
         return "Success";
+    }
+
+    @Override
+    public Page<Account> getPaging(String search, Pageable pageable) {
+        return accountRepository.findPaging(search,pageable);
     }
 
     @Override

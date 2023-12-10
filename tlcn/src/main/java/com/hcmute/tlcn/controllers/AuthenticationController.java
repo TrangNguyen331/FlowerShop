@@ -2,10 +2,14 @@ package com.hcmute.tlcn.controllers;
 
 import com.hcmute.tlcn.dtos.*;
 import com.hcmute.tlcn.entities.Account;
+import com.hcmute.tlcn.entities.Product;
 import com.hcmute.tlcn.services.AccountService;
 import com.hcmute.tlcn.utils.JwtTokenProvider;
+import com.hcmute.tlcn.utils.PageUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,6 +58,18 @@ public class AuthenticationController {
         return ResponseEntity.ok(account);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/paging")
+    public ResponseEntity<Page<Account>> getProductPaging(@RequestParam(name = "search", required = false, defaultValue = "") String search,
+                                                          @RequestParam(name = "page", required = false, defaultValue = "${application.default.paging.page}") int page,
+                                                          @RequestParam(name = "size", required = false, defaultValue = "${application.default.paging.size}") int size,
+                                                          @RequestParam(name = "sort", required = false, defaultValue = "DESC") String sort,
+                                                          @RequestParam(name = "column", required = false, defaultValue = "isActive") String sortColumn){
+        Pageable pageable = PageUtils.createPageable(page, size, sort, sortColumn);
+        Page<Account> result = accountService.getPaging(search,pageable);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/info")
     public ResponseEntity<Account> updateUserInfo(Principal principal, @RequestBody UpdateUserInfoDto dto){
@@ -67,4 +83,6 @@ public class AuthenticationController {
         Account account = accountService.updatePassword(principal.getName(),dto);
         return ResponseEntity.ok(account);
     }
+
+
 }
