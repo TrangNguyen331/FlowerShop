@@ -6,7 +6,7 @@
 /*-- Google Font --*/
 
 @import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,500,600,700|Poppins:300,400,500,600,700,800,900|Josefin+Sans:wght@300;400;500;600;700|Abril+Fatface|Great+Vibe|Lobster&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 /*-- Common Style --*/
 
 *,
@@ -30,7 +30,9 @@ body {
   color: #000;
   background-color: $white;
 }
-
+.logo {
+  font-family: $pacifico;
+}
 h1,
 h2,
 h3,

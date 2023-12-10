@@ -91,7 +91,7 @@
   }
 }
 .logo {
-  margin-top: 32px;
+  // margin-top: 32px;
   @media #{$md-layout} {
     margin-top: 0;
   }
@@ -408,7 +408,7 @@
   line-height: 75px;
 }
 
-.stick .logo,
+// .stick .logo,
 .stick .header-right-wrap {
   margin-top: 17px;
   @media #{$md-layout} {
