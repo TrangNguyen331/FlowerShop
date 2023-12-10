@@ -45,3 +45,11 @@ code {
 .form-textarea {
   border-color: rgba(76, 79, 82, 1);
 }
+
+.ck-editor__editable {
+  height: 120px;
+  padding: 0.5rem 1.4rem !important;
+}
+.ck-editor__editable:focus {
+  box-shadow: none !important;
+}

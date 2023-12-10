@@ -185,7 +185,7 @@ const ProductsAll = () => {
     }));
     console.log(value);
   };
-  console.log(selectedProduct);
+  console.log("selectedProduct", selectedProduct);
   return (
     <div>
       <PageTitle>All Products</PageTitle>
@@ -355,7 +355,6 @@ const ProductsAll = () => {
                         ))
                       : ""}
                   </TableCell>
-
                   <TableCell>
                     <div className="flex">
                       <Button
@@ -365,7 +364,6 @@ const ProductsAll = () => {
                         aria-label="Edit"
                         onClick={() => openModal("edit", product.id)}
                       />
-
                       <Button
                         icon={TrashIcon}
                         layout="outline"
