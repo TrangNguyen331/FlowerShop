@@ -12,24 +12,44 @@ import {
   Pagination,
 } from "@windmill/react-ui";
 import response from "../utils/demo/usersData";
+import axiosInstance from "../axiosInstance";
 
-const UsersTable = ({ resultsPerPage, filter }) => {
+const UsersTable = () => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
-
+  const [resultsPerPage, setResultsPerPage] = useState(10);
+  const [totalPage, setTotalPage] = useState(0);
+  const [totalResults, setTotalResult] = useState(0);
+  const [dataLoaded, setDataLoaded] = useState(false);
   // pagination setup
-  const totalResults = response.length;
 
   // pagination change control
-  function onPageChange(p) {
-    setPage(p);
+  async function onPageChange(p) {
+    console.log(p);
+    await fetchData(p);
   }
+  const fetchData = async (page) => {
+    try {
+      console.log("page", page);
+      const response = await axiosInstance.get(
+          "/api/v1/auth/paging?page=" + (page - 1) + "&size=" + resultsPerPage
+      );
+      console.log("Response data", response.data);
+      setData(response.data.content);
+      setPage(page);
+      setTotalPage(response.data.totalPages);
+      setTotalResult(response.data.totalElements);
+      setDataLoaded(true);
+    } catch (error) {
+      console.log("Fetch data error", error);
+    }
+  };
 
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
-    setData(response.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-  }, [page, resultsPerPage, filter]);
+    fetchData(1);
+  }, []);
 
   return (
     <div>
@@ -55,33 +75,37 @@ const UsersTable = ({ resultsPerPage, filter }) => {
                       alt="User image"
                     />
                     <div>
-                      <p className="font-semibold">{user.first_name}</p>
+                      <p className="font-semibold">{user.firstName}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{user.last_name}</span>
+                  <span className="text-sm">{user.lastName}</span>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">{user.email}</span>
                 </TableCell>
 
                 <TableCell>
-                  <span className="text-sm">
-                    {new Date(user.joined_on).toLocaleDateString()}
-                  </span>
+                  {user.roles.map((role,index)=>(
+                      <Badge type="success" key={index}>
+                        {role}
+                      </Badge>
+                  ))}
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
         <TableFooter>
-          <Pagination
-            totalResults={totalResults}
-            resultsPerPage={resultsPerPage}
-            label="Table navigation"
-            onChange={onPageChange}
-          />
+          {dataLoaded && (
+              <Pagination
+                  totalResults={totalResults}
+                  resultsPerPage={resultsPerPage}
+                  label="Table navigation"
+                  onChange={(page) => onPageChange(page)}
+              />
+          )}
         </TableFooter>
       </TableContainer>
     </div>
