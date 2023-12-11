@@ -13,4 +13,6 @@ public interface OrderRepository extends MongoRepository<Order,String> {
     @Query("{'additionalOrder.email': ?0}")
     List<Order> findAllByUser(String user);
 
+    @Query("{'status': {$regex: ?0, $options: 'i'}}")
+    List<Order> findAllByStatus(String status);
 }

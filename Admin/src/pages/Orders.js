@@ -11,20 +11,18 @@ function Icon({ icon, ...props }) {
 }
 
 const Orders = () => {
+  console.log("Order Page")
   // pagination setup
   const [resultsPerPage, setResultPerPage] = useState(10);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("");
 
   const handleFilter = (filter_name) => {
     // console.log(filter_name);
     if (filter_name == "All") {
-      setFilter("all");
+      setFilter("");
     }
-    if (filter_name == "Un-Paid Orders") {
-      setFilter("un-paid");
-    }
-    if (filter_name == "Paid Orders") {
-      setFilter("paid");
+    if (filter_name == "In-Request Orders") {
+      setFilter("IN_REQUEST");
     }
     if (filter_name == "Completed") {
       setFilter("completed");
@@ -61,8 +59,7 @@ const Orders = () => {
                 onChange={(e) => handleFilter(e.target.value)}
               >
                 <option>All</option>
-                <option>Un-Paid Orders</option>
-                <option>Paid Orders</option>
+                <option>In-Request Orders</option>
                 <option>Completed</option>
               </Select>
             </Label>

@@ -9,56 +9,61 @@ import {
   TableFooter,
   Avatar,
   Badge,
-  Pagination,
+  Pagination, Dropdown, Select,
 } from "@windmill/react-ui";
 import response from "../utils/demo/ordersData";
+import axiosInstance from "../axiosInstance";
 
 const OrdersTable = ({ resultsPerPage, filter }) => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
-
-  // pagination setup
-  const totalResults = response.length;
-
+  const [totalPage, setTotalPage] = useState(0);
+  const [totalResults, setTotalResult] = useState(0);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const statusOptions = [
+    { value: 'IN_REQUEST', label: 'In Request', type: 'danger' },
+    { value: 'COMPLETED', label: 'Completed', type: 'success' },
+    // Add more options as needed
+  ];
   // pagination change control
-  function onPageChange(p) {
-    setPage(p);
+  async function onPageChange(p) {
+    await fetchData(p,filter,resultsPerPage);
   }
+  const handleStatusChange=async (status, orderId)=>{
+    try{
+      let item = data.filter(x=>x.id===orderId)[0];
+      item.status=status;
+      await axiosInstance.put(
+          `/api/v1/orders/${item.id}`,
+          item
+      );
+      await fetchData(page,filter,resultsPerPage);
+    }
+    catch (error){
+      console.log("Update status fail");
+    }
+  }
+
+  const fetchData = async (page, filter, resultsPerPage) => {
+    try {
+      const response = await axiosInstance.get(
+          `/api/v1/orders/paging?page=${page - 1}&size=${resultsPerPage}&search=${filter}`
+      );
+      setData(response.data.content);
+      setPage(page);
+      setTotalPage(response.data.totalPages);
+      setTotalResult(response.data.totalElements);
+      setDataLoaded(true);
+    } catch (error) {
+      console.log("Fetch data error", error);
+    }
+  };
 
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
-    // If Filters Applied
-    if (filter === "paid") {
-      setData(
-        response
-          .filter((order) => order.status === "Paid")
-          .slice((page - 1) * resultsPerPage, page * resultsPerPage)
-      );
-    }
-    if (filter === "un-paid") {
-      setData(
-        response
-          .filter((order) => order.status === "Un-paid")
-          .slice((page - 1) * resultsPerPage, page * resultsPerPage)
-      );
-    }
-    if (filter === "completed") {
-      setData(
-        response
-          .filter((order) => order.status === "Completed")
-          .slice((page - 1) * resultsPerPage, page * resultsPerPage)
-      );
-    }
-
-    // if filters dosent applied
-    if (filter === "all" || !filter) {
-      setData(
-        response.slice((page - 1) * resultsPerPage, page * resultsPerPage)
-      );
-    }
-  }, [page, resultsPerPage, filter]);
-
+      fetchData(1,filter,resultsPerPage)
+  }, [resultsPerPage, filter]);
   return (
     <div>
       {/* Table */}
@@ -68,50 +73,52 @@ const OrdersTable = ({ resultsPerPage, filter }) => {
             <tr>
               <TableCell>Client</TableCell>
               <TableCell>Order ID</TableCell>
+              <TableCell>Items</TableCell>
               <TableCell>Amount</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Date</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
-            {data.map((user, i) => (
-              <TableRow key={i}>
+            {data.map((order, i) => (
+              <TableRow key={order.id}>
                 <TableCell>
                   <div className="flex items-center text-sm">
-                    <Avatar
-                      className="hidden mr-3 md:block"
-                      src={user.avatar}
-                      alt="User image"
-                    />
                     <div>
-                      <p className="font-semibold">{user.name}</p>
+                      <p className="font-semibold">{order.additionalOrder.fullName}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">#000{i}</span>
+                  <span className="text-sm">{order.id || ""}</span>
+                </TableCell>
+                <TableCell className="text-sm">
+                  {order && order.details && order.details.length > 0
+                      ? order.details.map((detail) => (
+                          <div key={detail.productId} className="flex">
+                            <span
+                                className="px-2 inline-flex text-xs leading-5
+                      font-semibold rounded-full bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100 mb-2 mt-2"
+                            >
+                              {detail.product.name} X {detail.quantity}
+                            </span>
+                          </div>
+                      ))
+                      : ""}
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">$ {user.amount}</span>
+                  <span className="text-sm">{order.total || ""} đ</span>
                 </TableCell>
                 <TableCell>
-                  <Badge
-                    type={
-                      user.status === "Un-paid"
-                        ? "danger"
-                        : user.status === "Paid"
-                        ? "success"
-                        : user.status === "Completed"
-                        ? "warning"
-                        : "neutral"
-                    }
-                  >
-                    {user.status}
-                  </Badge>
+                  <select value={order.status} onChange={(e) => handleStatusChange(e.target.value,order.id)}>
+                    {statusOptions.map(option => (
+                        <option key={option.value} value={option.value}>{option.label}</option>
+                    ))}
+                  </select>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">
-                    {new Date(user.date).toLocaleDateString()}
+                    {new Date(order.createdDate).toLocaleDateString()}
                   </span>
                 </TableCell>
               </TableRow>
@@ -119,12 +126,14 @@ const OrdersTable = ({ resultsPerPage, filter }) => {
           </TableBody>
         </Table>
         <TableFooter>
-          <Pagination
-            totalResults={totalResults}
-            resultsPerPage={resultsPerPage}
-            label="Table navigation"
-            onChange={onPageChange}
-          />
+          {dataLoaded && (
+              <Pagination
+                  totalResults={totalResults}
+                  resultsPerPage={resultsPerPage}
+                  label="Table navigation"
+                  onChange={onPageChange}
+              />
+          )}
         </TableFooter>
       </TableContainer>
     </div>

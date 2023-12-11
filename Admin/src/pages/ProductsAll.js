@@ -358,9 +358,8 @@ const ProductsAll = () => {
                   <TableCell className="text-sm">
                     {product && product.tags && product.tags.length > 0
                       ? product.tags.map((tag, index) => (
-                          <div className="flex">
+                          <div key={index} className="flex">
                             <span
-                              key={index}
                               className="px-2 inline-flex text-xs leading-5
                       font-semibold rounded-full bg-green-100 text-green-700 dark:bg-green-700 dark:text-green-100 mb-2 mt-2"
                             >

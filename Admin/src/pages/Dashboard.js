@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import InfoCard from "../components/Cards/InfoCard";
 import ChartCard from "../components/Chart/ChartCard";
@@ -15,8 +15,32 @@ import {
   lineLegends,
 } from "../utils/demo/chartsData";
 import OrdersTable from "../components/OrdersTable";
+import axiosInstance from "../axiosInstance";
 
 function Dashboard() {
+  const [dashboard, setDashBoard]= useState({
+    totalCustomer: '',
+    totalIncome: '',
+    totalNewOrder: ''
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchData = async ()=>{
+      try{
+        const dashboardInfo = await axiosInstance.get(
+            '/api/v1/about-us/dashboard');
+        setDashBoard(dashboardInfo.data);
+        console.log("dashboardInfo", dashboard);
+      }catch (error){
+        console.log("Load data Error",error);
+      }
+    }
+    fetchData();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
   return (
     <>
       <PageTitle>Dashboard</PageTitle>
@@ -25,7 +49,7 @@ function Dashboard() {
 
       {/* <!-- Cards --> */}
       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-        <InfoCard title="Total customers" value="765">
+        <InfoCard title="Total customers" value={dashboard.totalCustomer || ""}>
           <RoundIcon
             icon={PeopleIcon}
             iconColorClass="text-orange-500 dark:text-orange-100"
@@ -34,7 +58,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Total income" value="$ 6,760.89">
+        <InfoCard title="Total income" value={dashboard.totalIncome || ""}>
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -43,7 +67,7 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="New Orders" value="150">
+        <InfoCard title="New Orders" value={dashboard.totalNewOrder || ""}>
           <RoundIcon
             icon={CartIcon}
             iconColorClass="text-blue-500 dark:text-blue-100"
@@ -52,14 +76,6 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Unread Chats" value="15">
-          <RoundIcon
-            icon={ChatIcon}
-            iconColorClass="text-teal-500 dark:text-teal-100"
-            bgColorClass="bg-teal-100 dark:bg-teal-500"
-            className="mr-4"
-          />
-        </InfoCard>
       </div>
 
       {/* <div className="grid gap-6 mb-8 md:grid-cols-2">
@@ -75,7 +91,7 @@ function Dashboard() {
       </div> */}
 
       <PageTitle>Orders</PageTitle>
-      <OrdersTable resultsPerPage={10} />
+      <OrdersTable resultsPerPage={10} filter={""} />
     </>
   );
 }
