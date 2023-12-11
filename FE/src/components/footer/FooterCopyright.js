@@ -10,15 +10,15 @@ const FooterCopyright = ({ spaceBottomClass, colorClass }) => {
       }`}
     >
       <div className="footer-logo">
-        <Link to={process.env.PUBLIC_URL + "/"} 
-        style={{
-          fontSize: "30px",
-          fontWeight: 800,
-        }}
-        
-        
+        <Link
+          to={process.env.PUBLIC_URL + "/"}
+          className="logo"
+          style={{
+            fontSize: "30px",
+            fontWeight: 800,
+          }}
         >
-        Floravibe
+          Floravibe
         </Link>
       </div>
       <p>
@@ -39,7 +39,7 @@ const FooterCopyright = ({ spaceBottomClass, colorClass }) => {
 FooterCopyright.propTypes = {
   footerLogo: PropTypes.string,
   spaceBottomClass: PropTypes.string,
-  colorClass: PropTypes.string
+  colorClass: PropTypes.string,
 };
 
 export default FooterCopyright;
