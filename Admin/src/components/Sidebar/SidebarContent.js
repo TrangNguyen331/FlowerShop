@@ -19,7 +19,7 @@ function SidebarContent() {
         Floravibe
       </a>
       <ul className="mt-6">
-        {routes.slice(0, -3).map((route) =>
+        {routes.slice(0, 3).map((route) =>
           route.routes ? (
             <SidebarSubmenu route={route} key={route.name} />
           ) : (
@@ -49,7 +49,7 @@ function SidebarContent() {
 
         <hr className="customeDivider mx-4 my-5" />
 
-        {routes.slice(-3).map((route) => (
+        {routes.slice(-2).map((route) => (
           <li className="relative px-6 py-3" key={route.name}>
             <NavLink
               exact

@@ -11,7 +11,6 @@ import {
   Badge,
   Pagination,
 } from "@windmill/react-ui";
-import response from "../utils/demo/usersData";
 import axiosInstance from "../axiosInstance";
 
 const UsersTable = () => {
@@ -32,7 +31,7 @@ const UsersTable = () => {
     try {
       console.log("page", page);
       const response = await axiosInstance.get(
-          "/api/v1/auth/paging?page=" + (page - 1) + "&size=" + resultsPerPage
+        "/api/v1/auth/paging?page=" + (page - 1) + "&size=" + resultsPerPage
       );
       console.log("Response data", response.data);
       setData(response.data.content);
@@ -68,10 +67,14 @@ const UsersTable = () => {
             {data.map((user, i) => (
               <TableRow key={i}>
                 <TableCell>
-                  <div className="flex items-center text-sm">
+                  <div className="flex items-center text-base">
                     <Avatar
                       className="hidden mr-3 md:block"
-                      src={user.avatar}
+                      src={
+                        user.avatar
+                          ? user.avatar
+                          : "https://i.pinimg.com/564x/93/4e/37/934e37c613b24b4c7aa236644dd46fdc.jpg"
+                      }
                       alt="User image"
                     />
                     <div>
@@ -80,17 +83,17 @@ const UsersTable = () => {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{user.lastName}</span>
+                  <span className="text-base">{user.lastName}</span>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">{user.email}</span>
+                  <span className="text-base">{user.email}</span>
                 </TableCell>
 
-                <TableCell>
-                  {user.roles.map((role,index)=>(
-                      <Badge type="success" key={index}>
-                        {role}
-                      </Badge>
+                <TableCell className="space-x-2">
+                  {user.roles.map((role, index) => (
+                    <Badge type="success" key={index}>
+                      {role}
+                    </Badge>
                   ))}
                 </TableCell>
               </TableRow>
@@ -99,12 +102,12 @@ const UsersTable = () => {
         </Table>
         <TableFooter>
           {dataLoaded && (
-              <Pagination
-                  totalResults={totalResults}
-                  resultsPerPage={resultsPerPage}
-                  label="Table navigation"
-                  onChange={(page) => onPageChange(page)}
-              />
+            <Pagination
+              totalResults={totalResults}
+              resultsPerPage={resultsPerPage}
+              label="Table navigation"
+              onChange={(page) => onPageChange(page)}
+            />
           )}
         </TableFooter>
       </TableContainer>
