@@ -44,6 +44,7 @@ public class ProductServiceImpl  implements ProductService {
     public Product addNew(ProductDto dto) {
         Product product = new Product();
         modelMapper.map(dto,product);
+        product.setImages(dto.getImages());
         product.setCollections(dto.getCollections());
         product.setTags(dto.getTags());
         repository.save(product);
@@ -55,6 +56,7 @@ public class ProductServiceImpl  implements ProductService {
         Product product = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
         modelMapper.map(dto,product);
+        product.setImages(dto.getImages());
         product.setCollections(dto.getCollections());
         product.setTags(dto.getTags());
         repository.save(product);
