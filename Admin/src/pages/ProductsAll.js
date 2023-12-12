@@ -32,7 +32,7 @@ const ProductsAll = () => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   // pagination setup
-  const [resultsPerPage, setResultsPerPage] = useState(2);
+  const [resultsPerPage, setResultsPerPage] = useState(4);
   const [totalPage, setTotalPage] = useState(0);
   const [totalResults, setTotalResult] = useState(0);
   const [dataLoaded, setDataLoaded] = useState(false);

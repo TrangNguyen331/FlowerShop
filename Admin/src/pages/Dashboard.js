@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import InfoCard from "../components/Cards/InfoCard";
 import ChartCard from "../components/Chart/ChartCard";
@@ -18,24 +18,25 @@ import OrdersTable from "../components/OrdersTable";
 import axiosInstance from "../axiosInstance";
 
 function Dashboard() {
-  const [dashboard, setDashBoard]= useState({
-    totalCustomer: '',
-    totalIncome: '',
-    totalNewOrder: ''
+  const [dashboard, setDashBoard] = useState({
+    totalCustomer: "",
+    totalIncome: "",
+    totalNewOrder: "",
   });
 
   useEffect(() => {
     let isMounted = true;
-    const fetchData = async ()=>{
-      try{
+    const fetchData = async () => {
+      try {
         const dashboardInfo = await axiosInstance.get(
-            '/api/v1/about-us/dashboard');
+          "/api/v1/about-us/dashboard"
+        );
         setDashBoard(dashboardInfo.data);
-        console.log("dashboardInfo", dashboard);
-      }catch (error){
-        console.log("Load data Error",error);
+        console.log("dashboardInfo", dashboardInfo.data);
+      } catch (error) {
+        console.log("Load data Error", error);
       }
-    }
+    };
     fetchData();
     return () => {
       isMounted = false;
@@ -58,7 +59,14 @@ function Dashboard() {
           />
         </InfoCard>
 
-        <InfoCard title="Total income" value={dashboard.totalIncome || ""}>
+        <InfoCard
+          title="Total income"
+          value={
+            (dashboard.totalIncome &&
+              dashboard.totalIncome.toLocaleString("vi-VN")) ||
+            ""
+          }
+        >
           <RoundIcon
             icon={MoneyIcon}
             iconColorClass="text-green-500 dark:text-green-100"
@@ -75,7 +83,6 @@ function Dashboard() {
             className="mr-4"
           />
         </InfoCard>
-
       </div>
 
       {/* <div className="grid gap-6 mb-8 md:grid-cols-2">
