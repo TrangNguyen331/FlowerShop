@@ -151,6 +151,7 @@ const EditForm = ({ data, onSave, onCancel, onProductChange }) => {
                 ],
               },
             }}
+            data={(data && data.additionalInformation) || ""}
           />
         </div>
       </div>
