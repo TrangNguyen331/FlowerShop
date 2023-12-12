@@ -5,6 +5,8 @@ import { getProductCartQuantity } from "../../helpers/product";
 import { Modal } from "react-bootstrap";
 import Rating from "./sub-components/ProductRating";
 import { connect } from "react-redux";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function ProductModal(props) {
   const { product } = props;
@@ -12,6 +14,8 @@ function ProductModal(props) {
   // const { discountedprice } = props;
   const { finalproductprice } = props;
   // const { finaldiscountedprice } = props;
+  const token = useSelector((state) => state.auth.token);
+  const history = useHistory();
 
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
@@ -282,15 +286,19 @@ function ProductModal(props) {
                     <div className="pro-details-cart btn-hover">
                       {
                         <button
-                          onClick={() =>
-                            addToCart(
-                              product,
-                              addToast,
-                              quantityCount,
-                              selectedProductColor,
-                              selectedProductSize
-                            )
-                          }
+                          onClick={() => {
+                            if (token) {
+                              addToCart(
+                                product,
+                                addToast,
+                                quantityCount,
+                                selectedProductColor,
+                                selectedProductSize
+                              );
+                            } else {
+                              history.push("/login-register");
+                            }
+                          }}
                         >
                           {" "}
                           Add To Cart{" "}
@@ -306,7 +314,13 @@ function ProductModal(props) {
                             ? "Added to wishlist"
                             : "Add to wishlist"
                         }
-                        onClick={() => addToWishlist(product, addToast)}
+                        onClick={() => {
+                          if (token) {
+                            addToWishlist(product, addToast);
+                          } else {
+                            history.push("/login-register");
+                          }
+                        }}
                       >
                         {wishlistItem !== undefined ? (
                           <i

@@ -5,7 +5,8 @@ import { useToasts } from "react-toast-notifications";
 // import { getDiscountPrice } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import ProductModal from "./ProductModal";
-
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 const ProductGridListSingle = ({
   product,
   currency,
@@ -19,7 +20,8 @@ const ProductGridListSingle = ({
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-
+  const token = useSelector((state) => state.auth.token);
+  const history = useHistory();
   return (
     <Fragment>
       <div
@@ -50,7 +52,13 @@ const ProductGridListSingle = ({
                       ? "Added to wishlist"
                       : "Add to wishlist"
                   }
-                  onClick={() => addToWishlist(product, addToast)}
+                  onClick={() => {
+                    if (token) {
+                      addToWishlist(product, addToast);
+                    } else {
+                      history.push("/login-register");
+                    }
+                  }}
                 >
                   <i className="pe-7s-like" />
                 </button>
@@ -71,7 +79,13 @@ const ProductGridListSingle = ({
                   </Link>
                 ) : (
                   <button
-                    onClick={() => addToCart(product, addToast)}
+                    onClick={() => {
+                      if (token) {
+                        addToCart(product, addToast);
+                      } else {
+                        history.push("/login-register");
+                      }
+                    }}
                     className={
                       cartItem !== undefined && cartItem.quantity > 0
                         ? "active"
