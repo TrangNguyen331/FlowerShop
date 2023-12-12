@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import Tab from "react-bootstrap/Tab";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../axiosInstance";
-import product from "../shop-product/Product";
 import {
   filterOrderByStatus,
   formatReadableDate,
@@ -217,7 +216,7 @@ const MyOrders = ({ location }) => {
                                           </div>
                                         </li>
                                         <li className="order-status">
-                                          {order.status}
+                                          {getStatus(order.status)}
                                         </li>
                                       </ul>
                                     </div>
@@ -303,7 +302,7 @@ const MyOrders = ({ location }) => {
                                           </div>
                                         </li>
                                         <li className="order-status">
-                                          {order.status}
+                                          {getStatus(order.status)}
                                         </li>
                                       </ul>
                                     </div>
@@ -389,7 +388,7 @@ const MyOrders = ({ location }) => {
                                           </div>
                                         </li>
                                         <li className="order-status">
-                                          {order.status}
+                                          {getStatus(order.status)}
                                         </li>
                                       </ul>
                                     </div>
