@@ -209,7 +209,6 @@ const Checkout = ({ location, cartItems, currency }) => {
                   </div>
                 </div>
               </div>
-
               <div className="col-lg-5">
                 <div className="your-order-area">
                   <h3>Your order</h3>
@@ -309,7 +308,6 @@ const Checkout = ({ location, cartItems, currency }) => {
                 </div>
               </div>
             </div>
-            /
             {/* <div className="row">
               <div className="col-lg-12">
                 <div className="item-empty-area text-center">
