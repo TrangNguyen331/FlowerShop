@@ -43,11 +43,11 @@ const routes = [
   //   icon: "UserIcon",
   //   name: "Profile",
   // },
-  // {
-  //   path: "/app/settings",
-  //   icon: "OutlineCogIcon",
-  //   name: "Settings",
-  // },
+  {
+    path: "/app/blogs",
+    icon: "InvoiceIcon",
+    name: "Blogs",
+  },
   {
     path: "/app/log-out",
     icon: "OutlineLogoutIcon",

@@ -9,7 +9,7 @@ const AddProduct = lazy(() => import("../pages/AddProduct"));
 const Customers = lazy(() => import("../pages/Customers"));
 const Chats = lazy(() => import("../pages/Chats"));
 const Profile = lazy(() => import("../pages/Profile"));
-const Settings = lazy(() => import("../pages/Settings"));
+const Blogs = lazy(() => import("../pages/Blogs"));
 const Page404 = lazy(() => import("../pages/404"));
 const Blank = lazy(() => import("../pages/Blank"));
 
@@ -57,8 +57,8 @@ const routes = [
     component: Profile,
   },
   {
-    path: "/settings",
-    component: Settings,
+    path: "/blogs",
+    component: Blogs,
   },
   {
     path: "/404",
