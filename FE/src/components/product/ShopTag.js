@@ -3,6 +3,7 @@ import React from "react";
 import { setActiveSort } from "../../helpers/product";
 
 const ShopTag = ({ tags, getSortParams }) => {
+    console.log("tags",tags)
   return (
     <div className="sidebar-widget mt-50">
       <h4 className="pro-sidebar-title">Tag </h4>

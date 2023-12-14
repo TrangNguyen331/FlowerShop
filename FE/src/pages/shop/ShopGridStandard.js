@@ -24,6 +24,7 @@ const ShopGridStandard = ({ location }) => {
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
   const pageLimit = 15;
   const { pathname } = location;
 
@@ -38,6 +39,11 @@ const ShopGridStandard = ({ location }) => {
     }
   };
 
+  const handleSearch = (search) =>{
+    setSearch(search);
+    fetchDataAndProcess(0, search)
+
+  }
   const getLayout = (layout) => {
     setLayout(layout);
   };
@@ -51,52 +57,50 @@ const ShopGridStandard = ({ location }) => {
     setFilterSortType(sortType);
     setFilterSortValue(sortValue);
   };
+  const fetchDataAndProcess = async (page,search) => {
+    try {
+      const response = await fetchDataProduct(0, search);
 
-  useEffect(() => {
-    const fetchDataAndProcess = async () => {
-      try {
-        const response = await fetchDataProduct(0, "");
-
-        const products = response.content.map(
+      const products = response.content.map(
           (item) =>
-            new ProductModel(
-              item.id,
-              item.name,
-              item.description,
-              item.additionalInformation,
-              item.price,
-              item.tags,
-              item.images,
-              item.reviews,
-              item.collections
-            )
-        );
+              new ProductModel(
+                  item.id,
+                  item.name,
+                  item.description,
+                  item.additionalInformation,
+                  item.price,
+                  item.tags,
+                  item.images,
+                  item.reviews,
+                  item.collections
+              )
+      );
 
-        setProducts(products);
+      setProducts(products);
 
-        let sortedProducts = getSortedProducts(products, sortType, sortValue);
-        const filterSortedProducts = getSortedProducts(
+      let sortedProducts = getSortedProducts(products, sortType, sortValue);
+      const filterSortedProducts = getSortedProducts(
           sortedProducts,
           filterSortType,
           filterSortValue
-        );
-        sortedProducts = filterSortedProducts;
+      );
+      sortedProducts = filterSortedProducts;
 
-        setSortedProducts(sortedProducts);
-        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-        console.log(
+      setSortedProducts(sortedProducts);
+      setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+      console.log(
           "currentData",
           sortedProducts.slice(offset, offset + pageLimit)
-        );
-      } catch (error) {
-        console.error("Error fetching data", error);
-      }
-    };
+      );
+    } catch (error) {
+      console.error("Error fetching data", error);
+    }
+  };
 
-    fetchDataAndProcess();
-
+  useEffect(() => {
+    fetchDataAndProcess(currentPage,search);
     // Dependencies for the effect: offset, sortType, sortValue, filterSortType, filterSortValue
-  }, [offset, sortType, sortValue, filterSortType, filterSortValue]);
+  }, [offset, sortType, sortValue, filterSortType, filterSortValue, search,currentPage]);
 
   return (
     <Fragment>
@@ -125,6 +129,7 @@ const ShopGridStandard = ({ location }) => {
                 <ShopSidebar
                   products={products}
                   getSortParams={getSortParams}
+                  searchHandler={handleSearch}
                   sideSpaceClass="mr-30"
                 />
               </div>
@@ -141,19 +146,19 @@ const ShopGridStandard = ({ location }) => {
                 <ShopProducts layout={layout} products={currentData} />
 
                 {/* shop product pagination */}
-                <div className="pro-pagination-style text-center mt-30">
-                  {/* <Paginator
-                                        totalRecords={sortedProducts.length}
-                                        pageLimit={pageLimit}
-                                        pageNeighbours={2}
-                                        setOffset={setOffset}
-                                        currentPage={currentPage}
-                                        setCurrentPage={setCurrentPage}
-                                        pageContainerClass="mb-0 mt-0"
-                                        pagePrevText="«"
-                                        pageNextText="»"
-                                    /> */}
-                </div>
+                {/*<div className="pro-pagination-style text-center mt-30">*/}
+                {/*  <Paginator*/}
+                {/*      totalRecords={sortedProducts.length}*/}
+                {/*      pageLimit={pageLimit}*/}
+                {/*      pageNeighbours={2}*/}
+                {/*      setOffset={setOffset}*/}
+                {/*      currentPage={currentPage}*/}
+                {/*      setCurrentPage={setCurrentPage}*/}
+                {/*      pageContainerClass="mb-0 mt-0"*/}
+                {/*      pagePrevText="«"*/}
+                {/*      pageNextText="»"*/}
+                {/*  />*/}
+                {/*</div>*/}
               </div>
             </div>
           </div>
