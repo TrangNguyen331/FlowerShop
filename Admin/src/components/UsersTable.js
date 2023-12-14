@@ -9,7 +9,7 @@ import {
   TableFooter,
   Avatar,
   Badge,
-  Pagination,
+  Pagination, Input,
 } from "@windmill/react-ui";
 import axiosInstance from "../axiosInstance";
 
@@ -44,6 +44,16 @@ const UsersTable = () => {
     }
   };
 
+  const handleCheckboxChange = async (userId)=>{
+    console.log("Handle on change", userId);
+    try{
+      await axiosInstance.put(`/api/v1/auth/active/${userId}`)
+      await fetchData(1);
+    }
+    catch (error){
+      console.log("Error", error);
+    }
+  }
   // on page change, load new sliced data
   // here you would make another server request for new data
   useEffect(() => {
@@ -60,7 +70,8 @@ const UsersTable = () => {
               <TableCell>First Name</TableCell>
               <TableCell>Last Name</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell>Joined on</TableCell>
+              <TableCell>Roles</TableCell>
+              <TableCell>Active</TableCell>
             </tr>
           </TableHeader>
           <TableBody>
@@ -95,6 +106,13 @@ const UsersTable = () => {
                       {role}
                     </Badge>
                   ))}
+                </TableCell>
+                <TableCell>
+                  <Input
+                    type="checkbox"
+                    checked={user.isActive}
+                    onChange={() =>handleCheckboxChange(user.id)}
+                  />
                 </TableCell>
               </TableRow>
             ))}

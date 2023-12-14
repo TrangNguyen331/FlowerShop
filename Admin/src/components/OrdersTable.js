@@ -24,6 +24,8 @@ const OrdersTable = ({ resultsPerPage, filter }) => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const statusOptions = [
     { value: "IN_REQUEST", label: "In Request", type: "danger" },
+    { value: "IN_PROCESSING", label: "In Processing", type: "danger" },
+    { value: "CANCEL", label: "Cancel", type: "danger" },
     { value: "COMPLETED", label: "Completed", type: "success" },
     // Add more options as needed
   ];

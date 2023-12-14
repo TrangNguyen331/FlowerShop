@@ -84,5 +84,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(account);
     }
 
+    @PutMapping("/active/{id}")
+    public ResponseEntity<Account> activeDeActive(@PathVariable String id){
+        Account account = accountService.activeDeActive(id);
+        return ResponseEntity.ok(account);
+    }
 
 }

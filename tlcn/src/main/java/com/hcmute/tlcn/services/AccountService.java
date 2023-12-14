@@ -13,4 +13,5 @@ public interface AccountService {
     Account getAccountByAccountName(String userName);
     Account updateAccountInfo(String userName, UpdateUserInfoDto dto);
     Account updatePassword(String userName, UpdatePasswordDto dto);
+    Account activeDeActive(String id);
 }

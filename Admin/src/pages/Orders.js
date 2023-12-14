@@ -18,14 +18,20 @@ const Orders = () => {
 
   const handleFilter = (filter_name) => {
     // console.log(filter_name);
-    if (filter_name == "All") {
+    if (filter_name === "All") {
       setFilter("");
     }
-    if (filter_name == "In-Request Orders") {
+    if (filter_name === "In-Request Orders") {
       setFilter("IN_REQUEST");
     }
-    if (filter_name == "Completed") {
-      setFilter("completed");
+    if (filter_name === "In-Processing Orders") {
+      setFilter("IN_PROCESSING");
+    }
+    if (filter_name === "Cancel Orders") {
+      setFilter("CANCEL");
+    }
+    if (filter_name === "Completed Orders") {
+      setFilter("COMPLETED");
     }
   };
 
@@ -60,7 +66,9 @@ const Orders = () => {
               >
                 <option>All</option>
                 <option>In-Request Orders</option>
-                <option>Completed</option>
+                <option>In-Processing Orders</option>
+                <option>Cancel Orders</option>
+                <option>Completed Orders</option>
               </Select>
             </Label>
 

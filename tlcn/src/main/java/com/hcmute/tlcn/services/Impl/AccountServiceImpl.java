@@ -84,4 +84,13 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(account);
         return account;
     }
+
+    @Override
+    public Account activeDeActive(String id) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Account not found!"));
+        account.setActive(!account.isActive);
+        accountRepository.save(account);
+        return account;
+    }
 }
