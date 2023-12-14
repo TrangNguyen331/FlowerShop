@@ -200,7 +200,6 @@ const ProductsAll = () => {
     }));
     console.log(value);
   };
-  console.log("selectedProduct", selectedProduct);
   return (
     <div>
       <PageTitle>All Products</PageTitle>

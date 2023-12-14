@@ -34,6 +34,7 @@ public class BlogServiceImpl implements BlogService {
     public Blog addNew(BlogDto dto) {
         Blog blog = new Blog();
         modelMapper.map(dto,blog);
+        blog.setCategory(dto.getCategory());
         repository.save(blog);
         return blog;
     }
@@ -43,6 +44,7 @@ public class BlogServiceImpl implements BlogService {
         Blog blog = repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not found"));
         modelMapper.map(dto,blog);
+        blog.setCategory(dto.getCategory());
         repository.save(blog);
         return blog;
     }

@@ -26,7 +26,7 @@ const BlogPosts = (input) => {
                   process.env.PUBLIC_URL + "/blog-details-standard/" + blog.id
                 }
               >
-                <img src={blog.image} alt="" />
+                <img src={blog.image || ""} alt="" />
               </Link>
             </div>
             <div className="blog-content-2">
@@ -44,7 +44,7 @@ const BlogPosts = (input) => {
                   {blog.title}
                 </Link>
               </h4>
-              <p>{blog.getContentLimit(90)}</p>
+              <p dangerouslySetInnerHTML={{ __html: blog.content || "" }}>{}</p>
               <div className="blog-share-comment">
                 <div className="blog-btn-2">
                   <Link
