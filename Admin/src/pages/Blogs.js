@@ -119,7 +119,7 @@ const Blogs = () => {
     }
   };
   const openModal = async (mode, blogId) => {
-    console.log("Product", blogId);
+    console.log("Blog", blogId);
     if (mode === "edit" || mode === "delete") {
       let blog = await data.filter((blog) => blog.id === blogId)[0];
       setSelectedBlog(blog);
@@ -276,10 +276,10 @@ const Blogs = () => {
                 className="hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
               >
                 <TableCell>
-                  <div className="flex items-center text-sm">
+                  <div className="text-sm blog-img">
                     <Link to={`/app/blog/${blog.id}`}>
                       <img
-                        className="hidden w-44 h-36 md:block"
+                        className="hidden md:block"
                         src={blog.image || ""}
                         alt="Blog image"
                       />

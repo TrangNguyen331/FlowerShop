@@ -58,3 +58,12 @@ code {
 ul {
   list-style: none;
 }
+.blog-img {
+  width: 244px;
+  height: 163px;
+}
+.blog-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
