@@ -546,6 +546,7 @@
       height: 34px;
       width: 34px;
       overflow: hidden;
+      margin-left: 4px;
     }
     > button {
       border: none;
@@ -555,7 +556,7 @@
   .same-style.cart-wrap,
   .same-style.header-wishlist,
   .same-style.header-compare {
-    margin-left: 15px;
+    margin-left: 25px;
     @media #{$lg-layout} {
       margin-left: 15px;
     }

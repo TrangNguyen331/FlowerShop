@@ -6,10 +6,10 @@ import { ToastProvider } from "react-toast-notifications";
 // import { multilanguage, loadLanguages } from "redux-multilanguage";
 // import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
-import MyOrders from "./pages/other/MyOrders";
-import Order from "./pages/other/Order";
-import OrderSuccess from "./pages/other/OrderSuccess";
 
+const MyOrders = lazy(() => import("./pages/other/MyOrders"));
+const Order = lazy(() => import("./pages/other/Order"));
+const OrderSuccess = lazy(() => import("./pages/other/OrderSuccess"));
 const HomePlants = lazy(() => import("./pages/home/HomePlants"));
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 const BlogRightSidebar = lazy(() => import("./pages/blog/BlogRightSidebar"));

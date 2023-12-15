@@ -1,4 +1,3 @@
-
 [
   {
     "id": 1,
@@ -12,6 +11,13 @@
     "title": "Express Emotions, Send Blooms",
     "subtitle": "Summer Offer <br/> 2023 Collection",
     "image": "/assets/img/slider/slider-1.png",
+    "url": "/shop"
+  },
+  {
+    "id": 3,
+    "title": "-30% Off All Items",
+    "subtitle": "Bouquet of Love <br/> 2023 Collection",
+    "image": "/assets/img/slider/always-right.png",
     "url": "/shop"
   }
 ]
