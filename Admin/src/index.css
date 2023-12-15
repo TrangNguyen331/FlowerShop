@@ -48,7 +48,6 @@ code {
   border-color: transparent;
 }
 
-
 .ck-editor__editable {
   height: 120px;
   padding: 0.5rem 1.4rem !important;
@@ -57,5 +56,5 @@ code {
   box-shadow: none !important;
 }
 ul {
-  list-style: circle !important;
+  list-style: none;
 }
