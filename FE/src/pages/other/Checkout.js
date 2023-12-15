@@ -288,7 +288,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                         />
                         <span>Cash</span>
                       </div>
-                      <div>
+                      {/* <div>
                         <input
                           type="radio"
                           value="VNPAY"
@@ -297,7 +297,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                           className="radio-input"
                         />
                         <span>VNPay</span>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                   <div className="place-order mt-25">

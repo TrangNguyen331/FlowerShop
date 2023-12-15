@@ -15,6 +15,10 @@ const BlogPosts = (input) => {
         blog.createdDate
       )
   );
+  const truncateContent = (content) => {
+    const trimmedString = content.substr(0, 120);
+    return trimmedString;
+  };
   return (
     <Fragment>
       {blogs.map((blog) => (
@@ -44,7 +48,11 @@ const BlogPosts = (input) => {
                   {blog.title}
                 </Link>
               </h4>
-              <p dangerouslySetInnerHTML={{ __html: blog.content || "" }}>{}</p>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: truncateContent(blog.content) + "..." || "",
+                }}
+              ></p>
               <div className="blog-share-comment">
                 <div className="blog-btn-2">
                   <Link

@@ -5,7 +5,7 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import BlogSidebar from "../../wrappers/blog/BlogSidebar";
-import BlogPagination from "../../wrappers/blog/BlogPagination";
+// import BlogPagination from "../../wrappers/blog/BlogPagination";
 import BlogPosts from "../../wrappers/blog/BlogPosts";
 import axiosInstance from "../../axiosInstance";
 import { useToasts } from "react-toast-notifications";
@@ -14,13 +14,13 @@ const BlogRightSidebar = ({ location }) => {
   const { pathname } = location;
   const { addToast } = useToasts();
   const [blogData, setBlogData] = useState({
-    search: '',
+    search: "",
     selectedPage: 0,
     totalPage: 0,
     blogs: [],
   });
   const [recentBlogData, setRecentBlogData] = useState({
-    search: '',
+    search: "",
     selectedPage: 0,
     totalPage: 0,
     blogs: [],
@@ -38,13 +38,13 @@ const BlogRightSidebar = ({ location }) => {
         totalPage: resData.totalPages,
         blogs: resData.content,
       });
-    }
+    };
     fetchData(0);
     loadRecentBlog(0);
   }, []);
   const fetchData = async (page, search) => {
     try {
-      let searchKey = search ? search : '';
+      let searchKey = search ? search : "";
       const response = await axiosInstance.get(
         "/api/v1/blogs/paging?page=" + page + "&search=" + searchKey
       );
@@ -57,7 +57,6 @@ const BlogRightSidebar = ({ location }) => {
         blogs: resData.content,
       });
     } catch (error) {
-
       addToast("Fail to load data Blog", {
         appearance: "error",
         autoDismiss: true,
@@ -65,26 +64,22 @@ const BlogRightSidebar = ({ location }) => {
     }
   };
 
-  const handleNextEvent = () => {
-    if (blogData.selectedPage < blogData.totalPage - 1) {
-      fetchData(blogData.selectedPage + 1)
-    }
-
-  };
-  const handlePreviousEvent = () => {
-    if (blogData.selectedPage > 0) {
-      fetchData(blogData.selectedPage + 1);
-    }
-
-  };
-  const handleSelectPageEvent = (page) => {
-    fetchData(page);
-
-  };
+  // const handleNextEvent = () => {
+  //   if (blogData.selectedPage < blogData.totalPage - 1) {
+  //     fetchData(blogData.selectedPage + 1);
+  //   }
+  // };
+  // const handlePreviousEvent = () => {
+  //   if (blogData.selectedPage > 0) {
+  //     fetchData(blogData.selectedPage + 1);
+  //   }
+  // };
+  // const handleSelectPageEvent = (page) => {
+  //   fetchData(page);
+  // };
   const handelSearchEvent = (search) => {
-
     fetchData(0, search);
-  }
+  };
 
   return (
     <Fragment>
@@ -107,20 +102,23 @@ const BlogRightSidebar = ({ location }) => {
             <div className="row">
               <div className="col-lg-3">
                 {/* blog sidebar */}
-                <BlogSidebar recentBlogData={recentBlogData} onSearchEvent={handelSearchEvent} />
+                <BlogSidebar
+                  recentBlogData={recentBlogData}
+                  onSearchEvent={handelSearchEvent}
+                />
               </div>
               <div className="col-lg-9">
                 <div className="mr-20">
                   <div className="row">
                     <BlogPosts data={blogData.blogs} />
                   </div>
-                  <BlogPagination
+                  {/* <BlogPagination
                     totalPage={blogData.totalPage}
                     selectedPage={blogData.selectedPage}
                     onNextEvent={handleNextEvent}
                     onPreviousEvent={handlePreviousEvent}
                     onSelectPageEvent={handleSelectPageEvent}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
