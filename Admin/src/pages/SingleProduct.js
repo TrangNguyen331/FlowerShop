@@ -42,16 +42,6 @@ const SingleProduct = () => {
   }, []);
   console.log("getProduct", product);
   return (
-    // <div>
-    //   <PageTitle>Product Details</PageTitle>
-    //   {product ? (
-    //     <div>
-    //       <p>{product.description}</p>
-    //     </div>
-    //   ) : (
-    //     ""
-    //   )}
-    // </div>
     <div>
       <PageTitle>Product Details</PageTitle>
       {product ? (

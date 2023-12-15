@@ -10,6 +10,7 @@ const Customers = lazy(() => import("../pages/Customers"));
 const Chats = lazy(() => import("../pages/Chats"));
 const Profile = lazy(() => import("../pages/Profile"));
 const Blogs = lazy(() => import("../pages/Blogs"));
+const SingleBlog = lazy(() => import("../pages/SingleBlog"));
 const Page404 = lazy(() => import("../pages/404"));
 const Blank = lazy(() => import("../pages/Blank"));
 
@@ -59,6 +60,10 @@ const routes = [
   {
     path: "/blogs",
     component: Blogs,
+  },
+  {
+    path: "/blog/:id",
+    component: SingleBlog,
   },
   {
     path: "/404",

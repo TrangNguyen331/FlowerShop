@@ -27,7 +27,6 @@ const OrdersTable = ({ resultsPerPage, filter }) => {
     { value: "IN_PROCESSING", label: "In Processing", type: "danger" },
     { value: "CANCEL", label: "Cancel", type: "danger" },
     { value: "COMPLETED", label: "Completed", type: "success" },
-    // Add more options as needed
   ];
   // pagination change control
   async function onPageChange(p) {
@@ -51,7 +50,10 @@ const OrdersTable = ({ resultsPerPage, filter }) => {
           page - 1
         }&size=${resultsPerPage}&search=${filter}`
       );
-      setData(response.data.content);
+      const sortedData = response.data.content.sort(
+        (a, b) => new Date(b.createdDate) - new Date(a.createdDate)
+      );
+      setData(sortedData);
       setPage(page);
       setTotalPage(response.data.totalPages);
       setTotalResult(response.data.totalElements);
@@ -61,8 +63,6 @@ const OrdersTable = ({ resultsPerPage, filter }) => {
     }
   };
 
-  // on page change, load new sliced data
-  // here you would make another server request for new data
   useEffect(() => {
     fetchData(1, filter, resultsPerPage);
   }, [resultsPerPage, filter]);

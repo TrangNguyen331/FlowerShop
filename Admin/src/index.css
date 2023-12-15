@@ -6,6 +6,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -14,8 +19,8 @@ code {
 
 .rti--container {
   --rti-bg: transparent !important;
-  --rti-tag: rgba(126, 58, 242, 1);
-  --rti-tag-padding: 5px 8px;
+  --rti-tag: rgba(126, 58, 242, 1) !important;
+  --rti-tag-padding: 5px 8px !important;
   margin-top: 0.5rem;
   --rti-main: 0 0 0 3px hsla(210, 2.4%, 83.9%, 0.45);
   /* --rti-border: rgba(76, 79, 82, 1); */
@@ -27,10 +32,11 @@ code {
 }
 .rti--tag {
   color: #fff;
+  background: var(--rti-tag);
 }
 @media (min-width: 640px) {
   .sm\:max-w-xl {
-    max-width: 68rem;
+    max-width: 65rem;
     /* max-width: none; */
   }
 }
@@ -42,10 +48,6 @@ code {
   border-color: transparent;
 }
 
-.form-input,
-.form-textarea {
-  /* border-color: rgba(76, 79, 82, 1); */
-}
 
 .ck-editor__editable {
   height: 120px;
@@ -53,4 +55,7 @@ code {
 }
 .ck-editor__editable:focus {
   box-shadow: none !important;
+}
+ul {
+  list-style: circle !important;
 }
