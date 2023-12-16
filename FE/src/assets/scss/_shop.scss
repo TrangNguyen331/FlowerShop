@@ -339,6 +339,11 @@
     }
 
     &.two-column {
+      img {
+        height: 560px;
+        object-fit: fill;
+        object-position: center;
+      }
       .col-xl-4 {
         flex: 1 0 50%;
 
