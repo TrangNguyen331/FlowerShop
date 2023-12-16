@@ -29,15 +29,15 @@ public class TlcnApplication implements CommandLineRunner {
     private AccountRepository repository;
     @Override
     public void run(String... args) throws Exception {
-        Optional<Account> accountTin= repository.findByUsername("tinnguyen331");
-        if(accountTin.isEmpty()){
+        Optional<Account> newAccount= repository.findByUsername("hanhnguyen237");
+        if(newAccount.isEmpty()){
             BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
             String hashPassword=bCryptPasswordEncoder.encode("123");
             Account account=new Account();
-            account.setUsername("tinnguyen331");
+            account.setUsername("hanhnguyen237");
             account.setPassword(hashPassword);
-            account.setEmail("tinnguyen331@gmail.com");
-            account.setFullName("Nguyen Duc Tin");
+            account.setEmail("hanhnguyen237@gmail.com");
+            account.setFullName("Nguyen Kim Hanh");
             account.setGender(true);
             account.setRoles(new ArrayList<>(Arrays.asList("ROLE_USER", "ROLE_ADMIN")));
             repository.save(account);
