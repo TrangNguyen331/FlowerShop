@@ -7,7 +7,8 @@ import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "./sub-components/ProductRating";
-
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 const ProductDescriptionInfo = ({
   product,
   discountedPrice,
@@ -37,6 +38,8 @@ const ProductDescriptionInfo = ({
     selectedProductColor,
     selectedProductSize
   );
+  const token = useSelector((state) => state.auth.token);
+  const history = useHistory();
   return (
     <div className="product-details-content ml-70">
       <h2 style={{ fontSize: "28px" }}>{product.name}</h2>
@@ -175,15 +178,19 @@ const ProductDescriptionInfo = ({
           <div className="pro-details-cart btn-hover">
             {
               <button
-                onClick={() =>
-                  addToCart(
-                    product,
-                    addToast,
-                    quantityCount,
-                    selectedProductColor,
-                    selectedProductSize
-                  )
-                }
+                onClick={() => {
+                  if (token) {
+                    addToCart(
+                      product,
+                      addToast,
+                      quantityCount,
+                      selectedProductColor,
+                      selectedProductSize
+                    );
+                  } else {
+                    history.push("/login-register");
+                  }
+                }}
                 disabled={productCartQty >= productStock}
               >
                 Add To Cart
@@ -199,7 +206,13 @@ const ProductDescriptionInfo = ({
                   ? "Added to wishlist"
                   : "Add to wishlist"
               }
-              onClick={() => addToWishlist(product, addToast)}
+              onClick={() => {
+                if (token) {
+                  addToWishlist(product, addToast);
+                } else {
+                  history.push("/login-register");
+                }
+              }}
             >
               {wishlistItem !== undefined ? (
                 <i className="fa fa-heart" style={{ color: "#a749ff" }} />
