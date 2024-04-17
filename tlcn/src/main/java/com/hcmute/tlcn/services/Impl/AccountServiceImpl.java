@@ -47,6 +47,9 @@ public class AccountServiceImpl implements AccountService {
         String hashPassword=bCryptPasswordEncoder.encode(input.getPassword());
         account.setPassword(hashPassword);
         List<String> roles = List.of(Roles.ROLE_USER.name());
+        if(input.isAdmin()){
+            roles.add(Roles.ROLE_ADMIN.name());
+        }
         account.setRoles(roles);
         accountRepository.save(account);
         return "Success";
