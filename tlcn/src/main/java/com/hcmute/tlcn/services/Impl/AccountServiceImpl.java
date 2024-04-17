@@ -96,4 +96,13 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(account);
         return account;
     }
+
+    @Override
+    public String forgotPassword(String email) {
+        Optional<Account> accountOptional = accountRepository.findByEmail(email);
+        if (accountOptional.isEmpty()) {
+            throw new NotFoundException("Account not found!");
+        }
+        return "Success";
+    }
 }
